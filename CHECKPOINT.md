@@ -34,7 +34,8 @@ Diese Datei ist nur die Notiz, um die Arbeit wieder aufzunehmen – Inhaltliches
   Änderung, Solidsenden beim Tab-Wechsel, Status/Bad für die Oberfläche
 - `src/components/SyncCard.tsx` (Bedienung in „Inhalte & Import“) und Statusknopf oben links in `App.tsx`
 - `vite.config.ts`: `api/` wird in Entwicklung und Vorschau auf `127.0.0.1:8787` durchgereicht
-- `deploy/`: `env.example`, `Caddyfile.snippet`, `csa-lerntool.service`, `ecosystem.config.cjs`
+- `deploy/`: `env.example`, `Caddyfile.snippet`, `csa-lerntool.service`, `ecosystem.config.cjs`,
+  `anleitung-debian-lxc.md` (Schritt-für-Schritt für LXC mit systemd und externem Caddy)
 - `package.json`: `start`, `serve`, `smoke`, `engines.node`; `.gitignore`: `server-state/`, `.env`, `logs/`
 
 ## Zusammenspiel Client und Server (Merksätze)

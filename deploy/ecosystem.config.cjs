@@ -14,6 +14,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 8787,
+        // 127.0.0.1 nur, wenn Caddy auf demselben Rechner läuft. Caddy woanders:
+        // HOST auf die Container-IP oder '0.0.0.0' setzen und den Port per Firewall begrenzen.
         HOST: '127.0.0.1',
         TRUST_PROXY: 1,
         STATE_DIR: './server-state',

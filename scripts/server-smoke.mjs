@@ -43,7 +43,7 @@ check('health nennt die Größen-Obergrenze', typeof health.body?.maxSizeBytes =
 
 const index = await request('/');
 check('Oberfläche wird ausgeliefert', index.status === 200 && String(index.body).includes('<div id="root">'));
-check('Sicherheits-Hersteller gesetzt', String(index.headers.get('content-security-policy') ?? '').includes("default-src 'self'"));
+check('Sicherheits-Header gesetzt', String(index.headers.get('content-security-policy') ?? '').includes("default-src 'self'"));
 check('index.html wird nicht gecacht', index.headers.get('cache-control') === 'no-cache');
 
 // Komprimierung und Bedingungsanfragen am größten Vermögenswert prüfen.

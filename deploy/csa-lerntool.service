@@ -5,24 +5,21 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-# Anpassen: Benutzer und Installationspfad. Der Benutzer braucht nur Schreibrechte
-# im Ordner für die Lernstände.
+# Anpassen: Benutzer und Installationspfad. Der Benutzer braucht Schreibrechte
+# nur im Ordner für die Lernstände.
 User=csa
 Group=csa
 WorkingDirectory=/opt/csa-lerntool
 
-# Umgebungsvariablen aus einer Datei (siehe deploy/env.example).
+# Alle Einstellungen (PORT, HOST, STATE_DIR …) stehen in dieser Datei.
+# siehe deploy/env.example – ohne diese Datei startet der Dienst absichtlich nicht.
 EnvironmentFile=/etc/csa-lerntool.env
-Environment=PORT=8787
-Environment=HOST=127.0.0.1
-Environment=TRUST_PROXY=1
-Environment=STATE_DIR=/opt/csa-lerntool/server-state
 
 ExecStart=/usr/bin/node server/index.mjs
 Restart=always
 RestartSec=5
 
-# Härtung: Der Server braucht nur den Lernstand-Ordner zum Schreiben.
+# Härtung: Schreibzugriff nur auf den Lernstand-Ordner.
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict

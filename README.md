@@ -220,6 +220,9 @@ journalctl -u csa-lerntool -f     # Protokoll
 Stattdessen mit pm2: `pm2 start deploy/ecosystem.config.cjs` (Pfad in der Datei anpassen). Ein
 Prozess genügt; die Sync-Kopien liegen als Dateien, die Zugriffsbegrenzung gilt je Prozess.
 
+Eine ausformulierte Anleitung für einen Debian-LXC mit systemd und externem Caddy (einschließlich
+Firewall, Backup und Fehlerbildern) steht in `deploy/anleitung-debian-lxc.md`.
+
 Caddy (Subdomain, automatisches Let's Encrypt):
 
 ```
@@ -271,7 +274,7 @@ und synchronisiert ab dann dorthin.
   fragt nach, wenn auf dem Server schon etwas liegt.
 
 Prüfen einer Installation: `npm run smoke` (localhost) oder
-`node scripts/server-smoke.mjs https://csa.beispiel.de` – testet Oberfläche, Sicherheits-Hersteller,
+`node scripts/server-smoke.mjs https://csa.beispiel.de` – testet Oberfläche, Sicherheits-Header,
 Single-Page-Fallback, Anlegen/Speichern/Holen/Löschen, abgelehnte Fremd-Codes, kaputte und zu große
 Lernstände und löscht den angelegten Testcode wieder.
 
