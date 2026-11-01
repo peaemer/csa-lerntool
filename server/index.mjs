@@ -6,10 +6,12 @@
 //   PORT (8787) · HOST (127.0.0.1) · STATE_DIR · PUBLIC_DIR (dist) · TRUST_PROXY
 //   MAX_STATE_BYTES (1500000) · PRUNE_DAYS (0 = aus) · LIMIT_REGISTER · LIMIT_REDEEM
 import { createServer } from 'node:http';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { gzipSync } from 'node:zlib';
 import { basename, extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createStore, DEFAULT_MAX_BYTES, displayCode, isValidCode, normalizeCode, signature } from './store.mjs';
+import { createStore, DEFAULT_MAX_BYTES, displayCode, isValidCode, normalizeCode } from './store.mjs';
 import { createRateLimiter } from './ratelimit.mjs';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
@@ -68,6 +70,30 @@ const BASE_HEADERS = {
     "font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'",
 };
 
+/** Textartige Ausgaben, die sich mit gzip deutlich verkleinern (auch ohne Caddy `encode`). */
+const COMPRESSIBLE = new Set(['.html', '.js', '.css', '.json', '.svg', '.txt', '.map', '.webmanifest']);
+const GZIP_FROM = 860; // darunter lohnt gzip nicht
+const packedCache = new Map(); // Dateipfad + Stand → gepackte Bytes
+
+function wantsGzip(req) {
+  return /\bgzip\b/i.test(String(req?.headers?.['accept-encoding'] ?? ''));
+}
+
+function packedFor(file, etagValue, data) {
+  if (data.length < GZIP_FROM) return null;
+  const cached = packedCache.get(file);
+  if (cached && cached.etag === etagValue) return cached.packed;
+  const packed = gzipSync(data, { level: 6 });
+  if (packed.length > data.length - 64) return null; // bringt nichts (z. B. komprimierte Quellen)
+  packedCache.set(file, { etag: etagValue, packed });
+  if (packedCache.size > 40) packedCache.clear();
+  return packed;
+}
+
+function hash(data) {
+  return createHash('sha1').update(data).digest('base64url');
+}
+
 class HttpError extends Error {
   constructor(status, reason) {
     super(reason);
@@ -76,13 +102,17 @@ class HttpError extends Error {
   }
 }
 
-function send(res, status, payload, headers = {}) {
-  const body = JSON.stringify(payload);
+function send(req, res, status, payload, headers = {}) {
+  const raw = Buffer.from(JSON.stringify(payload), 'utf8');
+  const packed = wantsGzip(req) && raw.length >= GZIP_FROM ? gzipSync(raw, { level: 6 }) : null;
+  const body = packed && packed.length <= raw.length - 64 ? packed : raw;
   res.writeHead(status, {
     ...BASE_HEADERS,
     'Content-Type': 'application/json; charset=utf-8',
-    'Content-Length': Buffer.byteLength(body),
+    'Content-Length': body.length,
     'Cache-Control': 'no-store',
+    Vary: 'Accept-Encoding',
+    ...(body === packed ? { 'Content-Encoding': 'gzip' } : {}),
     ...headers,
   });
   res.end(body);
@@ -138,7 +168,7 @@ async function handleApi(req, res, apiPath) {
   const method = req.method ?? 'GET';
 
   if (apiPath === '/api/health' && method === 'GET') {
-    return send(res, 200, {
+    return send(req, res, 200, {
       ok: true,
       mode: 'state-sync',
       devices: await store.count(),
@@ -155,7 +185,7 @@ async function handleApi(req, res, apiPath) {
     }
     const created = await store.create();
     console.log(`Gerät angemeldet: ${displayCode(created.code)}`);
-    return send(res, 201, { code: created.code, updatedAt: created.updatedAt });
+    return send(req, res, 201, { code: created.code, updatedAt: created.updatedAt });
   }
 
   if (apiPath === '/api/redeem' && (method === 'POST' || method === 'PUT')) {
@@ -175,7 +205,7 @@ async function handleApi(req, res, apiPath) {
     if (!found) throw new HttpError(404, 'Kein Lernstand unter diesem Code gefunden');
     if (found.corrupted) throw new HttpError(500, 'Server-Kopie ist beschädigt');
     console.log(`Code übernommen: ${displayCode(code)}`);
-    return send(res, 200, { ok: true, updatedAt: found.updatedAt, signature: found.signature });
+    return send(req, res, 200, { ok: true, updatedAt: found.updatedAt, signature: found.signature });
   }
 
   const code = codeFromRequest(req);
@@ -185,9 +215,9 @@ async function handleApi(req, res, apiPath) {
 
   if (apiPath === '/api/state' && method === 'GET') {
     const found = await store.read(code);
-    if (!found) return send(res, 404, { reason: 'Noch keine Server-Kopie für diesen Code' });
+    if (!found) return send(req, res, 404, { reason: 'Noch keine Server-Kopie für diesen Code' });
     if (found.corrupted) throw new HttpError(500, 'Server-Kopie ist beschädigt');
-    return send(res, 200, { state: found.state, updatedAt: found.updatedAt, createdAt: found.createdAt, signature: found.signature });
+    return send(req, res, 200, { state: found.state, updatedAt: found.updatedAt, createdAt: found.createdAt, signature: found.signature });
   }
 
   if (apiPath === '/api/state' && (method === 'PUT' || method === 'POST')) {
@@ -199,12 +229,12 @@ async function handleApi(req, res, apiPath) {
       throw new HttpError(400, 'Body ist kein JSON');
     }
     const saved = await store.write(code, parsed?.state ?? parsed);
-    return send(res, 200, { ok: true, updatedAt: saved.updatedAt, bytes: saved.bytes, signature: saved.signature });
+    return send(req, res, 200, { ok: true, updatedAt: saved.updatedAt, bytes: saved.bytes, signature: saved.signature });
   }
 
   if (apiPath === '/api/state' && method === 'DELETE') {
     const removed = await store.remove(code);
-    return send(res, 200, { ok: true, removed });
+    return send(req, res, 200, { ok: true, removed });
   }
 
   throw new HttpError(404, `Unbekannter Endpunkt: ${method} ${apiPath}`);
@@ -233,22 +263,38 @@ async function serveStatic(req, res, path) {
   } catch (error) {
     if (error?.code !== 'ENOENT' && error?.code !== 'EISDIR') throw error;
     if (extname(file)) throw new HttpError(404, 'Nicht gefunden');
-    data = await readFile(join(PUBLIC_DIR, 'index.html')); // Single-Page-Fallback
-    return endStatic(res, method, '.html', data, false);
+    const fallback = join(PUBLIC_DIR, 'index.html');
+    data = await readFile(fallback); // Single-Page-Fallback
+    return endStatic(req, res, '.html', data, false, fallback);
   }
-  return endStatic(res, method, extname(file), data, file.includes(`${sep}assets${sep}`));
+  return endStatic(req, res, extname(file), data, file.includes(`${sep}assets${sep}`), file);
 }
 
-function endStatic(res, method, extension, data, immutable) {
+function endStatic(req, res, extension, data, immutable, file) {
+  const method = req.method ?? 'GET';
+  const etagValue = hash(data);
+  const etag = `"${etagValue}"`;
+  const cacheControl =
+    extension === '.html' ? 'no-cache' : immutable ? 'public, max-age=31536000, immutable' : 'public, max-age=3600';
+
+  if (String(req.headers['if-none-match'] ?? '') === etag) {
+    res.writeHead(304, { ...BASE_HEADERS, ETag: etag, 'Cache-Control': cacheControl, Vary: 'Accept-Encoding' });
+    return res.end();
+  }
+
+  const packed = COMPRESSIBLE.has(extension) && wantsGzip(req) ? packedFor(file, etagValue, data) : null;
+  const body = packed ?? data;
   res.writeHead(200, {
     ...BASE_HEADERS,
     'Content-Type': CONTENT_TYPES[extension] ?? 'application/octet-stream',
-    'Content-Length': data.length,
-    'Cache-Control': extension === '.html' ? 'no-cache' : immutable ? 'public, max-age=31536000, immutable' : 'public, max-age=3600',
-    ETag: `"${signature({ size: data.length })}"`,
+    'Content-Length': body.length,
+    'Cache-Control': cacheControl,
+    ETag: etag,
+    Vary: 'Accept-Encoding',
+    ...(packed ? { 'Content-Encoding': 'gzip' } : {}),
   });
   if (method === 'HEAD') res.end();
-  else res.end(data);
+  else res.end(body);
 }
 
 const server = createServer(async (req, res) => {
@@ -263,7 +309,7 @@ const server = createServer(async (req, res) => {
     const status = error instanceof HttpError ? error.status : Number(error?.status) || 500;
     if (status >= 500) console.error('Fehler:', error);
     if (!res.headersSent) {
-      send(res, status, { reason: error.reason ?? error.message ?? 'Interner Fehler' });
+      send(req, res, status, { reason: error.reason ?? error.message ?? 'Interner Fehler' });
     } else {
       res.end();
     }

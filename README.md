@@ -230,7 +230,12 @@ csa.beispiel.de {
 ```
 
 Caddy muss keine Pfade und keine statischen Dateien kennen – der Node-Server setzt die Pass- und
-Cache-Hersteller selbst (`index.html` unpuffert, `assets/*` ein Jahr).
+Cache-Header selbst (`index.html` ungecacht, `assets/*` ein Jahr lang).
+
+**Komprimierung:** der Node-Server liefert HTML, CSS, JS und die API-Antworten selbst gegrappt aus,
+wenn der Browser `Accept-Encoding: gzip` mitschickt (460 kB Programmdatei → 131 kB) und antwortet auf
+erneute Anfragen mit `If-None-Match` mit 304. Caddys `encode zstd gzip` richtet sich zusätzlich an
+Clients, die zstd bevorzugen; bereits komprimierte Antworten lässt Caddy unberührt.
 
 ### Umgebungsvariablen
 

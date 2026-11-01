@@ -46,6 +46,24 @@ check('Oberfläche wird ausgeliefert', index.status === 200 && String(index.body
 check('Sicherheits-Hersteller gesetzt', String(index.headers.get('content-security-policy') ?? '').includes("default-src 'self'"));
 check('index.html wird nicht gecacht', index.headers.get('cache-control') === 'no-cache');
 
+// Komprimierung und Bedingungsanfragen am größten Vermögenswert prüfen.
+const asset = /((?:\.?\/)?assets\/index-[A-Za-z0-9_-]+\.js)/.exec(String(index.body))?.[1];
+if (asset) {
+  const path = asset.startsWith('/') ? asset : `/${asset}`;
+  const plain = await fetch(`${base}${path}`);
+  const plainBytes = (await plain.arrayBuffer()).byteLength;
+  const packed = await fetch(`${base}${path}`, { headers: { 'Accept-Encoding': 'gzip' } });
+  const packedBytes = Number(packed.headers.get('content-length') ?? 0);
+  const etag = packed.headers.get('etag');
+  await packed.arrayBuffer();
+  check('Programmdatei komprimiert ausgeliefert', packed.headers.get('content-encoding') === 'gzip', `${plainBytes} → ${packedBytes} Bytes`);
+  check('Marke für Bedingungsanfragen gesetzt', typeof etag === 'string' && etag.length > 4, etag);
+  const again = await fetch(`${base}${path}`, { headers: { 'Accept-Encoding': 'gzip', 'If-None-Match': etag ?? '' } });
+  check('erneuter Abruf antwortet mit 304', again.status === 304, `Status ${again.status}`);
+} else {
+  check('Programmdatei im Startpunkt gefunden', false, 'kein assets/index-*.js in index.html');
+}
+
 const deep = await request('/irgendeine/unteradresse');
 check('Single-Page-Fallback funktioniert', deep.status === 200 && String(deep.body).includes('<div id="root">'));
 

@@ -11,9 +11,10 @@ Diese Datei ist nur die Notiz, um die Arbeit wieder aufzunehmen – Inhaltliches
 - `npx tsc --noEmit` → keine Fehler
 - `npm run validate` → OK
 - `npm run build` → OK (`dist/`)
-- `npm run smoke` → 18 Prüfungen gegen den laufenden Node-Server, 0 Fehler
-  (Oberfläche, CSP-Hersteller, Single-Page-Fallback, Pfadabschirmung, Gerät anlegen,
-  speichern/holen/löschen, Signaturvergleich, fremder Code, kaputte und zu große Lernstände)
+- `npm run smoke` → 21 Prüfungen gegen den laufenden Node-Server, 0 Fehler
+  (Oberfläche, CSP-Header, gzip-Komprimierung der Programmdatei 460 kB → 131 kB, 304-Antwort auf
+  `If-None-Match`, Single-Page-Fallback, Pfadabschirmung, Gerät anlegen, speichern/holen/löschen,
+  Signaturvergleich, fremder Code, kaputte und zu große Lernstände)
 - Alle sechs Ansichten im Browser geprüft, zusätzlich der Sync-Weg: Sync gestartet → Code erschienen,
   Antwort beantwortet → Datei im Lernstand-Ordner, zweiter Browser-Tab → Server-Stand geholt,
   Code eines anderen Geräts übernommen (`csa-wd5y-…` in Kleinbuchstaben mit Vorsilbe funktionierte),
