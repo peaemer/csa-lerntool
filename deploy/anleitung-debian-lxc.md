@@ -39,9 +39,12 @@ anlegen: `fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile &
 
 ## 2. Projekt in den Container bringen
 
-Das Projekt hat keinen Fernspeicher (kein `git remote`). Zwei saubere Wege:
+Der Fernspeicher ist öffentlich: `https://github.com/peaemer/csa-lerntool`. Zum Herunterladen braucht
+der Container **keinen** Schlüssel – Schritt 3 klont ihn über HTTPS nach `/opt/csa-lerntool`.
 
-**a) Über ein Git-Bündel vom Arbeitsplatz**
+**a) Wenn der Container ins Internet darf:** nichts weiter tun, mit Schritt 3 fortfahren.
+
+**b) Wenn der Container kein Internet hat:** Git-Bündel vom Arbeitsplatz herüberholen.
 
 ```bash
 # auf dem Arbeitsplatz im Projektordner
@@ -50,9 +53,7 @@ scp /tmp/csa-lerntool.bundle root@10.10.10.23:/tmp/
 # oder bei Proxmox-LXC vom Host aus: pct push 101 /tmp/csa-lerntool.bundle /tmp/csa-lerntool.bundle
 ```
 
-**b) Über einen privaten Git-Speicher** (Gitea, GitHub privat): ganz normal klonen.
-
-Dann im Container als eigener Benutzer cloned und gebaut wird (Schritt 3 und 4).
+Beide Wege werden in Schritt 3 als eigener Benutzer geklont und in Schritt 4 gebaut.
 
 ## 3. Benutzer und Verzeichnis anlegen
 
@@ -65,11 +66,18 @@ mkdir -p /opt/csa-lerntool
 chown -R csa:csa /opt/csa-lerntool /var/lib/csa-lerntool
 ```
 
-Projekt abholen (Variante a):
+Projekt abholen (Variante a, von GitHub):
+
+```bash
+sudo -u csa git clone https://github.com/peaemer/csa-lerntool.git /opt/csa-lerntool
+cd /opt/csa-lerntool && git log --oneline | head -3
+```
+
+Bei Variante b (Bündel) stattdessen:
 
 ```bash
 sudo -u csa git clone /tmp/csa-lerntool.bundle /opt/csa-lerntool
-cd /opt/csa-lerntool && git log --oneline | head -3
+sudo -u csa git -C /opt/csa-lerntool remote set-url origin https://github.com/peaemer/csa-lerntool.git
 ```
 
 `dist/`, `node_modules/` und `server-state/` sind nicht im Versionsarchiv – die entstehen erst hier.
@@ -224,23 +232,32 @@ tar xzf /backup/csa-lernstaende-2026-11-01.tar.gz -C /opt/csa-lerntool
 systemctl start csa-lerntool
 ```
 
-Zusätzlich exportiert die App auf Wunsch eine JSON-Datei je Browser (Backup-Knopf) – die gehört zu
+Zusätzlich exportiert die App auf Wunsch eine JSON-Datei je Browser (Backup-Knopf) – die gehört in
 den Browser, nicht auf den Server.
 
 ## 12. Aktualisieren
 
-Variante a (Bündel):
+Variante a (Container hat Internet):
 
 ```bash
 cd /opt/csa-lerntool
-sudo -u csa git fetch /tmp/csa-lerntool.bundle main   # bzw. git pull aus deinem Fernspeicher
-sudo -u csa git merge FETCH_HEAD
+sudo -u csa git pull --ff-only origin main
 sudo -u csa npm ci
 sudo -u csa npm run validate && sudo -u csa npm run build
 sudo -u csa npm prune --omit=dev
 systemctl restart csa-lerntool
 journalctl -u csa-lerntool -n 20 --no-pager
 ```
+
+Variante b (Bündel): neues Bündel in `/tmp` ablegen, dann
+
+```bash
+cd /opt/csa-lerntool
+sudo -u csa git fetch /tmp/csa-lerntool.bundle main
+sudo -u csa git merge FETCH_HEAD
+```
+
+danach wie oben bauen und neu starten.
 
 Die Lernstände in `server-state/` bleiben bei jedem Update erhalten.
 

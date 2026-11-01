@@ -75,9 +75,25 @@ Diese Datei ist nur die Notiz, um die Arbeit wieder aufzunehmen – Inhaltliches
 
 ## Versionskontrolle
 
-Git-Repo auf Branch `main`, drei Commits: Ausgangszustand (`16b0266`), Zusammenführungs- und
-Validator-Schritt (`42bdd93`), Server-Version mit Sync, Deploy-Vorlagen und Doku. Kein Remote,
-nichts gepusht. `.gitignore` hält `node_modules/`, `dist/` und `server-state/` draußen.
+Branch `main`, fünf Commits: Ausgangszustand (`16b0266`), Zusammenführungs- und Validator-Schritt
+(`42bdd93`), Server-Version mit Sync und Deploy-Vorlagen (`481e30b`), Komprimierung und 304-Antworten
+(`e26aa54`), Deploy-Anleitung (`10ef0ee`). Seit dem 01.11.2026 liegt alles auf GitHub:
+`origin = git@github.com:peaemer/csa-lerntool.git`, **öffentlich**, Stand `10ef0ee`, Arbeitsbaum sauber
+und synchron.
+
+Zugang für `git push` ist ein **Deploy-Schlüssel** (nur dieses Repo, Lese- und Schreibrecht):
+`C:\Users\Jack\.ssh\csa-lerntool_deploy` (public: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5…DU6Ekw8C
+csa-lerntool-deploykey`). Der Repo-Ordner trägt `core.sshCommand`, damit dieser Schlüssel benutzt wird:
+
+```bash
+git push origin main        # genügt künftig
+```
+
+Herunterladen ohne Schlüssel: `git clone https://github.com/peaemer/csa-lerntool.git`.
+Auf GitHub widerrufen: Einstellungen des Repos → *Deploy keys* → löschen.
+`.gitignore` hält `node_modules/`, `dist/`, `logs/`, `.env` und `server-state/` draußen; geprüft, dass
+keine Schlüssel oder Passwort-Texte im Versionsarchiv stecken. Öffentlich sind dadurch auch
+`CHECKPOINT.md` (diese Datei) und `checkpoints/` – bewusst so übernommen.
 
 ## Mögliche nächste Schritte
 

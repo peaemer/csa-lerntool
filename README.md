@@ -17,9 +17,12 @@ Leitner-Wiederholung, Statistik und Import eigener Inhalte.
 
 ## Start
 
+Quelle: `https://github.com/peaemer/csa-lerntool` (öffentlich, Klonen ohne Schlüssel).
+
 Voraussetzung: Node.js 18+ (getestet mit Node 20/22) und npm.
 
 ```bash
+git clone https://github.com/peaemer/csa-lerntool.git && cd csa-lerntool
 npm install
 npm run dev        # Entwicklung → http://localhost:5173
 npm run test       # Vitest-Tests (Domain-Logik)
@@ -208,6 +211,7 @@ Reverse-Proxy (Vorlage: `deploy/Caddyfile.snippet`), der HTTPS erledigt.
 Ablauf auf dem Server (Beispielpfad `/opt/csa-lerntool`):
 
 ```bash
+git clone https://github.com/peaemer/csa-lerntool.git /opt/csa-lerntool
 cd /opt/csa-lerntool
 npm ci
 npm run build                     # dist/ entsteht; Inhalte sind dann mit eingebaut
