@@ -213,13 +213,19 @@ Ablauf auf dem Server (Beispielpfad `/opt/csa-lerntool`):
 ```bash
 git clone https://github.com/peaemer/csa-lerntool.git /opt/csa-lerntool
 cd /opt/csa-lerntool
-npm ci
-npm run build                     # dist/ entsteht; Inhalte sind dann mit eingebaut
-cp deploy/env.example /etc/csa-lerntool.env && sudo nano /etc/csa-lerntool.env
+sudo -u csa npm ci
+sudo -u csa npm run build         # dist/ entsteht; Inhalte sind dann mit eingebaut
+sudo cp deploy/env.example /etc/csa-lerntool.env && sudo nano /etc/csa-lerntool.env
+sudo install -d -o csa -g csa /opt/csa-lerntool/server-state   # Ordner für die Lernstände
 sudo cp deploy/csa-lerntool.service /etc/systemd/system/
 sudo systemctl daemon-reload && sudo systemctl enable --now csa-lerntool
 journalctl -u csa-lerntool -f     # Protokoll
 ```
+
+Der Lernstand-Ordner muss existieren, bevor der Dienst startet: die Unit hält ihn mit
+`ReadWritePaths=` fest und vergibt sonst `status=226/NAMESPACE`
+(`Failed to set up mount namespacing: …/server-state`). `STATE_DIR` in der Umgebungsdatei und
+`ReadWritePaths=` in der Unit müssen auf denselben Ordner zeigen.
 
 Stattdessen mit pm2: `pm2 start deploy/ecosystem.config.cjs` (Pfad in der Datei anpassen). Ein
 Prozess genügt; die Sync-Kopien liegen als Dateien, die Zugriffsbegrenzung gilt je Prozess.

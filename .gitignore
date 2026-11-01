@@ -6,7 +6,10 @@ dist/
 logs/
 
 # Lernstände und Zugang zum Server (nicht ins Archiv)
-server-state/
+# Der Ordner selbst bleibt im Archiv (Datei server-state/.gitkeep), weil die
+# systemd-Unit einen vorhandenen Schreibpfad braucht; sein Inhalt nicht.
+server-state/*
+!server-state/.gitkeep
 .env
 deploy/.env
 

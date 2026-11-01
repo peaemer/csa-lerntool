@@ -12,7 +12,7 @@ Group=csa
 WorkingDirectory=/opt/csa-lerntool
 
 # Alle Einstellungen (PORT, HOST, STATE_DIR …) stehen in dieser Datei.
-# siehe deploy/env.example – ohne diese Datei startet der Dienst absichtlich nicht.
+# siehe deploy/env.example – ohne diese Datei startet der Dienst nicht.
 EnvironmentFile=/etc/csa-lerntool.env
 
 ExecStart=/usr/bin/node server/index.mjs
@@ -20,6 +20,12 @@ Restart=always
 RestartSec=5
 
 # Härtung: Schreibzugriff nur auf den Lernstand-Ordner.
+# WICHTIG: dieser Ordner muss beim Starten vorhanden sein, sonst bricht systemd
+# schon beim Einrichten des Namensraums ab (status=226/NAMESPACE). Er ist im
+# Versionsarchiv mit .gitkeep enthalten; von Hand anlegen:
+#   install -d -o csa -g csa /opt/csa-lerntool/server-state
+# Wird STATE_DIR in /etc/csa-lerntool.env an eine andere Stelle gelegt, muss
+# diese Zeile angepasst werden (beide Wege müssen zusammenpassen).
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict

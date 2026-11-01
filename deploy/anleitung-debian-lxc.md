@@ -133,13 +133,24 @@ LOG_REQUESTS=0
 
 ## 6. Dienst einrichten
 
+Vor dem ersten Start muss der Ordner für die Lernstände existieren – die Unit schränkt das
+Dateisystem hart ein (`ProtectSystem=strict`) und trägt den Schreibpfad fest ein. Fehlt der Ordner,
+bricht systemd schon beim Einrichten des Namensraums ab (`status=226/NAMESPACE`, Meldung
+`Failed to set up mount namespacing: … /server-state: No such file or directory`). Beim Klonen aus
+diesem Repo ist er durch `server-state/.gitkeep` schon vorhanden; sicherheitshalber anlegen:
+
 ```bash
+install -d -o csa -g csa /opt/csa-lerntool/server-state
+
 cp deploy/csa-lerntool.service /etc/systemd/system/csa-lerntool.service
 systemctl daemon-reload
 systemctl enable --now csa-lerntool
 systemctl status csa-lerntool --no-pager
 journalctl -u csa-lerntool -n 30 --no-pager
 ```
+
+`STATE_DIR` aus der Umgebungsdatei und `ReadWritePaths=` in der Unit müssen derselbe Ordner sein.
+Wer die Lernstände woanders ablegen will, ändert **beide** Stellen und legt den neuen Ordner an.
 
 Der Dienst schreibt Meldungen ins Journal, z. B. `CSA-Lerntool läuft auf http://0.0.0.0:8787`.
 Probe von innen:
@@ -265,7 +276,9 @@ Die Lernstände in `server-state/` bleiben bei jedem Update erhalten.
 
 | Erscheinung | Ursache und Weg |
 |---|---|
-| `Hinweis: Kein index.html in …dist` | nicht gebaut – Schritt 4 wiederholen (`npm ci && npm run build`) |
+| `status=226/NAMESPACE`, `Failed to set up mount namespacing: …/server-state` | Ordner für die Lernstände fehlt – `install -d -o csa -g csa /opt/csa-lerntool/server-state` und neu starten (Schritt 6); bei anderem `STATE_DIR` auch `ReadWritePaths=` in der Unit anpassen |
+| `status=217/USER` | Benutzer `csa` nicht angelegt – Schritt 3 nachholen |
+| `status=200/CHDIR` oder `Hinweis: Kein index.html in …/dist` | Projektpfad falsch oder nicht gebaut – Schritt 3 und 4 wiederholen (`npm ci && npm run build`) |
 | `EADDRINUSE` | Port 8787 belegt – `ss -ltnp \| grep 8787`, anderen Port setzen |
 | `EACCES` beim Speichern | Rechte: `chown -R csa:csa /opt/csa-lerntool/server-state` |
 | App lädt, Sync sagt „Server nicht erreichbar“ | `HOST` steht auf `127.0.0.1`, Caddy erreicht den Container nicht, oder Firewall zu – Schritt 5 und 7 |

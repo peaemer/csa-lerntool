@@ -95,6 +95,20 @@ Auf GitHub widerrufen: Einstellungen des Repos → *Deploy keys* → löschen.
 keine Schlüssel oder Passwort-Texte im Versionsarchiv stecken. Öffentlich sind dadurch auch
 `CHECKPOINT.md` (diese Datei) und `checkpoints/` – bewusst so übernommen.
 
+## Bekannter Deploy-Fehler (behoben am 01.11.2026)
+
+Auf dem Debian-LXC lief der Dienst nicht an: `status=226/NAMESPACE`,
+`Failed to set up mount namespacing: /opt/csa-lerntool/server-state: No such file or directory`.
+Ursache: die Unit trägt `ReadWritePaths=/opt/csa-lerntool/server-state`, systemd richtet den
+Schreibpfad aber vor dem Start ein – Ordner fehlte, weil `server-state/` bisher komplett ignoriert war
+und die Anleitung ihn nie explizit angelegt hat. Der Node-Server selbst legt den Ordner erst beim
+ersten Speichern an (`server/store.mjs`, `mkdir … { recursive: true }`), zu spät für systemd.
+Behoben: `server-state/.gitkeep` im Archiv, `.gitignore` ignoriert nur noch den Inhalt
+(`server-state/*` + `!server-state/.gitkeep`), Anleitung Schritt 6 mit
+`install -d -o csa -g csa …` vor dem ersten Start, Fehlertabelle ergänzt
+(auch `217/USER` und `200/CHDIR`), `deploy/env.example` und README erläutern den Zusammenhang von
+`STATE_DIR` und `ReadWritePaths=`. Ausweg für eigene Orte: beide Stellen gleichzeitig ändern.
+
 ## Mögliche nächste Schritte
 
 - Geräte-Verwaltung von außen (Liste, einzelne Kopie löschen) wäre nur als Wartungsskript nötig –

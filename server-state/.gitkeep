@@ -1,0 +1,4 @@
+# Ordner für die Lernstände: eine JSON-Datei pro Geräte-Code, vom Node-Server angelegt.
+# Diese Datei ist nur im Versionsarchiv, damit der Ordner vorhanden ist – die Unit
+# braucht einen bestehenden Schreibpfad, sonst bricht systemd mit 226/NAMESPACE ab.
+# Der eigentliche Inhalt dieses Ordners ist nicht im Archiv (siehe .gitignore).
