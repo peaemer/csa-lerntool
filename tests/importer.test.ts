@@ -89,6 +89,36 @@ describe('Fragen-Import aus JSON', () => {
     expect(items[0].correct).toEqual(['b']);
   });
 
+  it('single/boolean mit mehreren richtigen Antworten wird abgelehnt', () => {
+    const base = JSON.parse(JSON_QUESTIONS).at(0) as Record<string, unknown>;
+    const { items, issues } = importQuestions(
+      JSON.stringify([
+        { ...base, id: 'q-single-3', correct: ['a', 'b'], correctCount: undefined },
+        { ...base, id: 'q-bool-2', type: 'boolean', options: undefined, correct: ['a', 'b'] },
+      ])
+    );
+    expect(items).toHaveLength(0);
+    expect(issues.map((i) => `${i.id}: ${i.reason}`)).toEqual([
+      'q-single-3: single mit 2 richtigen Antworten – erwartet wird eine',
+      'q-bool-2: boolean mit 2 richtigen Antworten – erwartet wird eine',
+    ]);
+  });
+
+  it('multiple mit einer Antwort oder falschem correctCount wird abgelehnt', () => {
+    const base = JSON.parse(JSON_QUESTIONS).at(1) as Record<string, unknown>; // multiple mit zwei Antworten
+    const { items, issues } = importQuestions(
+      JSON.stringify([
+        { ...base, id: 'q-multi-1', correct: ['a'] },
+        { ...base, id: 'q-multi-wrong-cc', correctCount: 3 },
+      ])
+    );
+    expect(items).toHaveLength(0);
+    expect(issues.map((i) => `${i.id}: ${i.reason}`)).toEqual([
+      'q-multi-1: multiple mit nur einer richtigen Antwort',
+      'q-multi-wrong-cc: correctCount 3 passt nicht zu 2 richtigen Antworten',
+    ]);
+  });
+
   it('lehnt defekte Einträge mit Grund ab, ohne andere zu verwerfen', () => {
     const payload = JSON.stringify([
       JSON.parse(JSON_QUESTIONS).at(0),
@@ -137,6 +167,7 @@ describe('Fragen-Import aus CSV', () => {
       'q-csv-bad-1,single,irgendwas,easy,Frage,A;B;C;D,1,Erklärung,Doku',
       'q-csv-bad-2,signle,self_service,easy,Frage,A;B;C;D,1,Erklärung,Doku',
       'q-csv-bad-3,single,self_service,easy,,A;B;C;D,1,Erklärung,Doku',
+      'q-csv-bad-4,single,self_service,easy,Frage,A;B;C;D,1;2,Erklärung,Doku',
     ].join('\n');
     const { items, issues } = importQuestions(bad);
     expect(items).toHaveLength(0);
@@ -144,6 +175,7 @@ describe('Fragen-Import aus CSV', () => {
       'q-csv-bad-1: unbekannter topic "irgendwas"',
       'q-csv-bad-2: unbekannter type "signle" (single, multiple oder boolean)',
       'q-csv-bad-3: question fehlt',
+      'q-csv-bad-4: single mit 2 richtigen Antworten – erwartet wird eine',
     ]);
   });
 

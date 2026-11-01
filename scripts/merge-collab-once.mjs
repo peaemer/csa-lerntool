@@ -2,9 +2,11 @@
 // Collaboration-Fragen an data/questions/collaboration.json anhängen (q-collab-023b -> q-collab-032).
 import { readFileSync, writeFileSync } from 'node:fs';
 
+const readJson = (path) => JSON.parse(readFileSync(path, 'utf8').replace(/^\uFEFF/, ''));
+
 const target = 'data/questions/collaboration.json';
-const current = JSON.parse(readFileSync(target, 'utf8'));
-const recovered = JSON.parse(readFileSync('checkpoints/collab_original_recovered.json', 'utf8'));
+const current = readJson(target);
+const recovered = readJson('checkpoints/collab_original_recovered.json');
 const known = new Set(current.map((q) => q.id));
 
 const wanted = ['q-collab-023b', 'q-collab-029', 'q-collab-030', 'q-collab-031'];

@@ -157,6 +157,20 @@ function questionFromObject(raw: unknown, issues: ImportIssue[]): Question | nul
     issues.push({ id, reason: `unbekannte Options-ids: ${unknown.join(', ')}` });
     return null;
   }
+  // Passt die Anzahl der richtigen Antworten zum Typ? (wie in scripts/validate-data.mjs)
+  if ((type === 'single' || type === 'boolean') && correct.length !== 1) {
+    issues.push({ id, reason: `${type} mit ${correct.length} richtigen Antworten – erwartet wird eine` });
+    return null;
+  }
+  if (type === 'multiple' && correct.length < 2) {
+    issues.push({ id, reason: 'multiple mit nur einer richtigen Antwort' });
+    return null;
+  }
+  const declaredCount = Number(value.correctCount);
+  if (type === 'multiple' && Number.isInteger(declaredCount) && declaredCount > 0 && declaredCount !== correct.length) {
+    issues.push({ id, reason: `correctCount ${declaredCount} passt nicht zu ${correct.length} richtigen Antworten` });
+    return null;
+  }
   if (!String(value.explanation ?? '').trim()) {
     issues.push({ id, reason: 'explanation fehlt' });
     return null;

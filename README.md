@@ -51,6 +51,8 @@ src/domain/            types, blueprint, scoring, progress, stats, taskgen, stor
 src/views/             LearnView, ExamView, WeaknessView, TasksView, StatsView, ContentView
 src/components/        QuestionCard, FiltersBar, QuizRunner
 scripts/validate-data.mjs       Schema-Check für die JSON-Inhalte
+scripts/merge-collab-once.mjs   einmalig angewendet (Collaboration-Fragen zusammengeführt)
+scripts/add-correct-count.mjs   einmalig angewendet (correctCount bei multiple-Fragen ergänzt)
 tests/               Vitest: selection, grading, leitner, progress, stats, storage, taskgen, importer
 ```
 
@@ -88,12 +90,17 @@ Datei enthält ein JSON-Array mit Fragen:
 | `topic` | einer der Blueprint-Keys: `platform_navigation`, `instance_configuration`, `collaboration`, `self_service`, `database_security`, `migration_integration` |
 | `difficulty` | `easy`, `medium`, `hard` |
 | `options` | bei `single`/`multiple` in `data/` mindestens 4 (Import genügt 2); bei `boolean` weglassen (die App erzeugt „Wahr“/„Falsch“) |
-| `correct` | IDs der richtigen Optionen; bei `multiple` muss `correctCount` passen |
-| `correctCount` | bei `multiple` gesetzt (die Prüfung zeigt an, wie viele Antworten zu wählen sind) |
+| `correct` | IDs der richtigen Optionen; bei `single` und `boolean` genau eine, bei `multiple` zwei oder mehr |
+| `correctCount` | bei `multiple` gesetzt (die Prüfung zeigt an, wie viele Antworten zu wählen sind); muss zu `correct` passen |
 | `docsReference` | englisches Stichwort für die ServiceNow-Dokumentation |
 | `needsReview` | `true`, wenn Inhalt/Version geprüft werden sollte |
 
 Bewertung wie im echten Exam: **exakte Antwortmenge, kein Partial Credit**, leere Antwort = falsch.
+
+Import und `npm run validate` prüfen dieselben Regeln: bekannter `topic` bzw. `area`, gültiger `type`,
+genau eine richtige Antwort bei `single`/`boolean`, zwei oder mehr bei `multiple`, `correctCount` stimmt mit
+`correct` überein, `explanation` und `docsReference` sind vorhanden. Der Validator ist strenger als der
+Import: in `data/` müssen `single`/`multiple` mindestens vier Optionen haben, beim Import genügen zwei.
 
 ## Aufgaben-Schema (`data/tasks/*.json`)
 
@@ -202,7 +209,7 @@ Prüfungsrahmen: 60 Fragen, 90 Minuten, Cut Score nicht publiziert. Die Simulati
 
 ## Tests
 
-`npm run test` (Vitest, aktuell 8 Dateien / 52 Tests) deckt die Domain-Logik ab:
+`npm run test` (Vitest, aktuell 8 Dateien / 54 Tests) deckt die Domain-Logik ab:
 
 - `selection.test.ts` – Blueprint-Verteilung und -Auswahl, Schwächen-Training, Reihenfolge im Lernmodus,
   reproduzierbarer Zufall
@@ -214,7 +221,8 @@ Prüfungsrahmen: 60 Fragen, 90 Minuten, Cut Score nicht publiziert. Die Simulati
   Statuszahlen
 - `storage.test.ts` – Export/Import-Roundtrip des Lernstands, Trefferquote je Bereich und Prüfungsreife
 - `taskgen.test.ts` – Platzhalterauflösung, keine Doppelvarianten, Gewichtung schwacher Bereiche, Statusfilter
-- `importer.test.ts` – JSON- und CSV-Import (Trenner, Zelllisten, gemischte Trenner, Fehlerberichte)
+- `importer.test.ts` – JSON- und CSV-Import (Trenner, Zelllisten, gemischte Trenner, Typ- und
+  Antwortzahl-Prüfung, Fehlerberichte)
 
 Zufallslogik ist mit dem deterministischen PRNG `makeRng(seed)` (`src/domain/rng.ts`) testbar.
 

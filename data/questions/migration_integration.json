@@ -66,6 +66,7 @@
       {"id": "e", "text": "Die Skripte 'Execute if true' und 'Execute if false' einer UI Policy laufen auf dem Server aus"}
     ],
     "correct": ["a", "b", "c"],
+    "correctCount": 3,
     "explanation": "a) Die drei Aktionen sind Mandatory, Visible, Read only; pro Aktion kann 'Leave alone' gewählt werden. b) 'Reverse if false' kehrt die Aktionen um, wenn die Bedingung falsch ist – so spart man eine zweite UI Policy. c) Über den Advanced-View-Schalter 'On load' entscheidet man, ob die Policy beim Formular-Aufruf oder nur bei Änderung greift. Fehleranalyse: d) ist falsch, denn UI Policies sind clientseitige Formularlogik; serverseitige Erzwingung erfolgt über Data Policies oder Business Rules. e) ist falsch: Die Skripte einer UI Policy laufen im Browser (Client), während die Bedingung auf dem Server geprüft wird.",
     "docsReference": "UI Policies",
     "needsReview": false
@@ -140,6 +141,7 @@
       {"id": "e", "text": "on change"}
     ],
     "correct": ["a", "b", "c", "d"],
+    "correctCount": 4,
     "explanation": "Offiziell sind die Time-Felder-Werte 'before' (synchron vor der Datenbankaktion), 'after' (synchron danach), 'async' (nach der Aktion als Scheduled Job, Ausführung ohne garantierende Reihenfolge) und 'display' (bei der Anzeige des Formulars, gerade nach dem Lesen der Daten aus der Datenbank). Fehleranalyse: e) 'on change' gehört zu den Client-Script-Typen bzw. UI-Policy-Auswertungen, nicht zu den Business-Rule-Ausführungszeitpunkten. Ergänzend sind die Record-Operationen als Aktionen wählbar: insert, update, delete, query.",
     "docsReference": "Business Rules",
     "needsReview": false
@@ -211,6 +213,7 @@
       {"id": "e", "text": "Ein neu erstelltes UI Policy auf der Tabelle Incident"}
     ],
     "correct": ["a", "b", "c"],
+    "correctCount": 3,
     "explanation": "a) Update Sets erfassen Prozess- und Konfigurationsdaten, aber keine Task- oder Anwendungsdaten – Datensätze in u_-/x_ Tabellen werden nicht übertragen, ebenso nicht die im Test aufgefüllten Import-Set-Zeilen. b) Plugin-Aktivierung und c) Index-Erzeugung sind manuelle Schritte, die in keinem Update Set stehen und nach dem Commit manuell ausgeführt werden müssen. Fehleranalyse: d) Katalogdefinitionen inklusive Varien und Variable Choices sind Konfiguration und werden erfasst. e) UI Policies, Business Rules und Client Scripts sind konfigurierbare Objekte im Update Set.",
     "docsReference": "Update Sets",
     "needsReview": false
@@ -231,6 +234,7 @@
       }
     ],
     "correct": ["a", "b", "c"],
+    "correctCount": 3,
     "explanation": "a) Preview vor Commit ist Standard; ohne gelöste Probleme ist ein Commit nicht möglich. b) Kollisionen entstehen durch gleichzeitige Änderungen und werden über das Datum der Änderung erkannt. c) Manuelles Movern von Updates ist nicht vorgesehen – das Merge-Tool nutzt die neueste Version. Fehleranalyse: d) ist falsch, weil der Commit abgebrochen wird und einzelne Updates explizit als 'Commit' markiert sein müssen. e) 'unsafe edits' (änderungen mit Datenverlust) werden automatisch übersprungen und müssen ggf. manuell nachgezogen werden – der Log listet diese Warnungen, aber die Änderung ist nicht commitet.",
     "docsReference": "Update Sets",
     "needsReview": false
@@ -302,6 +306,7 @@
       {"id": "e", "text": "on display"}
     ],
     "correct": ["a", "b", "c", "d"],
+    "correctCount": 4,
     "explanation": "on load (Formular wird zuerst gerendert), on submit (beim Absenden, Rückgabe von false bricht ab), on change (bei Wertänderung eines definierten Felds) und on cell edit (beicell edit in der Listenbearbeitung) sind die Client-Script-Typen. Fehleranalyse: e) 'on display' ist der Ausführungszeitpunkt einer Business Rule bzw. UI-Policy-Auswertung, kein Client-Script-Typ.",
     "docsReference": "Scripting",
     "needsReview": false
@@ -321,6 +326,7 @@
       {"id": "e", "text": "Client Scripts werden in Mobile-Apps ausgeführt, wenn der UI Type 'Mobile' gewählt ist"}
     ],
     "correct": ["a", "c", "d"],
+    "correctCount": 3,
     "explanation": "a) current/previous sind GlideRecord-Objekte der Business Rule. c) Script Includes sind Funktionen/Klassen, die nur bei Auuf durch andere Skripte laufen – sie werden bei Bedarf geladen und sind die empfohlene Lösung für komplexe Business-Rule-Logik. d) Inline-Skrichte in Flow Designer/Workflow Studio sind durch die Rolle flow_designer_scripting oder die Delegierte-Entwickler-Berechtigung Allow Scripting abgesichert – das ist Teil der Skript-Sicherheit. Fehleranalyse: b) gs läuft nur auf dem Server; im Browser stehen g_form, g_user, g_scratchpad zur Verfügung. e) Client Scripts sind in Mobile-Anwendungen nicht unterstützt; clientseitige Skriekte wirken nur auf Formularen und Suchseiten (onCellEdit bildet die Ausnahme bei Listenbearbeitung).",
     "docsReference": "Scripting",
     "needsReview": false

@@ -31,10 +31,23 @@ function checkQuestion(file, q) {
   if (!q.explanation || !q.docsReference) fail(file, `explanation/docsReference fehlt (${q.id})`);
   const options = q.options ?? [];
   if (q.type !== 'boolean' && options.length < 4) fail(file, `zu wenige Optionen (${q.id})`);
+  if (q.type === 'boolean' && options.length !== 0 && options.length !== 2) {
+    fail(file, `boolean ohne Optionen oder mit genau zwei Optionen (${q.id})`);
+  }
   const ids = new Set(options.map((o) => o.id));
   if (!Array.isArray(q.correct) || q.correct.length === 0) fail(file, `correct leer (${q.id})`);
   for (const c of q.correct) if (!ids.has(c)) fail(file, `correct "${c}" nicht in options (${q.id})`);
-  if (q.type === 'multiple' && q.correctCount && q.correct.length !== q.correctCount) {
+  // Passt die Anzahl der richtigen Antworten zum Typ? (single/boolean: genau eine, multiple: zwei oder mehr)
+  if ((q.type === 'single' || q.type === 'boolean') && q.correct.length !== 1) {
+    fail(file, `${q.type} mit ${q.correct.length} richtigen Antworten – correct muss eine ID haben (${q.id})`);
+  }
+  if (q.type === 'multiple' && q.correct.length < 2) {
+    fail(file, `multiple mit nur einer richtigen Antwort (${q.id})`);
+  }
+  if (q.type === 'multiple' && !Number.isInteger(q.correctCount)) {
+    fail(file, `multiple ohne correctCount (${q.id})`);
+  }
+  if (q.type === 'multiple' && Number.isInteger(q.correctCount) && q.correct.length !== q.correctCount) {
     fail(file, `correctCount ${q.correctCount} != ${q.correct.length} (${q.id})`);
   }
   if (q.correct.length !== new Set(q.correct).size) fail(file, `correct dupliziert (${q.id})`);

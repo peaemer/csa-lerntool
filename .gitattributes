@@ -1,0 +1,7 @@
+# Zeilenenden einheitlich im Repo halten (LF), damit unter Windows keine
+# Umwandlungswarnungen entstehen und JSON-Diffs sauber bleiben.
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.woff binary
+*.woff2 binary
