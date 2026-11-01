@@ -1,0 +1,437 @@
+[
+  {
+    "id": "q-instance-001",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "easy",
+    "subtopic": "Apps und Plugins installieren",
+    "question": "In einer neuen Instanz sind Funktionen wie Incident Management noch nicht sichtbar. Ein Administrator möchte die entsprechenden Tabellen und Prozesse freischalten. Was ist ein Plugin in ServiceNow am besten beschrieben?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Eine installierbare Anwendungserweiterung, die zusätzliche Tabellen, Prozesse und Funktionen bereitstellt, wenn sie aktiviert wird."
+      },
+      {
+        "id": "b",
+        "text": "Ein Bericht, der ausschließlich in Produktionsinstanzen verwendet werden kann."
+      },
+      {
+        "id": "c",
+        "text": "Eine persönliche Einstellung unter My Settings für die eigene Homepage."
+      },
+      {
+        "id": "d",
+        "text": "Ein Skript, das in jeder Instanz automatisch ausgeführt wird."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Ein Plugin ist eine Anwendungserweiterung, die über den Application Manager installiert und aktiviert wird; danach stehen Tabellen, Prozesse und Module zur Verfügung. Berichte (b), persönliche Einstellungen (c) und Skripte (d) sind keine Plugins – sie wirken nicht auf den Funktionsumfang der Instanz.",
+    "docsReference": "Plugins (Application Manager)"
+  },
+  {
+    "id": "q-instance-002",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Apps und Plugins installieren",
+    "question": "Ein Administrator öffnet den Application Manager und sieht dort Plugins, die als verfügbar, aber nicht installiert angezeigt werden. Welche Aussage ist zutreffend?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Über den Application Manager können Apps und Plugins installiert bzw. aktiviert werden; die Installation kann Abhängigkeiten aktivieren und einen Restart erfordern."
+      },
+      {
+        "id": "b",
+        "text": "Alle verfügbaren Plugins sind in jeder Instanz automatisch aktiv."
+      },
+      {
+        "id": "c",
+        "text": "Der Application Manager kann nur Plugins anzeigen, die bereits deinstalliert wurden."
+      },
+      {
+        "id": "d",
+        "text": "Plugins werden ausschließlich über die System Properties installiert."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Der Application Manager ist das Werkzeug für Plugin-/App-Installation und -Aktivierung. Abhängige Plugins können dabei automatisch mit aktiviert werden; je nach Plugin ist danach ein Application Restart nötig. Plugins sind nicht automatisch aktiv (b), es gibt einen Status 'verfügbar' und 'installiert' (c), und System Properties (d) sind für Einstellungen zuständig, nicht für Installationen.",
+    "docsReference": "Application Manager (install plugins)"
+  },
+  {
+    "id": "q-instance-003",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Instance-Personalisierung",
+    "question": "Zwei Mitarbeiter öffnen beide My Settings und ändern dort dieselbe Einstellung. Welche Wirkung hat das?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Die Änderung gilt nur für den jeweils angemeldeten Benutzer."
+      },
+      {
+        "id": "b",
+        "text": "Die Änderung gilt für alle Benutzer der Instanz."
+      },
+      {
+        "id": "c",
+        "text": "Die Änderung kann nur von Administratoren gespeichert werden."
+      },
+      {
+        "id": "d",
+        "text": "Die Änderung ist identisch mit einer System Property."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "User Preferences (My Settings) sind nutzerspezifisch und wirken sich nicht auf andere Benutzer aus. Instanzweite Einstellungen wären System Properties (d); die Benutzerebene (a) ist von Admin-Rechten unabhängig (c) und wirkt nur auf den angemeldeten Nutzer (b ist falsch.",
+    "docsReference": "User Preferences (My Settings)"
+  },
+  {
+    "id": "q-instance-004",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "easy",
+    "subtopic": "User Interfaces",
+    "question": "Ein Bildschirm zeigt 20 Incidents als Zeilen mit Filter, Sortierung und Seitenansicht. Welches UI-Element ist gemeint?",
+    "options": [
+      {
+        "id": "a",
+        "text": "List View"
+      },
+      {
+        "id": "b",
+        "text": "Form View"
+      },
+      {
+        "id": "c",
+        "text": "Form Layout"
+      },
+      {
+        "id": "d",
+        "text": "Unified Navigation"
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Eine List View zeigt mehrere Datensätze als Liste bzw. Zeilen und enthält List Controls wie Filter, Gruppierung und Sortierung. Die Form View (b) zeigt genau einen Datensatz; das Form Layout (c) definiert die Felder einer Tabelle und die Unified Navigation (d) dient dem Aufruf von Modulen.",
+    "docsReference": "List v3 / List views"
+  },
+  {
+    "id": "q-instance-005",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Instance-Personalisierung",
+    "question": "Ein Administrator möchte, dass bestimmte Rollen auf dem Incident-Formular andere Felder sehen als andere Rollen. Welches Element nutzt er dafür?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Form Layouts (je Tabelle und Rolle konfigurierbar)"
+      },
+      {
+        "id": "b",
+        "text": "Personalisierte Form Layouts durch jeden einzelnen Benutzer"
+      },
+      {
+        "id": "c",
+        "text": "List Header"
+      },
+      {
+        "id": "d",
+        "text": "System Properties"
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Form Layouts werden auf Administratorebene je Tabelle und Rolle gepflegt und steuern, welche Felder in welcher Reihenfolge auf dem Formular erscheinen. Nutzer können das Form Layout nicht selbst ändern (b); der List Header (c) betrifft die Listenansicht und System Properties (d) sind instanzweite Einstellungen.",
+    "docsReference": "Form Layout / Form Designer"
+  },
+  {
+    "id": "q-instance-006",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "System Properties Basics",
+    "question": "Ein Administrator sucht eineinstanzweite Einstellung. Wo werden System Properties typischerweise gepflegt und wie wirken sie?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Unter System Properties; die Werte gelten instanzweit und werden nach dem Aktualieren wirksam."
+      },
+      {
+        "id": "b",
+        "text": "Unter My Settings; die Werte gelten nur für den angemeldeten Benutzer."
+      },
+      {
+        "id": "c",
+        "text": "System Properties sind schreibgeschützt und können nicht geändert werden."
+      },
+      {
+        "id": "d",
+        "text": "System Properties gelten ausschließlich für die mobile Benutzeroberfläche."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "System Properties sind instanzweite Einstellungen im Bereich System Properties. Sie sind änderbar und gelten für die gesamte Instanz – nicht pro Benutzer (b), nicht nur mobil (d) und nicht schreibgeschützt (c).",
+    "docsReference": "Application: System Preferences"
+  },
+  {
+    "id": "q-instance-007",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Instance-Personalisierung",
+    "question": "Mitarbeiter einer Rolle sollen bei Anmeldung standardmäßig dieselbe Startseite mit einer gefilterten Liste erhalten. Welche Vorgehensweise ist korrekt?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Der Administrator weist der Rolle eine Homepage zu; einzelne Nutzer können ihre Startseite zusätzlich persönlich einstellen."
+      },
+      {
+        "id": "b",
+        "text": "Der Administrator speichert eine Homepage in den User Preferences für alle Benutzer."
+      },
+      {
+        "id": "c",
+        "text": "Der Administrator definiert die Homepage über ein neues Plugin."
+      },
+      {
+        "id": "d",
+        "text": "Der Administrator ändert die Form Layouts für die Rolle."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Die Homepage kann auf Administratorebene einer Rolle zugewiesen werden (in der klassischen Oberfläche unter User > Homepage for Roles); zusätzlich kann jeder Nutzer seine eigene Homepage über My Settings personalisieren. User Preferences sind nutzerspezifisch (b), Plugins installieren keine Homepage (c) und Form Layouts betreffen das Formular, nicht die Startseite (d). Je nach Next Experience Konfiguration kann die Menüführung abweichen, daher needsReview.",
+    "docsReference": "Homepage for Roles / Landing Pages"
+  },
+  {
+    "id": "q-instance-008",
+    "type": "single",
+    "topic": "instance_configuration",
+    "difficulty": "hard",
+    "subtopic": "User Interfaces (Spawns)",
+    "question": "Ein Nutzer klickt in einer Liste auf einen Datensatz, woraufhin dieser in einem separaten Panel bzw. Overlay geöffnet wird, ohne die aktuelle Seite zu verlassen. Wie wird dieses Element bezeichnet?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Spawn"
+      },
+      {
+        "id": "b",
+        "text": "List View"
+      },
+      {
+        "id": "c",
+        "text": "Related Links"
+      },
+      {
+        "id": "d",
+        "text": "List Controls"
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Ein Spawn öffnet einen Datensatz in einem separaten Panel/Overlay – der Nutzer bleibt auf der ursprünglichen Seite. Die List View (b) ist die Liste selbst, Related Links (c) sind Modulverknüpfungen des Datensatzes und List Controls (d) sind Filter, Gruppierung und Sortierung innerhalb der Liste.",
+    "docsReference": "Spawn (Next Experience)"
+  },
+  {
+    "id": "q-instance-009",
+    "type": "multiple",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Apps und Plugins installieren",
+    "question": "Zur Plugin-Installation gibt es Aussagen. Welche sind zutreffend? Wähle genau 3 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Plugins werden über den Application Manager installiert bzw. aktiviert."
+      },
+      {
+        "id": "b",
+        "text": "Bei der Installation können abhängige Plugins automatisch mit aktiviert werden."
+      },
+      {
+        "id": "c",
+        "text": "Bestimmte Plugin-Installationen erfordern einen Restart der Instanz."
+      },
+      {
+        "id": "d",
+        "text": "Plugins können jederzeit ohne Einschränkung deaktiviert werden."
+      },
+      {
+        "id": "e",
+        "text": "Alle Plugins sind in jeder Instanz vorinstalliert aktiv."
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Application Manager ist das Installationswerkzeug (a), abhängige Plugins werden je nach Plugin mit aktiviert (b) und je nach Plugin ist ein Restart erforderlich (c). Option d ist falsch, weil Deaktivierung/Deinstallation von Datenumfang und Abhängigkeiten abhängt; Option e ist falsch, weil Plugins in einer frischen Instanz meist nicht aktiv sind.",
+    "docsReference": "Plugins (Application Manager)"
+  },
+  {
+    "id": "q-instance-010",
+    "type": "multiple",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Instance-Personalisierung",
+    "question": "Welche Elemente gehören zur Instance-Personalisierung? Wähle genau 3 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "User Preferences (My Settings)"
+      },
+      {
+        "id": "b",
+        "text": "Homepage bzw. Landing Page"
+      },
+      {
+        "id": "c",
+        "text": "Form Layout"
+      },
+      {
+        "id": "d",
+        "text": "System Properties pro Benutzer"
+      },
+      {
+        "id": "e",
+        "text": "Personalisierte Form Layout durch jeden Benutzer"
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Zur Personalisierung gehören nutzerspezifische User Preferences, die Homepage bzw. Landing Page und die vom Administrator gepflegten Form Layouts. System Properties sind instanzweit und nicht pro Benutzer gespeichert (d); Form Layouts werden nicht von Nutzern, sondern von Administranten je Tabelle und Rolle gepflegt (e).",
+    "docsReference": "Instance personalization (User Preferences, Landing Pages, Form Layout)"
+  },
+  {
+    "id": "q-instance-011",
+    "type": "multiple",
+    "topic": "instance_configuration",
+    "difficulty": "hard",
+    "subtopic": "User Interfaces (List View)",
+    "question": "In der Listenansicht einer Liste soll ein Nutzer nach Werten filtern und Ergebnisse gruppieren. Welche Elemente stehen dafür typischerweise in den List Controls zur Verfügung? Wähle genau 3 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Filter"
+      },
+      {
+        "id": "b",
+        "text": "Group"
+      },
+      {
+        "id": "c",
+        "text": "Sort"
+      },
+      {
+        "id": "d",
+        "text": "Form Layout"
+      },
+      {
+        "id": "e",
+        "text": "Related Links"
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Filter, Group und Sort sind die List Controls einer Listenansicht. Das Form Layout (d) definiert Felder des Formulars und Related Links (e) sind Verknüpfungen innerhalb eines Datensatzes – beide gehören nicht zu den List Controls.",
+    "docsReference": "List v3 / List controls (Filter, Group, Sort)"
+  },
+  {
+    "id": "q-instance-012",
+    "type": "multiple",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Instanz-Basics",
+    "question": "Zur Instanzarchitektur im Bereich Instance Configuration gibt es Aussagen. Welche sind zutreffend? Wähle genau 2 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Development, Test und Production werden typischerweise als getrennte Instanzen geführt."
+      },
+      {
+        "id": "b",
+        "text": "Eine PDI ist eine persönliche Entwicklerinstanz für Lern- und Entwicklungszwecke."
+      },
+      {
+        "id": "c",
+        "text": "Eine Test-Instanz ist immer identisch mit der Production-Instanz."
+      },
+      {
+        "id": "d",
+        "text": "Benutzerdefinierte Felder gelten automatisch in allen Instanzen der Organisation."
+      }
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Getrennte Dev-/Test-/Prod-Instanzen sind die typische Architektur (a) und eine PDI ist eine persönliche Entwicklerinstanz (b). Test-Instanzen sind inhaltlich unterschiedlich, nicht identisch mit Production (c); Änderungen werden über Change Management (z. B. Update Sets) übertragen, gelten also nicht automatisch in allen Instanzen (d).",
+    "docsReference": "ServiceNow instance architecture (Development, Test, Production)"
+  },
+  {
+    "id": "q-instance-013",
+    "type": "boolean",
+    "topic": "instance_configuration",
+    "difficulty": "medium",
+    "subtopic": "Apps und Plugins installieren",
+    "question": "Die Installation eines Plugins erfordert in ServiceNow grundsätzlich einen Restart der Instanz.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Wahr"
+      },
+      {
+        "id": "b",
+        "text": "Falsch"
+      }
+    ],
+    "correct": ["b"],
+    "explanation": "Die Aussage ist zu absolut: Nicht jede Plugin-Installation erfordert einen Restart. Ob ein Restart nötig ist, hängt vom Plugin bzw von der Installation ab und wird im Application Manager ausgewiesen.",
+    "docsReference": "Plugins (Application Manager)"
+  },
+  {
+    "id": "q-instance-014",
+    "type": "boolean",
+    "topic": "instance_configuration",
+    "difficulty": "easy",
+    "subtopic": "Instance-Personalisierung",
+    "question": "Form Layouts werden in ServiceNow über die Benutzeroberfläche je Tabelle und Rolle konfigtiert.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Wahr"
+      },
+      {
+        "id": "b",
+        "text": "Falsch"
+      }
+    ],
+    "correct": ["a"],
+    "explanation": "Das ist korrekt: Form Layouts sind administrative Konfigurationen auf Ebene einer Tabelle und werden Rollen zugeordnet; sie bestimmen, welche Felder auf dem Formular in welcher Reihenfolge angezeigt werden.",
+    "docsReference": "Form Layout / Form Designer"
+  },
+  {
+    "id": "q-instance-015",
+    "type": "boolean",
+    "topic": "instance_configuration",
+    "difficulty": "hard",
+    "subtopic": "Mobile / Now Experience",
+    "question": "In der Next Experience (Now Experience) können Module und Datensätze über die Unified Navigation aufgerufen werden – das gilt auch für die mobile Nutzung.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Wahr"
+      },
+      {
+        "id": "b",
+        "text": "Falsch"
+      }
+    ],
+    "correct": ["a"],
+    "explanation": "Die Unified Navigation ist das Navigations-konzept der Next Experience und steht auch in den mobilen Apps zur Verfügung. Die konkreten Funktionen der mobilen App sind vom Funktionsumfang und von der Lizenz der Instanz abhängig, daher needsReview.",
+    "docsReference": "Now Mobile"
+  }
+]

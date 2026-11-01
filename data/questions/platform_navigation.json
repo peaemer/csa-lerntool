@@ -1,0 +1,356 @@
+[
+  {
+    "id": "q-platform-001",
+    "type": "single",
+    "topic": "platform_navigation",
+    "difficulty": "easy",
+    "subtopic": "Filter Navigator",
+    "question": "Ein Service-Desk-Mitarbeiter nutzt in der klassischen Benutzeroberfläche das linke Navigationsfeld und gibt dort 'Incidents' ein, um die Liste offener Incidents zu öffnen. Welche Aussage beschreibt dieses Element korrekt?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Es handelt sich um den Filter Navigator; die Suchergebnisse zeigen Module, auf die der jeweilige Nutzer zugreifen darf."
+      },
+      {
+        "id": "b",
+        "text": "Es handelt sich um den Application Launcher, der alphabetisch alle Module jeder Instanz anzeigt."
+      },
+      {
+        "id": "c",
+        "text": "Es handelt sich um die Unified Navigation, die in der klassischen Benutzeroberfläche Pflicht ist."
+      },
+      {
+        "id": "d",
+        "text": "Es handelt sich um einen Workspace, der nur von Administratoren bedient werden kann."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Der Filter Navigator ist das Suchfeld der klassischen Benutzeroberfläche und zeigt nur Module, für die der Nutzer Zugriffsrechte (Rollen) hat. Der Application Launcher (Option b) zeigt bevorzugt häufig genutzte und favorisierte Module, nicht alle Module alphabetisch. Die Unified Navigation (c) gehört zur Next Experience, nicht zur klassischen Oberfläche. Ein Workspace (d) ist eine rollenbasierte Startseite und kein Suchfeld.",
+    "docsReference": "Filter Navigator"
+  },
+  {
+    "id": "q-platform-002",
+    "type": "single",
+    "topic": "platform_navigation",
+    "difficulty": "medium",
+    "subtopic": "Next Experience Unified Navigation",
+    "question": "In einer Instanz wird die Next Experience genutzt. Ein Mitarbeiter möchte Module aufrufen und sucht statt des klassischen Filters das Element 'All'. Welche Aussage ist zutreffend?",
+    "options": [
+      {
+        "id": "a",
+        "text": "In der Next Experience ersetzen Unified Navigation bzw. Now Experience die klassische Navigation aus Filter Navigator und Application Launcher."
+      },
+      {
+        "id": "b",
+        "text": "Der Filter Navigator bleibt in der Next Experience das zentrale Navigations-element für alle Benutzer."
+      },
+      {
+        "id": "c",
+        "text": "Die Unified Navigation steht ausschließlich Administratoren mit elevated Rechten zur Verfügung."
+      },
+      {
+        "id": "d",
+        "text": "Die Next Experience zeigt nur Module an, die in den System Properties hinterlegt sind."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Die Next Experience (Now Experience) stellt mit der Unified Navigation die moderne Navigation bereit – mit den Tabs All, Favorites und Recents. Damit ersetzt sie Filter Navigator und Application Launcher der klassischen Oberfläche. Option b ist falsch, weil der Filter Navigator durch die Unified Navigation abgelöst wird. Option c ist falsch, weil alle berechtigten Nutzer die Unified Navigation nutzen können. Option d ist falsch, weil Module über Rollen und Plugins definiert werden, nicht über System Properties.",
+    "docsReference": "Unified Navigation (Next Experience)"
+  },
+  {
+    "id": "q-platform-003",
+    "type": "single",
+    "topic": "platform_navigation",
+    "difficulty": "easy",
+    "subtopic": "Application Launcher",
+    "question": "Ein Nutzer öffnet in der klassischen Benutzeroberfläche das linke Navigationsfenster und sieht dort Module, die er zuletzt häufig genutzt hat, sowie Module, die er als Favoriten markiert hat. Wie wird dieses Element bezeichnet?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Application Launcher"
+      },
+      {
+        "id": "b",
+        "text": "Filter Navigator"
+      },
+      {
+        "id": "c",
+        "text": "List View"
+      },
+      {
+        "id": "d",
+        "text": "Related Links"
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Der Application Launcher zeigt häufig genutzte und als Favorit gespeicherte Module des Nutzers. Der Filter Navigator (b) ist das danebenliegende Suchfeld, mit per Modulnamen gefunden werden. Eine List View (c) ist eine Listenansicht von Datensätzen und kein Navigations-element; Related Links (d) sind verknüpfte Module eines Records, kein Navigationsfenster.",
+    "docsReference": "Application Launcher"
+  },
+  {
+    "id": "q-platform-004",
+    "type": "single",
+    "topic": "platform_navigation",
+    "difficulty": "easy",
+    "subtopic": "Instanz-Basics",
+    "question": "Ein Lernender nutzt eine persönlich bereitgestellte ServiceNow-Instanz für eigene Lern- und Entwicklungszwecke. Wie wird dieser Instanztyp üblicherweise bezeichnet?",
+    "options": [
+      {
+        "id": "a",
+        "text": "PDI – Personal Developer Instance"
+      },
+      {
+        "id": "b",
+        "text": "Production Instance"
+      },
+      {
+        "id": "c",
+        "text": "Test Instance mit Produktivdaten"
+      },
+      {
+        "id": "d",
+        "text": "Standard-Sandbox mit offiziellen Produktionsdaten"
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Eine PDI ist eine persönliche Entwicklerinstanz, in der eigene Tests und Lernszenale durchgeführt werden. Produktionsinstanz (b) und Test-Instanz (c) sind Teil der typischen Dev-/Test-/Prod-Architektur und werden nicht als persönliche Lerninstanz bereitgestellt; Sandbox-Instanzen (d) enthalten typischerweise Kopien der Produktion – die Formulierung als 'Standard-Sandbox' ist irreführend, weil eine PDI keine produktive Datenkopie ist.",
+    "docsReference": "Personal Developer Instance (PDI)"
+  },
+  {
+    "id": "q-platform-005",
+    "type": "multiple",
+    "topic": "platform_navigation",
+    "difficulty": "medium",
+    "subtopic": "Next Experience Unified Navigation",
+    "question": "Ein Mitarbeiter öffnet in der Next Experience die Unified Navigation. Welche Bereiche gehören zur persönlichen Navigation? Wähle genau 3 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "All"
+      },
+      {
+        "id": "b",
+        "text": "Favorites"
+      },
+      {
+        "id": "c",
+        "text": "Recents"
+      },
+      {
+        "id": "d",
+        "text": "Application Launcher"
+      },
+      {
+        "id": "e",
+        "text": "Related Links"
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Die Unified Navigation der Next Experience besteht aus den Tabs All (alle verfügbaren Module), Favorites (persönlich gespeicherte Module) und Recents (zuletzt geöffnete Module). Der Application Launcher (d) gehört zur klassischen Benutzeroberfläche und wurde durch die Unified Navigation ersetzt. Related Links (e) sind Modulverknüpfungen eines Datensatzes und kein Navigations-bereich.",
+    "docsReference": "Unified Navigation (Next Experience)"
+  },
+  {
+    "id": "q-platform-006",
+    "type": "multiple",
+    "topic": "platform_navigation",
+    "difficulty": "medium",
+    "subtopic": "Produkt- und Modulübersicht",
+    "question": "Welche der folgenden Bezeichnungen sind Produktfamilien der ServiceNow-Plattform? Wähle genau 3 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "IT Service Management (ITSM)"
+      },
+      {
+        "id": "b",
+        "text": "IT Operations Management (ITOM)"
+      },
+      {
+        "id": "c",
+        "text": "HR Service Delivery"
+      },
+      {
+        "id": "d",
+        "text": "Configuration Management Database (CMDB)"
+      },
+      {
+        "id": "e",
+        "text": "Incident Management"
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "ITSM, ITOM und HR Service Delivery sind Produktfamilien der Plattform. Die CMDB (d) ist ein Produkt innerhalb der Familie ITOM und keine eigene Produktfamilie. Incident Management (e) ist eine Anwendung bzw. ein Modul innerhalb von ITSM, ebenfalls keine Produktfamilie.",
+    "docsReference": "ServiceNow Platform capabilities (product families)"
+  },
+  {
+    "id": "q-platform-007",
+    "type": "multiple",
+    "topic": "platform_navigation",
+    "difficulty": "hard",
+    "subtopic": "Instanz-Basics",
+    "question": "Zur Instanz-Architektur einer Organisation gibt es Aussagen. Welche sind zutreffend? Wähle genau 3 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Development, Test und Production werden typischerweise als getrennte Instanzen betrieben."
+      },
+      {
+        "id": "b",
+        "text": "Änderungen einer Instanz sind nicht automatisch in allen anderen Instanzen wirksam."
+      },
+      {
+        "id": "c",
+        "text": "Eine PDI dient persönlichen Lern- und Entwicklungszwecken und ist keine produktive Instanz."
+      },
+      {
+        "id": "d",
+        "text": "Die Production-Instanz wird im Tagesgeschäft unmittelbar von Anwendern customisiert."
+      },
+      {
+        "id": "e",
+        "text": "Die Test-Instanz ist stets identisch mit der Production-Instanz."
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "In einer typischen Architektur sind Development, Test und Production getrennte Instanzen; Änderungen werden erst über Change Management (z. B. Update Sets) in die Production übertragen, sodass sie nicht automatisch in allen Instanzen gelten (b). Eine PDI ist eine persönliche Entwicklerinstanz ohne Produktionsbetrieb (c). Direkte Customizierungen in Production sind ohne Change-Prozess nicht vorgesehen (d), und Test-Instanzen sind inhaltlich unterschiedlich, nicht identisch mit Production (e).",
+    "docsReference": "ServiceNow instance architecture (Development, Test, Production)"
+  },
+  {
+    "id": "q-platform-008",
+    "type": "multiple",
+    "topic": "platform_navigation",
+    "difficulty": "medium",
+    "subtopic": "Begriffe der klassischen Benutzeroberfläche",
+    "question": "Zur klassischen Benutzeroberfläche gibt es Aussagen zu Application Launcher und Filter Navigator. Welche sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Der Application Launcher zeigt häufig genutzte und als Favorit gespeicherte Module eines Nutzers."
+      },
+      {
+        "id": "b",
+        "text": "Der Filter Navigator ist das Suchfeld, über das Module per Namen gefunden werden."
+      },
+      {
+        "id": "c",
+        "text": "Der Application Launcher zeigt ausschließlich Module mit elevated Rechten."
+      },
+      {
+        "id": "d",
+        "text": "Der Filter Navigator muss über System Properties für jeden Nutzer einzeln aktiviert werden."
+      }
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Application Launcher (a) und Filter Navigator (b) sind die beiden Navigations-Elemente der klassischen Oberfläche: favorites/häufig genutzte Module bzw. Suchfeld. Option c ist falsch, weil das Ergebnis von den Rollen des Nutzers abhängt, nicht von elevated Rechten. Option d ist falsch, weil der Filter Navigator standardmäßig verfügbar ist und nicht über System Properties aktiviert wird.",
+    "docsReference": "Filter Navigator and Application Launcher"
+  },
+  {
+    "id": "q-platform-009",
+    "type": "single",
+    "topic": "platform_navigation",
+    "difficulty": "hard",
+    "subtopic": "Tag-basierte Navigation",
+    "question": "In einer Next Experience Instanz öffnet ein Nutzer einen Incident-Record. Im Record-Kopf erscheint ein Tag (z. B. der Wert eines Feldes). Was passiert beim Klick auf diesen Tag?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Es wird die Liste der Datensätze geöffnet, die diesen Tag bzw. diesen Wert enthalten."
+      },
+      {
+        "id": "b",
+        "text": "Es wird die Liste aller Benutzer geöffnet, die diesen Tag als Favorit haben."
+      },
+      {
+        "id": "c",
+        "text": "Es wird ein neues Modul für die Unified Navigation angelegt."
+      },
+      {
+        "id": "d",
+        "text": "Es wird der Tag in den Favorites des Application Launcher gespeichert."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Tag-basierte Navigation in der Next Experience dient dem Filtern: Ein Klick auf einen Tag öffnet die Liste der Records, auf denen dieser Tag gesetzt ist. Tags sind keine Benutzerfavoriten (b), sie erzeugen keine Module (c) und gehören nicht zum Application Launcher der klassischen Oberfläche (d). Die exekte Aussteuerung der Tags ist abhängig von der Next Experience Konfiguration der Instanz, daher needsReview.",
+    "docsReference": "Tag-based navigation (Next Experience)"
+  },
+  {
+    "id": "q-platform-010",
+    "type": "single",
+    "topic": "platform_navigation",
+    "difficulty": "medium",
+    "subtopic": "Arbeitsbereiche (Workspaces)",
+    "question": "Ein Mitarbeiter soll bei der Anmeldung einen Bereich sehen, der typische Komponenten wie Kennzahlen, Listen und Dashboards für sein Aufgabengebiet enthält. Wie wird ein solcher Bereich in der Next Experience am besten beschrieben?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Ein Workspace ist eine rollenbasierte Landing Page mit Komponenten für einen Arbeitsbereich."
+      },
+      {
+        "id": "b",
+        "text": "Ein Workspace ist eine gespeicherte Suche in den System Properties."
+      },
+      {
+        "id": "c",
+        "text": "Ein Workspace ist ein Plugin, das erst installiert werden muss."
+      },
+      {
+        "id": "d",
+        "text": "Ein Workspace ist eine Listenansicht, die nur Administratoren zeigt."
+      }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Ein Workspace bildet einen Arbeitsbereich ab und wird rollenbasiert als Landing Page mit Komponenten wie Dashboards, Listen und Kennzahlen bereitgestellt. Eine Landing Page ist keine gespeicherte Suche (b), kein Plugin (c), sondern Bestandteil der Next Experience Navigation; Listen sind nur ein mögliches Element innerhalb eines Workspace (d).",
+    "docsReference": "Workspaces and landing pages (Next Experience)"
+  },
+  {
+    "id": "q-platform-011",
+    "type": "boolean",
+    "topic": "platform_navigation",
+    "difficulty": "easy",
+    "subtopic": "Filter Navigator",
+    "question": "Der Filter Navigator zeigt einem Nutzer alle Module der Instanz – unabhängig davon, ob er auf diese Module zugreifen darf.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Wahr"
+      },
+      {
+        "id": "b",
+        "text": "Falsch"
+      }
+    ],
+    "correct": ["b"],
+    "explanation": "Die Suchergebnisse des Filter Navigators hängen von den Zugriffsrechten des Nutzers ab. Nutzer sehen nur Module, für die sie Rollen haben; ohne passenden Rollenverweis wird das Modul nicht angezeigt.",
+    "docsReference": "Filter Navigator"
+  },
+  {
+    "id": "q-platform-012",
+    "type": "boolean",
+    "topic": "platform_navigation",
+    "difficulty": "medium",
+    "subtopic": "Begriffe der klassischen Benutzeroberfläche",
+    "question": "Application Launcher und Filter Navigator unterscheiden sich darin, dass der Application Launcher häufig genutzte und favorisierte Module zeigt, der Filter Navigator aber zum Suchen von Modulen genutzt wird.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Wahr"
+      },
+      {
+        "id": "b",
+        "text": "Falsch"
+      }
+    ],
+    "correct": ["a"],
+    "explanation": "Diese Unterscheidung ist korrekt: Application Launcher = Favorites und häufig genutzte Module, Filter Navigator = Suchfeld. In der Next Experience wird beides durch die Unified Navigation (All, Favorites, Recents) zusammengefasst.",
+    "docsReference": "Application Launcher and Filter Navigator"
+  }
+]

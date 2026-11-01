@@ -1,0 +1,513 @@
+[
+  {
+    "id": "q-collab-001",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "Lists, Filters, and Tags",
+    "question": "Ein Nutzer speichert in List v3 einen Filter auf der Incident-Liste. Welche Aussage ist korrekt?",
+    "options": [
+      { "id": "a", "text": "Ein persönlich gespeicherter Filter gilt nur für diesen Nutzer; andere Nutzer sehen ihn nicht, sofern die Ansicht nicht geteilt wird." },
+      { "id": "b", "text": "Jeder gespeicherte Filter gilt automatisch für alle Nutzer der Rolle itil." },
+      { "id": "c", "text": "Gespeicherte Filter können nur von Admins angelegt werden." },
+      { "id": "d", "text": "Ein gespeicherter Filter ersetzt die Notwendigkeit eines ACLs." }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Persönliche Filter und Listenansichten sind benutzerbezogen (Benutzereinstellungen). Andere Nutzer sehen sie nur, wenn die View ausdrücklich geteilt oder als Standardansicht für eine Gruppe definiert wird. ACLs werden davon nicht berührt.",
+    "docsReference": "Lists v3 / Personalized filters"
+  },
+  {
+    "id": "q-collab-002",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Lists, Filters, and Tags",
+    "question": "Welche Funktionen gehören zu List v3? Wähle genau drei Antworten.",
+    "options": [
+      { "id": "a", "text": "Gruppieren von Zeilen nach einem Feld (Group by)" },
+      { "id": "b", "text": "Aggregierte Anzeige von Anzahlen pro Gruppe" },
+      { "id": "c", "text": " personally gespeicherte, sharebare Listenansichten" },
+      { "id": "d", "text": "Automatische Erstellung von Business Rules aus der Liste heraus" },
+      { "id": "e", "text": "Serverseitige Ausführung von Client Scripts in der Liste" }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "List v3 bietet Group-by, Aggregationen (z. B. Count) sowie persönliche und sharebare Views. Business Rules werden nicht aus der Liste erzeugt, und Client Scripts laufen im Browser auf Formularen, nicht in Listen.",
+    "docsReference": "Lists v3"
+  },
+  {
+    "id": "q-collab-003",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "List and Form anatomy",
+    "question": "Auf welchem Weg werden Tags in ServiceNow genutzt?",
+    "options": [
+      { "id": "a", "text": "Tags werden als Records gepflegt, können in Listen (List v3) als Spalte und Filter genutzt und auf mehrere Datensätze angewendet werden." },
+      { "id": "b", "text": "Tags sind nur im Service Catalog möglich und wirken nicht auf Task-Tabellen." },
+      { "id": "c", "text": "Tags ersetzen die Verwendung von Filtern in Listen." },
+      { "id": "d", "text": "Tags können ausschließlich von Admins erstellt werden." }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Tags sind eigene Records in der App \"Tags\", die auf viele Tabellen angewendet werden können und in List v3 als Feld und Filter erscheinen. Sie sind kein Catalog-Feature und ersetzen keine Filter.",
+    "docsReference": "Tags"
+  },
+  {
+    "id": "q-collab-004",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Form configuration",
+    "question": "Was ist der Unterschied zwischen Form Layout und Form Template?",
+    "options": [
+      { "id": "a", "text": "Das Form Layout steuert Aufbau und Sichtbarkeit von Feldern; das Form Template setzt Ausgangswerte für Felder beim Anlegen eines Records." },
+      { "id": "b", "text": "Das Form Template steuert die Feldreihenfolge, das Form Layout die Werte." },
+      { "id": "c", "text": "Beide sind identisch und werden synonym verwendet." },
+      { "id": "d", "text": "Form Templates wirken nur auf Listen, nicht auf Formularen." }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Form Layout (bzw. Form Designer in der Next Experience) definiert Sektionen, Feldreihenfolge und Sichtbarkeit. Form Templates liefern beim Anlegen vorbefüllte Werte und können über Bedingungen automatisch angewendet werden.",
+    "docsReference": "Form Layout / Form Templates"
+  },
+  {
+    "id": "q-collab-005",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "hard",
+    "subtopic": "Advanced Form Configuration",
+    "question": "Welche Aussagen zu UI Policies sind richtig? Wähle genau drei Antworten.",
+    "options": [
+      { "id": "a", "text": "UI Policies wirken clientseitig im Browser auf dem Formular." },
+      { "id": "b", "text": "UI Policies können Felder ausblenden, Read-only setzen oder Pflichtfelder erzeugen." },
+      { "id": "c", "text": "UI Policies gelten auch für Import-Set-Transformationen und API-Aufrufe." },
+      { "id": "d", "text": "Eine UI Policy kann an Bedingungen geknüpft werden (z. B. Feldwert oder Rollenwechsel)." },
+      { "id": "e", "text": "UI Policies werden ausschließlich von der Rolle admin ausgewertet." }
+    ],
+    "correct": ["a", "b", "d"],
+    "correctCount": 3,
+    "explanation": "UI Policies sind clientseitig und wirken auf dem Formular (Sichtbarkeit, Mandatory, Read-only), gesteuert über Bedingungen. Sie wirken nicht serverseitig bei Data Import oder API-Aufrufen – dort greifen Data Policies bzw. Business Rules.",
+    "docsReference": "UI Policies"
+  },
+  {
+    "id": "q-collab-006",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Advanced Form Configuration",
+    "question": "Ein Feld soll bei importierten Daten zwingend gesetzt werden, auch wenn kein Formular geöffnet wird. Welches Objekt ist dafür vorgesehen?",
+    "options": [
+      { "id": "a", "text": "Data Policy" },
+      { "id": "b", "text": "UI Policy" },
+      { "id": "c", "text": "Client Script (onLoad)" },
+      { "id": "d", "text": "Form Template" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Data Policies laufen serverseitig bei Insert/Update und wirken damit auch bei Import Set-Transformationen und API. UI Policies und Client Scripts sind clientseitig; Form Templates setzen nur Defaultwerte beim Anlegen über das UI.",
+    "docsReference": "Data Policies"
+  },
+  {
+    "id": "q-collab-007",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "Task Management",
+    "question": "Alle Task-Tabellen (incident, problem, change, sc_task) erben ihre Basisfelder von welcher Tabelle?",
+    "options": [
+      { "id": "a", "text": "task" },
+      { "id": "b", "text": "sys_base" },
+      { "id": "c", "text": "cmdb_ci" },
+      { "id": "c2", "text": "sc_request" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "task ist die Base-Table aller Aufgaben; Felder wie number, state, opened_by, assignment_group oder close slip stammen von dort und werden von abgeleiteten Tabellen geerbt.",
+    "docsReference": "Task base table"
+  },
+  {
+    "id": "q-collab-008",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Task Management",
+    "question": "Was kann eine Assignment Rule automatisch erledigen? Wähle genau zwei Antworten.",
+    "options": [
+      { "id": "a", "text": "Eine Task-Instanz einer Assignment Group zuweisen, wenn die Bedingungen erfüllt sind." },
+      { "id": "b", "text": "Einen Assignee setzen, wenn die Regel das vorsieht." },
+      { "id": "c", "text": "Ein Feld über ein Skript umbenennen." },
+      { "id": "d", "text": "Eine Benachrichtigung an den Ersteller senden, unabhängig von Bedingungen." },
+      { "id": "e", "text": "Einen Approval-Workflow starten." }
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Assignment Rules weisen bei Insert oder Update anhand von Bedingungen Gruppe und optional Assignee zu. Sie führen keine Skript-Umbenennungen durch, ersetzen keine Notifications und starten keine Approvals (dafür sind Workflows/Flows bzw. Notification zuständig).",
+    "docsReference": "Assignment Rules"
+  },
+  {
+    "id": "q-collab-009",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "Visual Task Boards",
+    "question": "Welche VTB-Typen gibt es in ServiceNow?",
+    "options": [
+      { "id": "a", "text": "Case Board, Sprint Board und General Board" },
+      { "id": "b", "text": "Kanban Board, Gantt Board und Pivot Board" },
+      { "id": "c", "text": "Task Board nur in der klassischen Benutzeroberfläche" },
+      { "id": "d", "text": "VTB gibt es nur für Incident Records" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Visual Task Boards gibt es als Case Board (Statusphasen), Sprint Board (zeitlich orientiert) und General Board (eigene Spalten). Sie sind rollen- und tabellenübergreifend nutzbar, nicht nur für Incidents.",
+    "docsReference": "Visual Task Boards"
+  },
+  {
+    "id": "q-collab-010",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "Visualizations, Dashboards, and Platform Analytics"
+  ,
+    "question": "Welche Report-Art zeigt Anzahlen von Records gruppiert nach einem Feld (z. B. Anzahl Incidents pro State)?",
+    "options": [
+      { "id": "a", "text": "Grouped Report" },
+      { "id": "b", "text": "Matrix Report" },
+      { "id": "c", "text": "Tree Report" },
+      { "id": "d", "text": "Pivot Report" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Ein Grouped Report zählt Records je Gruppenwert. Matrix/Pivot kombinieren zwei Dimensionen, Tree stellt Hierarchien dar.",
+    "docsReference": "Reports / Grouped reports"
+  },
+  {
+    "id": "q-collab-011",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Visualizations, Dashboards, and Platform Analytics",
+    "question": "Welche Aussagen zu Dashboards und Platform Analytics stimmen? Wähle genau drei Antworten.",
+    "options": [
+      { "id": "a", "text": "Dashboards bestehen aus Reports bzw. Report-Komponenten." },
+      { "id": "b", "text": "Platform Analytics Reports können interaktiv gefiltert werden." },
+      { "id": "c", "text": "Dashboards können Nutzern oder Gruppen bereitgestellt werden." },
+      { "id": "d", "text": "Alle Dashboards sind automatisch rollenbasiert und dürfen nicht konfiguriert werden." },
+      { "id": "e", "text": "Reports können nur in der klassischen Benutzeroberfläche erstellt werden." }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Dashboards sind Sammlungen von Reports/Widgets, Platform Analytics Reports sind interaktiv, und Dashboards lassen sich Nutzern oder Gruppen zuweisen. Dashboards sind konfigurierbar und Reports sind in der Next Experience verfügbar.",
+    "docsReference": "Dashboards / Platform Analytics"
+  },
+  {
+    "id": "q-collab-012",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Notifications",
+    "question": "Welche Kombination ist erforderlich, damit eine Benachrichtigung ausgelöst wird?",
+    "options": [
+      { "id": "a", "text": "Event + Notification (mit Bedingung und Empfängern) + Template" },
+      { "id": "b", "text": "Nur ein Template, die Bedingung übernimmt das System" },
+      { "id": "c", "text": "Eine Business Rule ist zwingend erforderlich" },
+      { "id": "d", "text": "Ein Flow mit Action 'Send Email' ist zwingend erforderlich" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Eine Notification verknüpft ein Event, eine Bedingung, Empfänger und ein Template. Das Event kann vom System (Record-Änderung) oder per gs.eventQueue() aus einem Skript gefeuert werden; eine Business Rule oder ein Flow ist nicht zwingend.",
+    "docsReference": "Notifications / Events"
+  },
+  {
+    "id": "q-collab-013",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Notifications",
+    "question": "Als Empfänger einer Notification können welche Objekte verwendet werden? Wähle genau drei Antworten.",
+    "options": [
+      { "id": "a", "text": "Ein bestimmter Nutzer" },
+      { "id": "b", "text": "Eine Gruppe" },
+      { "id": "c", "text": "Ein Feldwert auf dem Record, z. B. assignment_group oder assignment_manager" },
+      { "id": "d", "text": "Ein beliebiges Feld, das kein Referenz- oder E-Mail-Feld ist" },
+      { "id": "e", "text": "Nur Nutzer mit der Rolle admin" }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Empfänger können Nutzer, Rollen, Gruppen oder aus Feldwerten abgeleitete Empfänger sein. Ein x-beliebiges Nicht-Referenzfeld ist kein Empfänger, und die Beschränkung auf admin existiert nicht.",
+    "docsReference": "Notification recipients"
+  },
+  {
+    "id": "q-collab-014",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "hard",
+    "subtopic": "Notifications",
+    "question": "Auf welcher Tabelle werden die Benachrichtigungsdefinitionen gepflegt?",
+    "options": [
+      { "id": "a", "text": "sys_notification" },
+      { "id": "b", "text": "sys_email_pattern" },
+      { "id": "c", "text": "sys_event" },
+      { "id": "d", "text": "sys_notification_queue" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "sys_notification enthält die Notification-Definitionen (Event, Bedingung, Empfänger, Template). sys_email_pattern enthält die Templates, sys_event die Events, und die Warteschlange liegt in einer separaten Queue-Tabelle.",
+    "docsReference": "Notifications (sys_notification)"
+  },
+  {
+    "id": "q-collab-015",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Notifications",
+    "question": "Ein Business Rule soll ein Event feuern, damit eine Notification ausgelöst wird. Welche API wird dafür verwendet?",
+    "options": [
+      { "id": "a", "text": "gs.eventQueue('event_name', current, parm1, parm2)" },
+      { "id": "b", "text": "current.update()" },
+      { "id": "c", "text": "gs.addEmail(recipient)" },
+      { "id": "d", "text": "workflow.sendNotification()" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "gs.eventQueue() feuert ein Event; die Notification ist an dieses Event gekoppelt. current.update() speichert nur den Record, es gibt kein gs.addEmail() und keine workflow.sendNotification()-API.",
+    "docsReference": "gs.eventQueue"
+  },
+  {
+    "id": "q-collab-016",
+    "type": "boolean",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Form templates and saving options",
+    "question": "Ein Form Template kann beim Anlegen eines Records über eine Bedingung automatisch ausgewählt werden.",
+    "options": [
+      { "id": "a", "text": "Wahr" },
+      { "id": "b", "text": "Falsch" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Form Templates können über Bedingungen automatisch angewendet werden (z. B. bei bestimmtem Typ oder Company). Ohne Bedingung kann der Nutzer das Template manuell wählen.",
+    "docsReference": "Form Templates"
+  },
+  {
+    "id": "q-collab-017",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "List and Form anatomy",
+    "question": "Welches Werkzeug ist in der Next Experience der Standard für die Gestaltung von Formularen?",
+    "options": [
+      { "id": "a", "text": "Form Designer" },
+      { "id": "b", "text": "Form Layout (classic) ist der einzige Weg" },
+      { "id": "c", "text": "UI Policies ersetzen die Formulargestaltung" },
+      { "id": "d", "text": "Field Personalization ist nur Admins vorbehalten" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Der Form Designer ist das empfohlene Werkzeug für Formularlayout (Sektionen, Feldreihenfolge, Sichtbarkeit, Pflichtfelder). Das klassische Form Layout bleibt vorhanden, ist aber nicht der einzige Weg.",
+    "docsReference": "Form Designer"
+  },
+  {
+    "id": "q-collab-018",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Lists, Filters, and Tags",
+    "question": "Welche Aussagen zu Listen (List v3) stimmen? Wähle genau zwei Antworten.",
+    "options": [
+      { "id": "a", "text": "List v3 unterstützt personalisierte Spalten und Group-by." },
+      { "id": "b", "text": "Der Content-Navigator (Suchfeld) filtert Listen anhand von Text." },
+      { "id": "c", "text": "In List v3 können Client Scripts direkt ausgeführt werden." },
+      { "id": "d", "text": "List Reports ersetzen die Filter-Funktion." },
+      { "id": "e", "text": "Die Liste zeigt nur Felder, auf die der Nutzer per ACL Zugriff hat." }
+    ],
+    "correct": ["a", "e"],
+    "correctCount": 2,
+    "explanation": "List v3 kann Spalten personalisieren und gruppiert anzeigen; angezeigt werden nur Felder, auf die der Nutzer Zugriff hat. Client Scripts laufen nicht in Listen, der Content Navigator ist eine Volltextsuche und Reports ersetzen keine Listenfilter.",
+    "docsReference": "List v3"
+  },
+  {
+    "id": "q-collab-019",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Task Management",
+    "question": "Was beschreibt das Feld 'close slip' auf Task-Tabellen?",
+    "options": [
+      { "id": "a", "text": "den Zeitraum, in dem eine Aufgabe nach dem Schließen wieder geöffnet bzw. überhaupt geschlossen werden kann" },
+      { "id": "b", "text": "die Anzahl der Tage bis zur automatischen Schließung durch einen Scheduler" },
+      { "id": "c", "text": "die SLA-Laufzeit einer Aufgabe" },
+      { "id": "d", "text": "die Bearbeitungszeit eines Assignment Rules" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Close Slip ist die Frist (in Tagen) für das Schließen bzw. erneute Öffnen einer Aufgabe. SLA-Laufzeiten werden über SLA-Definitionen gesteuert, nicht über close slip.",
+    "docsReference": "Close slip",
+    "needsReview": true
+  },
+  {
+    "id": "q-collab-020",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Task Management",
+    "question": "Welche Aufgabe entsteht aus einer Fulfillment-Aktivität eines Catalog Items?",
+    "options": [
+      { "id": "a", "text": "sc_task" },
+      { "id": "b", "text": "sc_req_item" },
+      { "id": "c", "text": "sc_request" },
+      { "id": "d", "text": "incident" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Fulfillment-Aktivitäten erzeugen sc_task (Task) aus dem Task-Base-Table. sc_req_item ist der Requested Item, sc_request der Auftrag des Kunden.",
+    "docsReference": "Service Catalog fulfillment tasks"
+  },
+  {
+    "id": "q-collab-021",
+    "type": "boolean",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "Notifications",
+    "question": "Benachrichtigungen können auch als Push- oder SMS-Benachrichtigung konfiguriert werden.",
+    "options": [
+      { "id": "a", "text": "Wahr" },
+      { "id": "b", "text": "Falsch" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Notifications unterstützen E-Mail, SMS und Push (App-Benachrichtigungen); die Art wird in der Notification definiert.",
+    "docsReference": "Notifications"
+  },
+  {
+    "id": "q-collab-022",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "hard",
+    "subtopic": "Visualizations, Dashboards, and Platform Analytics",
+    "question": "Welche Report-Typen existieren in ServiceNow? Wähle genau drei Antworten.",
+    "options": [
+      { "id": "a", "text": "Interactive Report" },
+      { "id": "b", "text": "Aggregation Report" },
+      { "id": "c", "text": "Indicator Report" },
+      { "id": "e", "text": "Heatmap Report" },
+      { "id": "f", "text": "Sankey Report" }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Interactive, Aggregation und Indicator sind reale Report-Typen. Heatmap und Sankey gehören nicht zum Standard-Report-Umfang der Plattform.",
+    "docsReference": "Report types",
+    "needsReview": true
+  },
+  {
+    "id": "q-collab-023",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Advanced Form Configuration",
+    "question": "Ein Client Script soll beim Öffnen eines Formulars ein Feld vorbelegen. Welcher Typ ist richtig?",
+    "options": [
+      { "id": "a", "text": "onLoad" },
+      { "id": "b", "text": "onSubmit" },
+      { "id": "c", "text": "onChange" },
+      { "id": "d", "text": "before insert" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "onLoad läuft beim Öffnen des Formulars im Browser. onSubmit läuft beim Speichern, onChange bei Feldänderung, 'before insert' ist ein Business-Rule-Typ (serverseitig).",
+    "docsReference": "Client Scripts"
+  },
+  {
+    "id": "q-collab-024",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Advanced Form Configuration",
+    "question": "Welche Aussage zu Client Scripts ist korrekt?",
+    "options": [
+      { "id": "a", "text": "Client Scripts laufen im Browser und wirken nicht bei Data Import oder API-Aufrufen." },
+      { "id": "b", "text": "Client Scripts laufen serverseitig in Business Rules." },
+      { "id": "c", "text": "Client Scripts können Records dauerhaft speichern, ohne dass das Formular geöffnet wird." },
+      { "id": "d", "text": "Client Scripts ersetzen UI Policies vollständig." }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Client Scripts sind clientseitig (Browser/Next Experience) und laufen nur, wenn ein Formular geöffnet wird. Serverseitig sind Business Rules zuständig.",
+    "docsReference": "Client Scripts",
+    "needsReview": true
+  },
+  {
+    "id": "q-collab-025",
+    "type": "boolean",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "Task Management",
+    "question": "Ein Problem Record kann mit einem Incident Record verknüpft werden.",
+    "options": [
+      { "id": "a", "text": "Wahr" },
+      { "id": "b", "text": "Falsch" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Problem und Incident sind verwandte Task-Tabellen; Probleme werden typischerweise aus Incidents abgeleitet bzw. verknüpft (related list 'Problems aus Incidents').",
+    "docsReference": "Task Management"
+  },
+  {
+    "id": "q-collab-026",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "easy",
+    "subtopic": "List and Form anatomy",
+    "question": "Was ist eine Related List auf einem Formular?",
+    "options": [
+      { "id": "a", "text": "eine Liste von Records, die über ein Referenzfeld mit dem aktuellen Record verbunden sind" },
+      { "id": "b", "text": "eine gespeicherte Listenansicht für dieselbe Tabelle" },
+      { "id": "c", "text": "ein Report auf der aktuellen Tabelle" },
+      { "id": "d", "text": "ein Visual Task Board" }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Related Lists zeigen Records anderer (oder derselben) Tabelle, die per Referenz auf den aktuellen Record zeigen (z. B. Vorkommnisse zu einem Problem).",
+    "docsReference": "Related lists"
+  },
+  {
+    "id": "q-collab-027",
+    "type": "multiple",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Task Management",
+    "question": "Welche Felder stammen von der Base-Table task und stehen in allen Task-Tabellen zur Verfügung? Wähle genau drei Antworten.",
+    "options": [
+      { "id": "a", "text": "number" },
+      { "id": "b", "text": "state" },
+      { "id": "c", "text": "assignment_group" },
+      { "id": "d", "text": "short_description" },
+      { "id": "e", "text": "sys_class_name" }
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "number, state und assignment_group sind task-Felder. short_description ist ein Feld von incident bzw. der Task-Tabelle? – es gehört nicht zu jeder Task-Tabelle (z. B. sc_task nutzt 'short_description' ebenfalls; das ist nicht garantiert). sys_class_name ist ein Systemfeld aller Tabellen, aber kein task-Feld im Sinne der Aufgabenerstellung.",
+    "docsReference": "Task base table",
+    "needsReview": true
+  },
+  {
+    "id": "q-collab-028",
+    "type": "single",
+    "topic": "collaboration",
+    "difficulty": "medium",
+    "subtopic": "Advanced Form Configuration",
+    "question": "Welche Aussage zu Data Policies ist korrekt?",
+    "options": [
+      { "id": "a", "text": "Data Policies wirken serverseitig bei Insert und Update und sind unabhängig davon, ob ein Formular geöffnet wird." },
+      { "id": "b", "text": "Data Policies wirken nur im Browser und ersetzen UI Policies." },
+      { "id": "c", "text": "Data Policies können Felder ausblenden." },
+      { "id": "b2", "text": "Data Policies laufen ausschließlich bei Data Import." }
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Data Policies sind serverseitig und setzen Werte bzw. Mandatory bei Insert/Update. Das Ausblenden von Feldern ist Aufgabe von UI Policies/Form Designer.",
+    "docsReference": "Data Policies"
+  }
+]

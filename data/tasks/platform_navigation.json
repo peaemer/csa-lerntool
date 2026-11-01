@@ -1,0 +1,117 @@
+[
+  {
+    "id": "t-pn-001",
+    "title": "Next Experience: Favoriten und gespeicherten Suchfilter einrichten",
+    "area": "platform_navigation",
+    "difficulty": "beginner",
+    "estimatedMinutes": 15,
+    "scenario": "Ein neuer Mitarbeiter im Service Desk der Nordwind IT arbeitet täglich mit denselben Modulen und soll sie in der Unified Navigation direkt erreichen. Er soll fünf Favoriten setzen, einen persönlichen Suchfilter auf {app} speichern und die Ansicht für {role} testen. Der Filter soll auf {condition} stehen und als persönliche Ansicht erhalten bleiben. Dokumentiert werden soll, was nutzerbezogen ist und was die Instanz allen Nutzern zeigt.",
+    "requirements": [
+      "mindestens fünf Module als Favoriten in der Unified Navigation setzen",
+      "Favoritenbereich testen und die Reihenfolge dokumentieren",
+      "persönlichen Listenfilter auf {app} mit {condition} anlegen und speichern",
+      "Schnellzugriff über die Unified Navigation und über die Startseite vergleichen",
+      "mit einem zweiten Nutzer prüfen, dass Favoriten und Filter individuell bleiben",
+      "dokumentieren, dass gespeicherte Ansichten nicht automatisch geteilt sind"
+    ],
+    "hints": [
+      "Stufe 1: In der Next Experience ersetzt die Unified Navigation den klassischen Filter Navigator; Favoriten sind nutzerbezogen.",
+      "Stufe 2: Module werden über das Sternsymbol bevorzugt; Listenansichten lassen sich über die Personalisierung speichern.",
+      "Stufe 3: Application Launcher bzw. 'All' öffnen, Modul aufrufen und über das Sternsymbol zu Favoriten hinzufügen; in der Liste den Filter setzen und die persönliche Ansicht speichern."
+    ],
+    "solution": "1. Next Experience öffnen und über 'All' bzw. den Application Launcher die fünf häufigen Module suchen (zum Beispiel {app}, Reports, Knowledge).\n2. Jedes Modul über das Sternsymbol zu den Favoriten hinzufügen und die Reihenfolge im Favoritenbereich dokumentieren.\n3. Liste von {app} öffnen, Filter auf {condition} setzen und die personalisierte Ansicht als persönliche Ansicht speichern.\n4. Schnelle Navigation testen: Tastatur bzw. Suchfeld nutzen und den Unterschied zur klassischen Startseite beschreiben.\n5. Mit einem zweiten Nutzer als {role} anmelden: Favoriten und gespeicherte Ansichten sind nicht identisch – das als nutzerbezogene Einstellung dokumentieren.\n6. Anmerkung: Die genaue Bezeichnung für gespeicherte Listenansichten variiert; in aktuellen Versionen heißt die Funktion 'Personalize columns' bzw. gespeicherte persönliche Ansicht.",
+    "commonMistakes": [
+      "Favoriten für die ganze Gruppe erwartet – Favoriten sind eine persönliche Einstellung.",
+      "persönlichen Filter als geteilte Ansicht gespeichert und danach im Team verwirrt.",
+      "Modul-Favorit gesetzt, aber das Modul darf von {role} nicht aufgerufen werden.",
+      "klassischer Filter Navigator mit der Unified Navigation verwechselt.",
+      "Suche als Volltextsuche erwartet, obwohl nur Module und Rekorde je nach Rechten angezeigt werden."
+    ],
+    "examRelevance": "Platform Overview and Navigation ist ein kleines, aber klar umrissenes Blueprint-Domain. Gern gefragt: Filter Navigator vs. Application Launcher vs. Unified Navigation und welche Einstellungen pro Nutzer gelten.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum zeigt die Unified Navigation nicht allen Nutzern dieselben Module?",
+        "answer": "Weil Zugriffe rollenbasiert geprüft werden; ein Modul erscheint nur, wenn die Rolle des Nutzers darauf berechtigt ist."
+      },
+      {
+        "question": "Was ist der Unterschied zwischen Favorit und gespeicherter Listenansicht?",
+        "answer": "Ein Favorit ist ein Lesezeichen auf ein Modul, eine gespeicherte Listenansicht enthält Spalten, Reihenfolge und Filter – beide sind personenbezogen."
+      }
+    ],
+    "variables": {
+      "app": [
+        "incident",
+        "sc_task",
+        "change",
+        "u_laptop"
+      ],
+      "role": [
+        "itil",
+        "field_agent",
+        "u_hardware_admin"
+      ],
+      "condition": [
+        "state = new",
+        "active true",
+        "u_assigned_group ist nicht leer"
+      ]
+    }
+  },
+  {
+    "id": "t-pn-002",
+    "title": "Theme, Unified Navigation und klassische Oberfläche vergleichen",
+    "area": "platform_navigation",
+    "difficulty": "advanced",
+    "estimatedMinutes": 25,
+    "scenario": "Die Nordwind IT soll zeigen, wie sich die Next Experience von der klassischen Oberfläche unterscheidet und wie ein Theme die Darstellung beeinflusst. Für {role} wird ein Theme gesetzt, die Unified Navigation wird erklärt und die Navigation über Tastatur getestet. Zusätzlich soll dokumentiert werden, welche Einstellungen nutzerbezogen sind und welche instanzweit wirken. Zum Abschluss wird die Entscheidung dokumentiert, warum die Next Experience in modernen Instanzen der Standard ist.",
+    "requirements": [
+      "Theme im Theme-Bereich bzw. in den persönlichen Einstellungen setzen",
+      "wirkung des Theme auf Formulare und Listen prüfen",
+      "Unified Navigation, Application Launcher und klassischen Filter Navigator vergleichen",
+      "Navigation über Tastatur testen und zwei Vorteile dokumentieren",
+      "dokumentieren, welche Einstellungen pro Nutzer und welche instanzweit gelten",
+      "Abgrenzung Workspace, Startseite und Unified Navigation schriftlich festhalten"
+    ],
+    "hints": [
+      "Stufe 1: Theme-Einstellungen sind meist nutzerbezogen; instanzweite Brandung ist eine eigene Konfiguration.",
+      "Stufe 2: Die Next Experience arbeitet mit Unified Navigation, Application Launcher und Workspaces; die klassische Oberfläche nutzt den Filter Navigator.",
+      "Stufe 3: Theme über die persönlichen Einstellungen oder über das Theme-Modul setzen; Navigation über 'All' bzw. Tastaturkürzel testen."
+    ],
+    "solution": "1. Persönliche Einstellungen öffnen (Profilsymbol) und den Theme prüfen; Theme auf hell oder dunkel setzen und das Verhalten auf Formular und Liste dokumentieren.\n2. Alternativ über das Theme-Modul instanzweite Themes ansehen und die Zuordnung zu Rollen prüfen – in aktuellen Versionen ist das Theme-Handling in der Next Experience anders aufgebaut als in klassischen Instanzen.\n3. Unified Navigation öffnen und drei Module aufrufen; danach den klassischen Filter Navigator vergleichen und die unterschiedliche Anzeige von Modulen dokumentieren.\n4. Tastaturnavigation testen (Suchfeld und Kürzel) und zwei Vorteile für {role} festhalten.\n5. Abgrenzung dokumentieren: Startseite ist rollenbasiert, Workspace ist eine abgegrenzte Arbeitsfläche, Unified Navigation ist das Such- und Navigationselement der Next Experience.\n6. Ergebnis als kurze Entscheidung für die Next Experience formulieren, inklusive der Einschränkung, dass einige Module in klassischen Ansichten weiterhin nutzbar sind.",
+    "commonMistakes": [
+      "persönliches Theme mit instanzweiter Brandung verwechselt.",
+      "Unified Navigation für alle Nutzer als gleich angenommen, obwohl Rollen die Sichtbarkeit steuern.",
+      "Theme in einem Workspace erwartet und dort keine Auswirkung gesehen.",
+      "klassische Oberfläche als Fehler dargestellt, obwohl sie parallel verfügbar bleibt.",
+      "Workspaces ohne Rollen-Zuordnung getestet.",
+      "Annahmen zur Menüführung dokumentiert, ohne sie in der PDI geprüft zu haben."
+    ],
+    "examRelevance": "Next Experience Unified Navigation ist als Subtopic im Blueprint verankert. Prüfungsnah sind Zuordnungsfragen: Filter Navigator vs. Application Launcher vs. Unified Navigation und nutzerbezogene vs. instanzweite Einstellungen.",
+    "comprehensionQuestions": [
+      {
+        "question": "Welche drei Navigations-Elemente der Next Experience solltest du unterscheiden können?",
+        "answer": "Unified Navigation als Such- und Einstiegsbereich, Application Launcher für bevorzugt genutzte Module und Workspaces als rollenbasierte Arbeitsflächen."
+      },
+      {
+        "question": "Warum wirkt ein persönliches Theme nicht für andere Nutzer?",
+        "answer": "Weil Theme- und Darstellungseinstellungen im persönlichen Profil gespeichert werden; instanzweite Brandung ist eine separate Konfiguration."
+      },
+      {
+        "question": "Was bleibt in der Next Experience gleich?",
+        "answer": "Die Rechteprüfung: Module, Listen und Rekorde werden weiterhin über Rollen, ACLs und Field Permissions gesteuert."
+      }
+    ],
+    "variables": {
+      "role": [
+        "itil",
+        "sn_business_unit_manager",
+        "u_hardware_admin"
+      ],
+      "app": [
+        "incident",
+        "problem",
+        "u_laptop"
+      ]
+    }
+  }
+]

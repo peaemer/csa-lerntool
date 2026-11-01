@@ -1,0 +1,454 @@
+[
+  {
+    "id": "q-db-001",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "easy",
+    "subtopic": "Tables und Vererbung",
+    "question": "Im Application Dictionary wird eine neue Tabelle angelegt und im Feld Extends eine Basistabelle eingetragen. Was bedeutet das?",
+    "options": [
+      {"id": "a", "text": "Die neue Tabelle erbt Spalten und Verhalten der Basistabelle und wird im Application Dictionary als extendende Tabelle geführt."},
+      {"id": "b", "text": "Zwischen beiden Tabellen entsteht ein Referenzfeld, das Datensätze der anderen Tabelle verlinkt."},
+      {"id": "c", "text": "Die Basistabelle wird kopiert; beide Tabellen haben danach eigene, unabhängige Spalten."},
+      {"id": "d", "text": "Die neue Tabelle wird automatisch als CMDB-Klasse mit Service-Bezug angelegt."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Das Feld Extends definiert die Tabellenvererbung: Die Child-Tabelle übernimmt Columns, Beschriftungen und Logik der Basistabelle und bleibt im Application Dictionary als extendende Tabelle sichtbar. Ein Referenzfeld (b) wäre eine Beziehung, aber keine Vererbung. Es entsteht keine Tabellenkopie (c), und CMDB-Klassen (d) setzen eine CMDB-Basistabelle wie cmdb_ci voraus.",
+    "docsReference": "Tables (Application Dictionary)",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-002",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "easy",
+    "subtopic": "Application Dictionary und Namensregeln",
+    "question": "Im globalen Scope soll eine eigene Tabelle für Leihgeräte samt eigenem Feld für die Leihfrist entstehen. Welche Namensregeln gelten?",
+    "options": [
+      {"id": "a", "text": "Tabelle und eigenes Feld erhalten das Präfix u_; Systemtabellen und geerbte Felder behalten ihre Namen."},
+      {"id": "b", "text": "Beide Objekte müssen mit sn_ beginnen, das sei das übliche Präfix für Customizerungen."},
+      {"id": "c", "text": "Nur die Tabelle braucht das Präfix u_, eigene Felder bleiben ohne Präfix."},
+      {"id": "d", "text": "Die Namen sind frei wählbar; ServiceNow ergänzt automatisch x_<scope>."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Im globalen Scope erhalten selbst definierte Tabellen und Spalten das Präfix u_, während Systemtabellen und geerbte Felder unverändert bleiben. sn_ ist Produktobjekten von ServiceNow vorbehalten und x_<scope> gehört zu Objekten aus einer Scoped Application, weshalb b und d falsch sind. c ist falsch, weil auch eigene Felder das u_-Präfix brauchen.",
+    "docsReference": "Table and Column Naming",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-003",
+    "type": "boolean",
+    "topic": "database_security",
+    "difficulty": "easy",
+    "subtopic": "Tables und Vererbung",
+    "question": "Aussage: Nur Tabellen, deren Dictionary-Eintrag als extensible gekennzeichnet ist, können von einer anderen Tabelle extendet werden.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Das Attribut extensible (in Masken auch als Extendable bezeichnet) entscheidet, ob eine Tabelle als Basistabelle für weitere Tabellen zur Verfügung steht. task und cmdb_ci sind extendable, viele Produkttabellen dagegen nicht. Ist eine Tabelle nicht extendable, steht sie als Extend-Vorlage nicht zur Verfügung, deshalb muss man eine extendable Basis wählen.",
+    "docsReference": "Extensible Tables",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-004",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Tables und Vererbung / Indexes",
+    "question": "Die Tabelle u_laptop extendet alm_asset. Welche Aussagen sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "u_laptop übernimmt die Spalten von alm_asset; geerbte Felder lassen sich in u_laptop nicht umbenennen oder löschen."},
+      {"id": "b", "text": "Die Datensätze von u_laptop werden in der Basistabelle gespeichert, u_laptop ist die logische Sicht darauf."},
+      {"id": "c", "text": "Indizes unterstützen Abfragen: Sie beschleunigen in der Regel Lesezugriffe und können Schreibvorgänge leicht verlangsamen."},
+      {"id": "d", "text": "u_laptop erhält eine physikalische Tabellenkopie inklusive Historie und eigener sys_ids für alle geerbten Felder."},
+      {"id": "e", "text": "Mandatory-Flags der Basistabelle gelten für u_laptop nicht."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Vererbung bedeutet: Die Child-Tabelle zeigt die Spalten der Basistabelle, und die Datensätze liegen in der Basistabelle (a und b). Deshalb wirken Änderungen an der Basistabelle auf alle extendenden Tabellen. Indizes sind performance-relevant: Sie verbessern Suchen und Filtern, erzeugen aber Aufwand beim Schreiben (c). d ist falsch, weil keine Tabellenkopie entsteht, und e ist falsch, weil Pflichtfelder der Basistabelle auch für die Child-Tabelle gelten und dort zusätzliche Pflichtfelder möglich sind.",
+    "docsReference": "Extending Tables and Indexes",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-005",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Dictionary [Relationships]",
+    "question": "Ein Administrator öffnet im Dictionary einer Tabelle den Bereich Relationships und sieht dort mehrere Einträge. Wozu dienen diese?",
+    "options": [
+      {"id": "a", "text": "Sie bilden die Referenzbeziehungen ab: auf welche Tabellen diese Tabelle zeigt und welche Tabellen auf sie verweisen."},
+      {"id": "b", "text": "Sie legen fest, welche ACLs auf der Tabelle greifen."},
+      {"id": "c", "text": "Sie bestimmen, welche Spalten in der Listenansicht standardmäßig angezeigt werden."},
+      {"id": "d", "text": "Sie definieren die Choice-Werte der Tabelle."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Relationships zeigen Eltern- und Kindbeziehungen über Referenzfelder und sind die Grundlage dafür, dass die Platform beim Ändern oder Löschen auf abhängige Datensätze hinweist. ACLs (b) werden im Access-Control-Bereich gepflegt, die Standardspalten einer Liste (c) sind eine List-Column-Konfiguration und Choice-Werte (d) liegen in Choice-Tabellen oder als feste Werte am Feld. Die genaue Bezeichnung des Dictionary-Bereichs variiert je nach Version.",
+    "docsReference": "Dictionary [Relationships]",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-006",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Tables and Fields (Complex)",
+    "question": "Die Choice-Werte eines Feldes sollen in Abhängigkeit von einem anderen Feld eingeschränkt und ein Reference-Feld über ein übergeordnetes Feld gefiltert werden. Welche Aussagen zu Tables and Fields (Complex) sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Ein Rechoice wird für ein Choice-Feld definiert und begrenzt die angebotenen Werte in Abhängigkeit vom Wert eines anderen Feldes desselben Formulars."},
+      {"id": "b", "text": "Für Reference-Felder werden auf Tabellenebene Dependent Field und Dependent Value Field gepflegt, damit die Auswahl gefiltert wird."},
+      {"id": "c", "text": "Ohne die passenden Feldtypen (Choice beziehungsweise Reference) bleiben diese Funktionen wirkungslos."},
+      {"id": "d", "text": "Rechoices wirken instanzweit automatisch für jedes Feld mit demselben Feldnamen."},
+      {"id": "e", "text": "Dependent Fields lassen sich auf beliebige String-Felder ohne Referenz anwenden."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Rechoices sind an das konkrete Tabellenfeld gebunden und blenden Choice-Werte abhängig von einem anderen Feld aus (a). Reference-Felder werden über die Dependent-Field-Konfiguration der Tabelle gefiltert: Das Referenzobjekt muss zum Wert des abhängigen Feldes passen (b und c). d ist falsch, weil Rechoices pro Feld definiert werden und nicht instanzweit über Feldnamen. e ist falsch, weil Dependent Fields eine Referenzstruktur voraussetzen.",
+    "docsReference": "Tables and Fields (Complex)",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-007",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "easy",
+    "subtopic": "Access Control (ACL)",
+    "question": "Was regelt eine Access Control List (ACL) in ServiceNow?",
+    "options": [
+      {"id": "a", "text": "Ob eine Rolle Datensätze einer Tabelle oder einzelne Felder lesen, schreiben, erstellen oder löschen darf."},
+      {"id": "b", "text": "Welche Felder in welcher Reihenfolge in einem Form Layout angezeigt werden."},
+      {"id": "c", "text": "Welche Plugins und Applications in der Instanz verfügbar sind."},
+      {"id": "d", "text": "Nach welchen Kriterien Datensätze automatisiert einem Aufgabenteam zugewiesen werden."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "ACLs sind die zentrale Zugriffskontrolle auf Ebene von Tabelle, Feld oder Feldwert (Cell) und beziehen sich immer auf Rollen und Operationen wie read, write, create oder delete. Form Layouts (b) sind Darstellungskonfiguration, Plugins (c) werden im Application Manager verwaltet, und Zuweisungslogik (d) gehört in Rules, Flows oder Assignment-Regeln.",
+    "docsReference": "ACLs",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-008",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Access Control (ACL)",
+    "question": "Auf u_laptop existiert genau eine read-ACL mit der Rolle itil. Ein Nutzer mit der Rolle itil_base und ein Nutzer mit der Rolle admin wollen die Liste öffnen. Was ist zu erwarten?",
+    "options": [
+      {"id": "a", "text": "itil_base sieht keine Datensätze, weil die bestehende ACL nur itil zulässt; der admin-Nutzer sieht die Datensätze, weil er ACL-Prüfungen umgeht."},
+      {"id": "b", "text": "Beide sehen alle Datensätze, weil ohne weitere ACLs implizit Lesezugriff besteht."},
+      {"id": "c", "text": "itil_base sieht alle Datensätze, weil read-ACLs ausschließlich Felder betreffen."},
+      {"id": "d", "text": "Der admin-Nutzer sieht nichts, weil die ACL für jede Rolle bindend ist."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Sobald für Tabelle und Operation eine ACL existiert, gilt Default Deny: Zugriff erhalten nur Rollen, die in einer passenden ACL genannt werden oder die Berechtigung über Role Inheritance von unten erben. itil_base liegt in der Rollenhierarchie unterhalb von itil und erbt dadurch nicht die Rechte von itil, deshalb ist c falsch. Die Rolle admin umgeht ACL-Prüfungen, weshalb d falsch ist; b ignoriert das Default-Deny-Prinzip. Die genaue Rollenhierarchie kann je nach Version abweichen und sollte in der Instanz geprüft werden.",
+    "docsReference": "ACL Grading",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-009",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "hard",
+    "subtopic": "Access Control (ACL)",
+    "question": "Welche Aussagen zum Aufbau und zur Auswertung von ACLs sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Eine ACL kombiniert Typ (Table, Field oder Cell), Operation und Rolle und kann zusätzlich eine Condition sowie ein Skript enthalten."},
+      {"id": "b", "text": "Ohne ACL für eine Tabelle oder Operation erhalten außer admin keine Standardrollen Zugriff."},
+      {"id": "c", "text": "Eine ACL ohne Rolle kann Zugriff gewähren, wenn ihre Condition oder ihr Skript wahr ist."},
+      {"id": "d", "text": "Für den Zugriff auf ein Feld genügt die Field-ACL; die Table-ACL wird dann nicht mehr ausgewertet."},
+      {"id": "e", "text": "ACLs wirken nur in Formularen, nicht in Listen, Reports oder API-Zugriffen."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "ACLs bestehen aus Typ (Table, Field oder Cell), Operation und Rolle plus optionaler Condition und optionalem Skript (a). Fehlt eine ACL für Tabelle und Operation, gilt der sperrende Default, und außer admin darf niemand an die Tabelle (b). Eine ACL ohne Rolle ist offen für alle, deren Condition oder Skript erfüllt ist (c). d ist falsch, weil Feldzugriff Tabellenzugriff voraussetzt und beide Ebenen gemeinsam ausgewertet werden; e ist falsch, weil ACLs instanzweit auf alle Zugriffswege wirken, also auf Formulare, Listen, Reports und APIs.",
+    "docsReference": "ACLs",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-010",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "hard",
+    "subtopic": "Field Security",
+    "question": "Auf u_vendor erlaubt eine Table-ACL der Rolle itil nur read, eine Field-ACL auf dem Feld u_preis soll write ermöglichen. Wie ist diese Kombination zu bewerten?",
+    "options": [
+      {"id": "a", "text": "Feldrechte wirken zusätzlich zur Tabelle: Ohne passenden Tabellenzugriff bleibt das Feld schreibgeschützt, Field Level Security ist eine Verfeinerung und keine eigenständige Erlaubnis."},
+      {"id": "b", "text": "Die Field-ACL überschreibt die Table-ACL, u_preis ist für itil immer schreibbar."},
+      {"id": "c", "text": "Feldbezogene ACLs gibt es in ServiceNow nicht, ACLs wirken ausschließlich auf Tabellen."},
+      {"id": "d", "text": "Feldrechte werden ausschließlich über Form Layouts gesteuert, ACLs haben darauf keinen Einfluss."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Effektiv entscheidet die Kombination aus Table-ACL und Field-ACL, wobei die restriktivere Ebene wirkt: Feldzugriff setzt voraus, dass die Rolle die Tabelle in der betreffenden Operation überhaupt darf. Ob Field-ACLs zusätzlich zur Table-ACL ausgewertet werden, hängt von einer Security-Property ab, die in der ServiceNow-Dokumentation unter anderem als glide.security.use_complex_field_security bezeichnet wird; die genaue Property-Bezeichnung je nach Version prüfen. c und d sind falsch, weil es die ACL-Typen Field und Cell gibt und Feldrechte nicht über Form Layouts gesteuert werden.",
+    "docsReference": "Field Level Security",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-011",
+    "type": "boolean",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Access Control (ACL)",
+    "question": "Aussage: Über eine Condition oder ein Skript auf einer ACL lässt sich steuern, welche Datensätze einer Tabelle ein Nutzer lesen darf; die Einschränkung wirkt damit bis auf die Datensatzebene.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "ACL-Bedingungen werden pro Datensatz ausgewertet und begrenzen damit die sichtbaren Rows, während Typ und Operation der ACL weiterhin Tabelle oder Feld betreffen. Eine reine Table-Berechtigung ohne Condition lässt dagegen alle Datensätze zu. So werden record-rule-artige Einschränkungen umgesetzt, etwa nur eigene oder nur offene Datensätze.",
+    "docsReference": "ACL Conditions",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-012",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "easy",
+    "subtopic": "Users, Groups und Roles",
+    "question": "Einer Gruppe wird eine Rolle zugewiesen, anschließend wird ein Nutzer in diese Gruppe aufgenommen. Welche Aussage zu Users, Groups und Roles ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Berechtigungen hängen an Rollen; der Nutzer erhält die Rolle über die Gruppenmitgliedschaft und kann dieselbe Rolle zusätzlich direkt zugewiesen bekommen."},
+      {"id": "b", "text": "Gruppen erteilen Berechtigungen unmittelbar, Rollen sind nur Sammelbecken für Benutzer."},
+      {"id": "c", "text": "Eine Rolle kann immer nur genau einer Gruppe zugewiesen werden."},
+      {"id": "d", "text": "Ohne Gruppenmitgliedschaft lässt sich einem Nutzer keine Rolle zuweisen."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "ACLs prüfen Rollen, und Rollen wirken entweder direkt auf dem Nutzer oder über seine Gruppen. Eine Rolle kann mehreren Gruppen zugewiesen werden (c falsch), und eine direkte Rollenzuweisung ist auch ohne Gruppe möglich (d falsch). b ist falsch, weil Gruppen keine eigenen Rechte tragen, sondern nur Rollen enthalten.",
+    "docsReference": "Users, Groups, and Roles",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-013",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Role Inheritance",
+    "question": "Eine neue Rolle u_asset_reader soll allen Nutzern von itil automatisch Rechte geben, ohne jede ACL doppelt pflegen zu müssen. Wie ist Role Inheritance gemeint?",
+    "options": [
+      {"id": "a", "text": "Die neue Rolle wird in der Related List Inherited Roles der Elternrolle itil zugewiesen; alle Nutzer mit itil erhalten damit auch u_asset_reader."},
+      {"id": "b", "text": "Die Rechte müssen in jeder ACL zusätzlich als Condition aufgenommen werden."},
+      {"id": "c", "text": "Vererbung ist nur innerhalb von Gruppen möglich, nicht zwischen Rollen."},
+      {"id": "d", "text": "Die neue Rolle muss jedem Nutzer einzeln zugewiesen werden, sonst wirkt sie nicht."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Role Inheritance baut eine Rollenhierarchie auf: Weist man eine Rolle einer anderen Rolle zu, erhalten alle Nutzer der Elternrolle zusätzlich die Kindrolle. Das ist der sauberere Weg statt ACL-Kopien (b falsch). c ist falsch, weil Rollen unabhängig von Gruppen vererbt werden, und d beschreibt die normale Rollenzuweisung statt der Vererbung. Wichtig in die Gegenrichtung: Eine Kindrolle erbt niemals die Rechte der Elternrolle.",
+    "docsReference": "Inherited Roles",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-014",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "hard",
+    "subtopic": "Elevated Roles",
+    "question": "Das Security-Team möchte privilegierte Rollen nur vorübergehend einsetzen. Welche Aussagen zu Elevated Roles sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {"id": "a", "text": "Elevated Roles werden im Security Center verwaltet und setzen voraus, dass die Rolle dort als elevated konfiguriert und aktiviert ist."},
+      {"id": "b", "text": "Nutzer erhalten die Rechte erst nach dem Elevate-Vorgang; die Erhöhung ist zeitlich begrenzt und wird protokolliert."},
+      {"id": "c", "text": "Eine elevated Rolle wirkt dauerhaft, bis ein Administrator sie manuell entzieht."},
+      {"id": "d", "text": "Für Elevated Roles genügt die übliche Rollenzuweisung ohne weitere Konfiguration."},
+      {"id": "e", "text": "Elevated Roles sind ohne Security-Center-Unterstützung direkt im Nutzerformular verfügbar."}
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Elevated Roles sind ein Mechanismus des Security Centers: Rollen müssen dort als elevated konfiguriert werden, Nutzer wählen Elevate und erhalten die Rechte befristet und nachvollziehbar. c beschreibt eine normale Rollenzuweisung ohne Befristung, d ignoriert die zusätzliche Konfiguration und e ist falsch, weil das Security Center beziehungsweise die zugehörigen Plugins Voraussetzung sind. Die Menüführung heißt in verschiedenen Versionen unterschiedlich.",
+    "docsReference": "Elevated Roles",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-015",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Data Import Grundlagen",
+    "question": "Eine CSV-Datei mit Leihgeräten soll übernommen werden. Welche Aussagen zu Data Source, Import Set und Transform Map sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Die Data Source beschreibt die Herkunft der Daten und legt die Import- beziehungsweise Staging-Tabelle fest."},
+      {"id": "b", "text": "Das Import Set fasst Data Source, Transform Maps und Data Policies zusammen und steuert die Ausführung samt Logs."},
+      {"id": "c", "text": "Ohne Transform Map werden die Staging-Zeilen nicht in die Ziel-Tabelle übertragen."},
+      {"id": "d", "text": "Die Staging-Tabelle wird automatisch durch die Ziel-Tabelle ersetzt, sobald ein Import Set aktiv ist."},
+      {"id": "e", "text": "Coalesce wird auf der Data Source aktiviert."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Der Import arbeitet in drei Schichten: Data Source (Quelle und Staging), Import Set (Ausführung und Zuordnung von Transform Maps und Data Policies) und Transform Map (Mapping von Source-Column auf Target-Field). Ohne Transform Map bleibt es bei Rohdaten in der Staging-Tabelle (c). d ist falsch, weil Staging und Ziel getrennt bleiben, und e ist falsch, weil Coalesce im Transform Map bei den Lookup Keys gesetzt wird.",
+    "docsReference": "Data Sources and Import Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-016",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "hard",
+    "subtopic": "Transform Maps",
+    "question": "In einem Transform Map sind u_serial_number und u_asset_tag als Lookup Keys gepflegt; u_serial_number hat zusätzlich Coalesce aktiviert. Was muss gelten, damit ein vorhandener Ziel-Datensatz aktualisiert wird?",
+    "options": [
+      {"id": "a", "text": "Alle Lookup Keys müssen übereinstimmen, und mindestens ein Feld muss Coalesce aktiviert haben; dann wird aktualisiert statt eingefügt."},
+      {"id": "b", "text": "Coalesce allein genügt; ohne Lookup Keys wird der zuletzt geänderte Datensatz überschrieben."},
+      {"id": "c", "text": "Für die Übereinstimmung reicht einer der beiden Lookup Keys aus."},
+      {"id": "d", "text": "Lookup Keys sind nur bei Reference-Feldern möglich und ohne Coalesce wirkungslos."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Lookup Keys identifizieren den Ziel-Datensatz, Coalesce entscheidet über Update statt Insert. Bei mehreren Lookup Keys müssen alle Werte matchen, damit ein Treffer zählt (c falsch). Ohne Lookup Keys findet keine Suche statt, und es entstehen Duplikate (b falsch). d ist falsch, weil Lookup Keys beliebige Target-Felder verwenden können und Coalesce auf einem der Lookup Keys gesetzt wird.",
+    "docsReference": "Transform Maps: Lookup Keys and Coalesce",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-017",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Data Policies",
+    "question": "Beim Import sollen Werte standardisiert werden (Default-Wert, Reference Lookup), ohne die Formular-Logik der Ziel-Tabelle zu aktivieren. Welches Werkzeug passt?",
+    "options": [
+      {"id": "a", "text": "Eine Data Policy auf der Staging-Tabelle, zugeordnet im Import Set: Sie wirkt im Importkontext vor Insert und Update."},
+      {"id": "b", "text": "Eine UI Policy auf der Ziel-Tabelle mit passender Bedingung."},
+      {"id": "c", "text": "Ein Client Script der Art onChange auf der Ziel-Tabelle."},
+      {"id": "d", "text": "Ein Calculated Field auf dem Zielfeld."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Data Policies gehören in den Data-Import-Bereich, arbeiten pro Staging-Tabelle und wirken vor dem Schreiben, ohne Client-Logik und ohne Business Rules. UI Policies und Client Scripts sind clientseitig und laufen bei Datenimporten nicht, weshalb b und c falsch sind. Ein Calculated Field (d) leitet Werte aus anderen Feldern ab und ersetzt kein Import-Mapping.",
+    "docsReference": "Data Policies",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-018",
+    "type": "boolean",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Data Policies und Business Rules",
+    "question": "Aussage: Business Rules der Ziel-Tabelle werden bei jedem Datenimport automatisch ausgeführt.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "correctCount": 1,
+    "explanation": "Die Aussage ist zu absolut: Business Rules der Ziel-Tabelle laufen nur, wenn die Ausführung von Business Rules bei der Importverarbeitung aktiviert ist; für Massenimporte ist das nicht die Voreinstellung. Für Standardisierung im Import sind Data Policies das vorgesehene Mittel, Business Rules dagegen für Formular- und API-Szenarien. Wo diese Option liegt, hängt von Version und Oberfläche ab.",
+    "docsReference": "Data Policies and Business Rules",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-019",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Transform Maps (Advanced)",
+    "question": "Ziel-Datensätze eines Imports sollen je nach Quellwert in unterschiedliche CMDB-Klassen geschrieben werden; einfache Field Maps reichen dafür nicht. Was ist der fachlich richtige Weg?",
+    "options": [
+      {"id": "a", "text": "Ein Transform Script im Advanced-Bereich des Transform Maps: Es läuft pro Import-Set-Zeile und kann Zielfelder und Zielklasse gezielt setzen."},
+      {"id": "b", "text": "Eine zweite Transform Map ohne Field Maps auf derselben Ziel-Tabelle anlegen."},
+      {"id": "c", "text": "Ein Rechoice auf dem Choice-Feld der Ziel-Tabelle definieren."},
+      {"id": "d", "text": "Ein Calculated Field mit Script auf der Ziel-Tabelle anlegen."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Transform Scripts greifen pro Zeile des Import Sets und können Werte dynamisch setzen, etwa den Eintrag für die CMDB-Klasse im Feld sys_class_name; dafür ist der Advanced-Bereich des Transform Maps gedacht. b wirkt nicht, weil ohne Field Maps und ohne Logik nichts gemappt wird. Rechoices (c) filtern nur Choice-Werte auf Formularen, und Calculated Fields (d) berechnen Werte, ersetzen aber kein Import-Mapping. Die Bezeichnung des Bereichs variiert je nach Version.",
+    "docsReference": "Transform Maps: Advanced Mappings",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-020",
+    "type": "single",
+    "topic": "database_security",
+    "difficulty": "hard",
+    "subtopic": "Update Sets",
+    "question": "Eine Konfigurationsänderung aus der Dev-Instanz soll in die Test-Instanz übernommen werden. Welche Aussage zu Update Sets ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Das Update Set muss den Status Complete haben; in der Zielinstanz wird es importiert, per Preview geprüft und committet, und complete Update Sets sind unveränderbar."},
+      {"id": "b", "text": "Ein aktives Update Set kann direkt in der Zielinstanz committet werden."},
+      {"id": "c", "text": "Beim Preview werden Konflikte automatisch aufgelöst, eine Entscheidung ist nicht nötig."},
+      {"id": "d", "text": "Update Sets übertragen auch die Datensätze fachlicher Tabellen wie incident mit."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Update Sets sammeln Konfigurationsänderungen in einer Payload; erst im Status Complete können sie in einer Zielinstanz über Preview und Commit übernommen werden, und danach sind sie vor weiteren Änderungen gesperrt. Active Update Sets sind nicht committbar (b falsch), Preview zeigt Konflikte und erfordert eine Entscheidung (c falsch). Update Sets enthalten Konfiguration, nicht die Daten fachlicher Tabellen (d falsch); für Daten nutzt man Imports oder Move-to-Werkzeuge.",
+    "docsReference": "Update Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-021",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "hard",
+    "subtopic": "CMDB Grundlagen",
+    "question": "Welche Aussagen zu CMDB-Klassen, CI-Instanzen sowie Identification und Reconciliation sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "CMDB-Klassen stehen in einer Hierarchie unterhalb von cmdb_ci; eine extendende Klasse übernimmt die Attribute ihrer Elternklasse."},
+      {"id": "b", "text": "Eine CI-Instanz ist ein konkreter Datensatz einer CMDB-Klasse und wird über ihren Identifier angesprochen, wenn Relations aufgebaut werden."},
+      {"id": "c", "text": "Identification klärt, ob ein Importdatensatz einem vorhandenen CI entspricht; Reconciliation legt fest, welche Felder danach aus welcher Quelle aktualisiert werden."},
+      {"id": "d", "text": "Jede CMDB-Klasse führt eine vollständig eigene Tabelle, Klassen stehen in keiner Beziehung zueinander."},
+      {"id": "e", "text": "Identification Rules sind unabhängig von der Data Source und wirken immer instanzweit."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "CMDB-Klassen nutzen Vererbung, Instanzen sind die konkreten Datensätze, und Relations referenzieren diese über ihren Identifier (a und b). Die Identification and Reconciliation Engine entscheidet beim Import zunächst über die CI-Zuordnung und dann über die Feldaktualisierung (c). d widerspricht der Vererbung der Klassenhierarchie, e ist falsch, weil Identification- und Reconciliation-Regeln an Data Sources hängen und über Prioritäten gesteuert werden.",
+    "docsReference": "CMDB Basics",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-022",
+    "type": "multiple",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "CSDM Grundlagen",
+    "question": "Welche Aussagen zum Common Service Data Model (CSDM) sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {"id": "a", "text": "CSDM stellt ein vereinheitlichtes Datenmodell bereit, das Services mit den sie unterstützenden Applikationen und CIs verknüpft."},
+      {"id": "b", "text": "Service Models bilden die Brücke zwischen Service Records aus dem Service Portfolio und den technischen Services beziehungsweise den unterstützenden CIs."},
+      {"id": "c", "text": "CSDM ersetzt die ACL-Prüfungen auf den CMDB-Tabellen."},
+      {"id": "d", "text": "CSDM ist eine reine Report-Sammlung ohne eigene Tabellen und Prozesse."}
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "CSDM definiert, wie Services, Applikationen, Offerings und CIs modelliert und verknüpft werden, und Service Models stellen die Beziehung zwischen Service Records und technischen Services beziehungsweise CIs her. Zugriffskontrolle bleibt bei ACLs und dem CMDB-Sicherheitsmodell, CSDM ersetzt sie nicht (c falsch). CSDM bringt Tabellen, Prozesse und Rollen mit, nicht nur Berichte (d falsch); die genauen Begrifflichkeiten ändern sich mit den CSDM-Fassungen.",
+    "docsReference": "Common Service Data Model (CSDM)",
+    "needsReview": true
+  },
+  {
+    "id": "q-db-023",
+    "type": "boolean",
+    "topic": "database_security",
+    "difficulty": "medium",
+    "subtopic": "Database Views",
+    "question": "Aussage: Eine Database View wird wie eine normale Tabelle behandelt; sie kann über ein Formular geöffnet und per Business Rule oder Formular bearbeitet werden.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "correctCount": 1,
+    "explanation": "Database Views kombinieren Spalten mehrerer Tabellen über definierte Joins und sind read-only; sie eignen sich für Listen, Reports und Exporte, nicht zum Schreiben. Auf einer View gibt es keine Formular- oder Feldlogik, gepflegt werden View und View Joins in den Database-View-Definitionen. Wer Daten ändert, arbeitet auf der Basis- oder der extendenden Tabelle.",
+    "docsReference": "Database Views",
+    "needsReview": false
+  },
+  {
+    "id": "q-db-024",
+    "type": "boolean",
+    "topic": "database_security",
+    "difficulty": "easy",
+    "subtopic": "Scripting auf Tabellen (GlideRecord)",
+    "question": "Aussage: Serverseitige Skripte greifen mit GlideRecord tabellenbasiert auf Daten zu (addQuery, next, getValue); gs stellt globale Hilfsfunktionen wie Logging bereit.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "GlideRecord ist die API-Klasse für Tabellenzugriffe: Tabelle ansprechen, Bedingungen mit addQuery setzen, Datensätze mit next() durchlaufen und Felder mit getValue oder setValue lesen und schreiben, ganz ohne Formular-UI. gs ist das globale Skriptobjekt mit Hilfsfunktionen wie gs.log, in Scoped Applications arbeitet man bevorzugt mit GlideApp. Ob Skriptzugriffe zusätzlich durch ACLs begrenzt werden, hängt von der Ausführungsumgebung und einer Skript-Property ab.",
+    "docsReference": "GlideRecord API Basics",
+    "needsReview": true
+  }
+]

@@ -1,0 +1,1013 @@
+﻿[
+    {
+        "id":  "q-collab-001",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "Lists, Filters, and Tags",
+        "question":  "Ein Nutzer speichert in List v3 einen Filter auf der Incident-Liste. Welche Aussage ist korrekt?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Ein persönlich gespeicherter Filter gilt nur für diesen Nutzer; andere Nutzer sehen ihn nicht, sofern die Ansicht nicht geteilt wird."
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Jeder gespeicherte Filter gilt automatisch für alle Nutzer der Rolle itil."
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Gespeicherte Filter können nur von Admins angelegt werden."
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Ein gespeicherter Filter ersetzt die Notwendigkeit eines ACLs."
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Persönliche Filter und Listenansichten sind benutzerbezogen (Benutzereinstellungen). Andere Nutzer sehen sie nur, wenn die View ausdrücklich geteilt oder als Standardansicht für eine Gruppe definiert wird. ACLs werden davon nicht berührt.",
+        "docsReference":  "Lists v3 / Personalized filters"
+    },
+    {
+        "id":  "q-collab-002",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Lists, Filters und Tags",
+        "question":  "Wo können Tags für die Zusammenarbeit gesetzt werden? Wählen Sie genau 3 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "In der Filterleiste einer Liste"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Im Formular-Header"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Im Listen-Header"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Ausschließlich im Report Designer, weil Tags nur Reports filtern können"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b",
+                        "c"
+                    ],
+        "correctCount":  3,
+        "explanation":  "Tags werden in der Filterleiste, im Formular-Header und im Listen-Header gesetzt. Antwort d ist falsch: Tags sind nicht auf den Report Designer beschränkt, sondern wirken in Listen, Formularen und Visualisierungen. Die Alternativen sind deshalb falsch, weil Tags gerade für die gemeinsame Nutzung von Ansichten über mehrere Bereiche gedacht sind.",
+        "docsReference":  "Tags",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-003",
+        "type":  "boolean",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "Lists, Filters und Tags",
+        "question":  "Ein in einer Liste gesetztes Tag kann auch in Visualisierungen und Dashboards als Filter verwendet werden.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Richtig"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Falsch"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "explanation":  "Tags wirken auf allen Seiten, auf denen sie gesetzt werden, und werden in Listen, Visualisierungen und Dashboards als Filter genutzt. Die Gegenantwort \u0027Falsch\u0027 wäre falsch, weil Tags ausdrücklich für die übergreifende Nutzung in Reports und Dashboards vorgesehen sind.",
+        "docsReference":  "Tags",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-004",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Form configuration",
+        "question":  "\u0000\u0000\u0027�Was ist der Unterschied zwischen Form Layout und Form Template?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Das Form Layout steuert Aufbau und Sichtbarkeit von Feldern; das Form Template setzt Ausgangswerte für Felder beim Anlegen eines Records."
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Das Form Template steuert die Feldreihenfolge, das Form Layout die Werte."
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Beide sind identisch und werden synonym verwendet."
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Form Templates wirken nur auf Listen, nicht auf Formularen."
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Form Layout (bzw. Form Designer in der Next Experience) definiert Sektionen, Feldreihenfolge und Sichtbarkeit. Form Templates liefern beim Anlegen vorbefüllte Werte und können über Bedingungen automatisch angewendet werden.",
+        "docsReference":  "Form Layout / Form Templates"
+    },
+    {
+        "id":  "q-collab-005",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "List- und Form-Anatomie",
+        "question":  " Welche Listenaktion setzt voraus, dass zuvor Zeilen in der Liste ausgewählt wurden?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Edit Selection bzw. Export Selected Rows"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Sortieren"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Group By"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Personalize List"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Edit Selection und Export Selected Rows wirken nur auf zuvor ausgewählte Zeilen. Sortieren und Group By wirken auf alle Zeilen der Liste, Personalize List verändert die Anzeige unabhängig von einer Auswahl. Diese Aktionen sind reine Anzeigeaktionen der Listenaktion.",
+        "docsReference":  "List Actions/Selected Rows",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-006",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "List- und Form-Anatomie",
+        "question":  "Was bewirkt \u0027Show selected rows\u0027 in einer Liste?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Es werden nur die zuvor ausgewählten Zeilen in der Liste gezeigt"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Es werden alle Zeilen der Tabelle neu sortiert"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Die Anzeige wird als persönlicher Filter dauerhaft gespeichert"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Der Benutzer wird der Gruppe des Datensatzes zugeordnet"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "\u0027Show selected rows\u0027 reduziert die Anzeige auf die markierten Zeilen. Sortieren und Group By wirken weiterhin auf alle Datensätze, ein gespeicherter Filter ist damit nicht verbunden, eine Gruppenzuordnung findet nicht statt. Es ist eine Auswahlaktion der Liste auf der Anzeigen-Ebene.",
+        "docsReference":  "List Actions/Selected Rows",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-007",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "List- und Form-Anatomie",
+        "question":  "Zzu den Listenaktionen gehören Sortieren und Group By. Welche Aussagen dazu stimmen? Wählen Sie genau 2 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Sortieren wirkt auf alle Zeilen der Liste, auch wenn keine Zeilen ausgewählt sind"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Group By teilt die Liste in Gruppen auf, die über ein Feld definiert werden"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Sortieren wirkt nur auf die ausgewählten Zeilen"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Group By ersetzt den Filter der Liste vollständig"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b"
+                    ],
+        "correctCount":  2,
+        "explanation":  "Sortieren wirkt auf alle Zeilen, Group By gruppiert die Anzeige über ein Feld. c ist falsch, weil Sortieren nicht auf Auswahl begrenzt ist, d ist falsch, weil Group By den Filter ergänzt und ihn nicht ersetzt. Antwort c und d widersprechen der Listenaktion.",
+        "docsReference":  "List Actions/Group By und Sortieren",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-008",
+        "type":  "multiple",
+        "topic":  "collaborat\u0000\u0000(\u0000ion",
+        "difficulty":  "medium",
+        "subtopic":  "Task Management",
+        "question":  "Was kann eine Assignment Rule automatisch erledigen? Wähle genau zwei Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Eine Task-Instanz einer Assignment Group zuweisen, wenn die Bedingungen erfüllt sind."
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Einen Assignee setzen, wenn die Regel das vorsieht."
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Ein Feld über ein Skript umbenennen."
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Eine Benachrichtigung an den Ersteller senden, unabhängig von Bedingungen."
+                        },
+                        {
+                            "id":  "e",
+                            "text":  "Einen Approval-Workflow starten."
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b"
+                    ],
+        "correctCount":  2,
+        "explanation":  "Assignment Rules weisen bei Insert oder Update anhand von Bedingungen Gruppe und optional Assignee zu. Sie führen keine Skript-Umbenennungen durch, ersetzen keine Notifications und starten keine Approvals (dafür sind Workflows/Flows bzw. Notification zuständig).",
+        "docsReference":  "Assignment Rules"
+    },
+    {
+        "id":  "q-collab-009",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Form Configuration",
+        "question":  "Der Administrator soll das Form-Layout dauerhaft für eine bestimmte Rolle ändern. Wo geschieht das?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "System \u003e Form Layouts"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Personal Form Layout des einzelnen Benutzers"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Form Revisions im Formular-Header"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Advanced Form Configuration ohne Auswahl der Rolle"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Form-Layouts werden zentral über System \u003e Form Layouts pro Rolle definiert. Das persönliche Form-Layout wirkt nur für einen einzelnen Benutzer, Form Revisions betreffen gespeicherte Versionen, Advanced Form Configuration ist ebenfalls rollenbezogen, ersetzt aber keine Rollen-Layout-Definition.",
+        "docsReference":  "Form Layouts",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-010",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Form Configuration",
+        "question":  "Welche Aussagen zu Form Revisions sind korrekt? Wählen Sie genau 2 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Eine Revision ist eine gespeicherte Version eines Form-Layouts, die wiederhergestellt werden kann"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Revisionen werden für die Form-Layouts einer Rolle angelegt"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Revisionen entstehen ausschließlich durch das persönliche Form-Layout des Benutzers"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Revisionen sind identisch mit UI Policies auf dem Formular"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b"
+                    ],
+        "correctCount":  2,
+        "explanation":  "Form Revisions sind gespeicherte Versionen eines Rollen-Form-Layouts und können wiederhergestellt werden. c ist falsch, weil persönliche Layouts keine Revisionen im Sinne von System \u003e Form Layouts erzeugen, d verwechselt Revisionen mit UI Policies. Revisionen dienen dem Nachvollziehen und Zurücksetzen von Layout-Änderungen.",
+        "docsReference":  "Form Revisions",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-011",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Form Configuration",
+        "question":  "Der Form Designer der Next Experience wird verwendet. Was ist typischerweise möglich?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Felder Abschnitten zuordnen, neue Abschnitte anlegen und die Spaltenbreite anpassen"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Felder in eine andere Instanz verschieben"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Pflichtfelder als UI Policy im Form Designer erstellen"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Reports für die Tabelle direkt im Form Designer erstellen"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Im Form Designer werden Felder Abschnitten zugeordnet, Abschnitte neu angelegt und die Spaltenbreite angepasst. b ist unsinnig, c ist falsch, weil UI Policies ein eigenes Werkzeug sind, d ist falsch, weil Reports in den Visualisierungen definiert werden. Der Form Designer ist das Werkzeug für die Formularstruktur im Browser.",
+        "docsReference":  "Form Designer (Next Experience)",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-012",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Notifications",
+        "question":  "Welche Kombination ist erforderlich, damit eine Benachrichtigung ausgelöst wird?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Event + Notification (mit Bedingung und Empfängern) + Template"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Nur ein Template, die Bedingung übernimmt das System"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Eine Business Rule ist zwingend erforderlich"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Ein Flow mit Action \u0027Send Email\u0027 ist zwingend erforderlich"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Eine Notification verknüpft ein Event, eine Bedingung, Empfänger und ein Template. Das Event kann vom System (Record-Änderung) oder per gs.eventQueue() aus einem Skript gefeuert werden; eine Business Rule oder ein Flow ist nicht zwingend.",
+        "docsReference":  "Notifications / Events"
+    },
+    {
+        "id":  "q-collab-013",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Form Templates und Saving Options",
+        "question":  "Was gilt für Form Templates? Wählen Sie genau 3 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Ein persönliches Template wird vom Benutzer selbst gespeichert und kann für ihn als Standard festgelegt werden"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Ein Standard-Template kann für eine Rolle definiert werden"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Das Standard-Template einer Rolle wird beim Öffnen eines neuen Formulars automatisch verwendet"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Ein persönliches Template wirkt automatisch für alle Benutzer der Rolle"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b",
+                        "c"
+                    ],
+        "correctCount":  3,
+        "explanation":  "Persönliche Templates sind benutzerbezogen, Standard-Template werden auf Rollenebene definiert und gelten für die Benutzer der Rolle. d ist falsch, weil ein persönliches Template nicht automatisch auf die ganze Rolle wirkt. Die Standard-Template-Definition ist die Rollenebene, nicht die Benutzerebene.",
+        "docsReference":  "Form Templates/Saving Options",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-014",
+        "type":  "boolean",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "Form Templates und Saving Options",
+        "question":  "Für eine Rolle kann ein Standard-Form-Template festgelegt werden.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Richtig"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Falsch"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "explanation":  "Standard-Form-Templates werden pro Rolle definiert, sodass sie beim Öffnen eines neuen Formulars automatisch verwendet werden. \u0027Falsch\u0027 wäre falsch, weil genau das der Zweck der Template-Definition auf Rollenebene ist.",
+        "docsReference":  "Form Templates",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-015",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Notifications",
+        "question":  "Ein Business Rule soll ein Event feuern, damit eine Notification ausgelöst wird. Welche API wird dafür verwendet?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "gs.eventQueue(\u0027event_name\u0027, current, parm1, parm2)"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "current.update()"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "gs.addEmail(recipient)"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "workflow.sendNotification()"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "gs.eventQueue() feuert ein Event; die Notification ist an dieses Event gekoppelt. current.update() speichert nur den Record, es gibt kein gs.addEmail() und keine workflow.sendNotification()-API.",
+        "docsReference":  "gs.eventQueue"
+    },
+    {
+        "id":  "q-collab-016",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "hard",
+        "subtopic":  "Advanced Form Configuration",
+        "question":  "Feld ausblenden über UI Policy. Welche Aussagen dazu stimmen? Wählen Sie genau 2 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Die UI Policy prüft die Bedingung im Browser und setzt Feld-Eigenschaften wie \u0027Visible\u0027 oder \u0027Mandatory\u0027 erst nach dem Laden des Formulars"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Die UI Policy prüft die Bedingung im Browser, bevor sie Feld-Eigenschaften setzt"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Die UI Policy kann Felder ausblenden, ausfüllen oder als Pflichtfeld setzen, wenn die Bedingung erfüllt ist"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Die UI Policy wirkt nur im Form Designer, weil das Layout dort definiert wird"
+                        }
+                    ],
+        "correct":  [
+                        "b",
+                        "c"
+                    ],
+        "correctCount":  2,
+        "explanation":  "UI Policies laufen im Browser auf dem Formular, prüfen die Bedingung und setzen Feld-Eigenschaften wie Visible, Mandatory oder Readonly. a ist falsch, weil die Prüfung vor dem Setzen erfolgt bzw. erst bei Erfüllung der Bedingung; d ist falsch, weil UI Policies zur Laufzeit des Formulars wirken. b und c beschreiben die typische UI Policy.",
+        "docsReference":  "UI Policy/Advanced Form Configuration",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-017",
+        "type":  "boolean",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "Advanced Form Configuration",
+        "question":  "Eine UI Policy wirkt auf dem Formular im Browser, eine Business Rule führt serverseitig aus.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Richtig"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Falsch"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "explanation":  "UI Policies werden im Browser auf dem Formular ausgewertet, Business Rules laufen serverseitig. \u0027Falsch\u0027 wäre falsch, weil genau diese Trennung der typische Unterschied ist. UI Policies beeinflussen Feld-Eigenschaften, Business Rules Werte und Datenbank-Zustände.",
+        "docsReference":  "UI Policy vs. Business Rule",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-018",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "Task Management",
+        "question":  "In My Workspace bzw. den Tasks sehen Sie Ihre Aufgaben. Welche Standardansicht ist typischerweise gemeint?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "\u0027Meine Aufgaben\u0027 für die Tasks, die dem Benutzer selbst zugewiesen sind"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Eine Ansicht aller Tasks der Instanz ohne Filter"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Eine Ansicht, die nur geschlossene Incident-Tasks zeigt"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Eine Ansicht, die ausschließlich Tasks der eigenen Gruppen zeigt"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Die Standardansicht zeigt die dem Benutzer zugewiesenen Tasks; Ansichten für eigene Gruppen oder Taskarten sind zusätzlich möglich. Eine unfilterte Ansicht aller Tasks ist nicht der Standard, geschlossene Tasks sind keine Standardansicht. Die Ansicht folgt der Zuordnungslogik.",
+        "docsReference":  "Task Management/My Workspace",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-019",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Task Management",
+        "question":  "Was beschreibt das Feld \u0027close slip\u0027 auf Task-Tabellen?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "den Zeitraum, in dem eine Aufgabe nach dem Schließen wieder geöffnet bzw. überhaupt geschlossen werden kann"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "die Anzahl der Tage bis zur automatischen Schließung durch einen Scheduler"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "die SLA-Laufzeit einer Aufgabe"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "die Bearbeitungszeit eines Assignment Rules"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Close Slip ist die Frist (in Tagen) für das Schließen bzw. erneute Öffnen einer Aufgabe. SLA-Laufzeiten werden über SLA-Definitionen gesteuert, nicht über close slip.",
+        "docsReference":  "Close slip",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-020",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "hard",
+        "subtopic":  "Task Management",
+        "question":  "Worknotes und Additional Worknotes. Welche Aussagen dazu stimmen? Wählen Sie genau 2 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Die Sichtbarkeit der Additional Worknotes hängt von der Einstellung \u0027Work notes visibility\u0027 des Benutzers ab"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Die Worknotes sind für alle Benutzer mit Lesezugriff auf den Datensatz sichtbar, sofern keine Feldrechte einschränken"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Additional Worknotes sind grundsätzlich für alle Benutzer sichtbar"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Worknotes und Additional Worknotes werden ausschließlich in der Task History angezeigt"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b"
+                    ],
+        "correctCount":  2,
+        "explanation":  "Additional Worknotes sind nur sichtbar, wenn die Sichtbarkeitseinstellung des Benutzers das zulässt, die Worknotes sind normalerweise für alle Leser sichtbar. c ist deshalb zu pauschal, d ist falsch, weil die Task History Aktivitäten einschließlich Feldänderungen zeigt. c und d widersprechen der Sichtbarkeitslogik.",
+        "docsReference":  "Worknotes/Additional Worknotes",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-021",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Task Management",
+        "question":  "Was zeigt die Task History auf einem Task?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Aktivitäten einschließlich Änderungen an Feldwerten und Worknotes"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Ausschließlich die Kommentare des Benutzers"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Ausschließlich die ausgelösten Benachrichtigungen"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Ausschließlich die Zuweisungen an Gruppen"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Die Task History ist ein Activity-Protokoll des Datensatzes und zeigt Feldänderungen, Worknotes und Kommentare. b und c sind zu eingeschränkt, d ist falsch, weil die Zuweisung nur eine activity-Art ist. Die Task History dokumentiert die Zusammenarbeit an einem Task über alle Aktivitäten.",
+        "docsReference":  "Task History",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-022",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Visual Task Boards",
+        "question":  "Ein Visual Task Board zeigt Datensätze in einem Raster mit frei anpassbaren Spalten. Welche VTB-Form ist gemeint?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Grid"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Kanban"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "List"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Pivot"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Grid zeigt Datensätze in einem Raster mit frei anpassbaren Spalten. Kanban nutzt Phasen-Spalten (typischerweise Zustand), List ist eine Listenansicht, Pivot gruppiert über vordefizierte Kategorien. Das frei anpassbare Raster ist das M\u0000\u0000\u0026bn ist über Advanced Form Configuration auf Rollenebene möglich, mobile Views sind ein eigener Punkt, Client Rules füllen Werte nicht durch das Ausklappen. Der Toggle ist eine Benutzeraktion, keine Wertprüfung.",
+        "docsReference":  "Advanced Form Configuration",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-023",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Visual Task Boards",
+        "question":  "Welche Visual Task Boards gibt es? Wählen Sie genau 4 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "List"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Grid"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Kanban"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Pivot"
+                        },
+                        {
+                            "id":  "e",
+                            "text":  "Matrix"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ],
+        "correctCount":  4,
+        "explanation":  "Die VTB-Formen sind List, Grid, Kanban und Pivot. Matrix ist keine VTB-Form, sondern eine Darstellungsform von Reports/Visualisierungen. Die vier genannten Typen sind die offiziellen Visual Task Board-Formen.",
+        "docsReference":  "Visual Task Boards",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-023b",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "hard",
+        "subtopic":  "Visual Task Boards",
+        "question":  "Cards vs. List. Welche Aussagen zu Board-Filter und Group By stimmen? Wählen Sie genau 2 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Der Board-Filter begrenzt die Karten auf dem Board auf passende Datensätze"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Group By teilt die Karten in Gruppen auf, die über ein Feld definiert werden"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Der Filter wirkt nur auf die Liste und nicht auf das Board"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Group By ersetzt den Board-Filter vollständig"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b"
+                    ],
+        "correctCount":  2,
+        "explanation":  "Der Filter begrenzt die angezeigten Karten, Group By teilt sie in Gruppen. c ist falsch, weil der Filter auf dem Board wirkt, d ist falsch, weil Group By den Filter ergänzt und nicht ersetzt. Filter und Group By werden direkt am Board definiert und wirken gemeinsam.",
+        "docsReference":  "Visual Task Boards",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-024",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "easy",
+        "subtopic":  "Dashboards/Visualizations/Platform Analytics",
+        "question":  "Welche Reporttypen gibt es in den Visualisierungen?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "List, Aggregation, Interactive und Multi-Purpose"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "List, Chart, Matrix und Cross-Tab"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Aggregation, Interactive, Timeline und Heatmap"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "List, Aggregation, Drill-down und Gauge"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Die offiziellen Reporttypen sind List, Aggregation, Interactive und Multi-Purpose. Chart, Matrix, Heatmap, Gauge und Drill-down sind Darstellungsformen und keine Reporttypen. Die Typen definieren die Grundform des Reports.",
+        "docsReference":  "Report Types",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-026",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Dashboards/Visualizations/Platform Analytics",
+        "question":  "Was zeichnet einen Interactive Report bzw. ein interaktives Widget aus?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Benutzer können durch Klicken auf Werte Drill-downs zu den zugrunde liegenden Datensätzen ausführen"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Der Report wird ausschließlich als PDF exportiert"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Der Report ist ohne Filter nur auf dem Dashboard sichtbar"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Der Report wird ausschließlich serverseitig ausgewertet und ist nicht interaktiv"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Interactive Reports erlauben Drill-downs durch Klicken auf Werte und bleiben mit Filteren nutzbar. b ist eine Exportfunktion, c und d widersprechen der Definition von Interactive Reports. Das Kennzeichen ist die Interaktivität auf dem Bildschirm.",
+        "docsReference":  "Interactive Reports/Visualizations",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-027",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Notifications",
+        "question":  "Ein Event Trigger soll ausgelöst werden, wenn sich ein Datensatz ändert. Welche Einstellung ist typischerweise korrekt?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "\u0027Trigger when: Record changes\u0027 bzw. \u0027Record created or updated\u0027 mit einer Bedingung auf das betroffene Feld"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "\u0027Trigger when: Record created\u0027 mit Prüfung der Server-Uhrzeit"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "\u0027Run when: Scheduled\u0027 mit Prüfung ausschließlich des Benutzers"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "\u0027Trigger when: Alert\u0027 mit Prüfung ausschließlich der Dispatcher Rule"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "\u0027Trigger when\u0027 definiert die Auslösung auf dem Datensatz: Erstellung bzw. Änderung, und die Bedingung prüft den Feldwert. b prüft nur die Erstellung, c ist zeitgesteuert und keine Bedingung auf den Datensatz, d betrifft Dispatcher Rules. Der Event Trigger ist die Auslöseinstellung, Run when ist der Ausführungszeitpunkt.",
+        "docsReference":  "Event Trigger/Event Management Framework",
+        "needsReview":  false
+    },
+    {
+        "id":  "q-collab-028",
+        "type":  "multiple",
+        "topic":  "collaboration",
+        "difficulty":  "hard",
+        "subtopic":  "Notifications",
+        "question":  "Zum Event Management Framework gehören Event Rules, Event Actions und Event Agents. Welche drei Bausteine gehören dazu? Wählen Sie genau 3 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Event Rules legen die Erkennung und Klassifizierung eines Ereignisses fest"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Event Triggers lösen die Benachrichtigung über eine Bedingung auf dem Datensatz aus"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Event Agents übernehmen die Verarbeitung und Aktion auf ein Ereignis"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Client Scripts führen die Benachrichtigung im Browser aus"
+                        },
+                        {
+                            "id":  "e",
+                            "text":  "UI Policies lösen die Benachrichtigung serverseitig aus"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b",
+                        "c"
+                    ],
+        "correctCount":  3,
+        "explanation":  "Das Event Management Framework besteht aus Event Rules (Erkennung), Event Triggers (Auslösung über Bedingung) und Event Agents bzw. Event Actions (V\u0000\u0000\u0026`erkmal von Grid.",
+        "docsReference":  "Visual Task Boards",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-029",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Notifications",
+        "question":  "In einer Benachrichtigung sind \u0027Worknotes\u0027 und \u0027Additional info\u0027 getrennte Felder. Wie werden sie typischerweise genutzt?",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Worknotes dokumentieren die Arbeit an einem Task, \u0027Additional info\u0027 ergänzt zusätzliche Information im Kontext des Ereignisses"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Worknotes werden ausschließlich in der Task History gespeichert"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Additional info wird in Benachrichtigungen nicht verwendet"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Worknotes und Additional info sind identische Felder, die nur umbenannt wurden"
+                        }
+                    ],
+        "correct":  [
+                        "a"
+                    ],
+        "correctCount":  1,
+        "explanation":  "Worknotes dienen der Dokumentation der Arbeit am Task, \u0027Additional info\u0027 ergänzt zusätzliche Information zum Ereignis bzw. Alert. b ist falsch, weil Worknotes im Datensatz stehen, c ist falsch, weil Additional info in Benachrichtigungen genutzt wird, d wäre eine Gleichsetzung. Die Felder haben unterschiedliche Zwecke.",
+        "docsReference":  "Notifications/Worknotes",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-030",
+        "type":  "single",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Notifications",
+        "question":  "Welche Empfänger können in einer Benachrichtigung gewählt werden? Wählen Sie genau 3 Antworten.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Ein bestimmter Benutzer"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Eine Gruppe"
+                        },
+                        {
+                            "id":  "c",
+                            "text":  "Feldwerte des Datensatzes wie \u0027Zuständig\u0027 oder \u0027Auftraggeber\u0027"
+                        },
+                        {
+                            "id":  "d",
+                            "text":  "Ausschließlich E-Mail-Adressen, weil Benachrichtigungen nur per Mail gehen"
+                        }
+                    ],
+        "correct":  [
+                        "a",
+                        "b",
+                        "c"
+                    ],
+        "correctCount":  3,
+        "explanation":  "Empfänger können Benutzer, Gruppen oder kontabezogene Feldwerte des Datensatzes sein. d ist falsch, weil Empfänger nicht auf E-Mail beschränkt sind und Kanäle wie Popup oder Worknotes möglich sind. Diese Frage ist als Multiple mit 3 Antworten formuliert und muss in der Exam-Version entsprechend umformiert werden.",
+        "docsReference":  "Notifications",
+        "needsReview":  true
+    },
+    {
+        "id":  "q-collab-031",
+        "type":  "boolean",
+        "topic":  "collaboration",
+        "difficulty":  "medium",
+        "subtopic":  "Notifications",
+        "question":  "Benachrichtigungen können nur über das Event Management Framework ausgelöst werden, nicht über SLA-Eskalationen.",
+        "options":  [
+                        {
+                            "id":  "a",
+                            "text":  "Richtig"
+                        },
+                        {
+                            "id":  "b",
+                            "text":  "Falsch"
+                        }
+                    ],
+        "correct":  [
+                        "b"
+                    ],
+        "explanation":  "Benachrichtigungen werden auch über SLA-Eskalationen bzw. Notification Policies ausgelöst; das Event Management Framework ist nur einer der Wege. \u0027Richtig\u0027 wäre falsch, weil SLA-Eskalationen eigene Eskalationspunkte und Benachrichtigungsrichtlinien nutzen. Benachrichtigungen folgen sowohl ereignisgesteuert als auch zeitgesteuert.",
+        "docsReference":  "Notifications vs. SLA/Eskalation",
+        "needsReview":  false
+    }
+]

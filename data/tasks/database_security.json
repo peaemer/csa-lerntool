@@ -1,0 +1,440 @@
+[
+  {
+    "id": "t-db-001",
+    "title": "Custom-Tabelle {table} anlegen und Feld {field} ergänzen",
+    "area": "database_security",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "scenario": "Die Nordwind IT betreut 1200 Nutzer und führt ihre Notebooks bisher in Excel. In der PDI soll eine eigene Tabelle {table} entstehen, die an der Asset-Basistabelle alm_asset anlehnt, damit Asset-Logik, Statuswerte und der CSDM-Bezug erhalten bleiben. Zusätzlich soll {field} als benutzerdefiniertes Feld für die Seriennummer geführt werden. Der Auftraggeber fragt, warum Tabellen und eigene Felder ein u_-Präfix brauchen und ob geerbte Felder umbenannt werden dürfen.",
+    "requirements": [
+      "Tabelle {table} über 'Extend template' auf alm_asset anlegen (Name mit u_-Präfix, sprechendes Label)",
+      "Feld {field} als eigene Spalte (Type String, Max length ca. 60) anlegen und auf Mandatory setzen",
+      "Prüfen, dass {table} 'Active' ist und im Application Dictionary als extending Tabelle erscheint",
+      "Einen Testdatensatz anlegen und in der Liste die Spalte {field} einblenden",
+      "Notieren, warum geerbte Felder der Basistabelle nicht umbenannt werden dürfen"
+    ],
+    "hints": [
+      "Stufe 1: Tabellenarbeit beginnt im Application Dictionary, nicht im Service Desk – dort gibt es Bereiche für Tabellen und Spalten.",
+      "Stufe 2: Im Tables-Modul kann man eine Basistabelle erweitern ('Extend template'); eigene Spalten bekommen ein u_-Präfix, geerbte Spalten bleiben unverändert.",
+      "Stufe 3: Application Navigator > 'Tables' > New > Extend template = alm_asset > Table name {table} > Save. Danach {table} öffnen > Columns/Fields > New > {field} > Save, anschließend Mandatory aktivieren."
+    ],
+    "solution": "1. Application Navigator > 'Tables' (früher System Definition > Tables, heute im Application-Dictionary-Bereich) > New.\n2. 'Extend template' = alm_asset wählen, Table Name {table}, Label 'Notebook', Application zuordnen, Save.\n3. Im Table-Form die Related List 'Columns' (in manchen Versionen 'Fields') öffnen > New: Name {field}, Type String, Max length 60, Save; danach Mandatory = true.\n4. Liste von {table} öffnen (Application Navigator > {table} oder Table-Form > Records) und einen Testdatensatz anlegen.\n5. Kontrolle: Im Application Dictionary zeigt {table} 'Extends = alm_asset'; geerbte Felder sind nicht editierbar, eigene Felder tragen das u_-Präfix.\nAnmerkung: In aktuellen Versionen heißt die Related List oft 'Columns'; das Anlegen von Tabellen läuft zusätzlich über Application Studio bzw. Application Dictionary.",
+    "commonMistakes": [
+      "Feld ohne u_-Präfix angelegt – benutzerdefinierte Felder müssen mit u_ beginnen, sonst wird der Name abgelehnt oder automatisch ergänzt.",
+      "Statt 'Extend template' eine autonome Tabelle erstellt; damit fehlen die geerbten Asset-Felder und der CSDM-Bezug.",
+      "Mandatory auf der Basistabelle alm_asset gesetzt – das wirkt auf alle extending Tabellen und kann Produktivdaten blockieren.",
+      "Ein geerbtes Feld 'umbenannt' und damit die Basistabelle für alle extendenden Tabellen verändert."
+    ],
+    "examRelevance": "Data Schema ist mit rund 30 % Blueprint-Gewicht der stärkste Bereich: Extend vs. autonome Tabelle, u_-Präfix, Feldvererbung und Mandatory werden gern als Single-Choice-Fragen gestellt ('Welche Aussage zu extending Tables ist korrekt?').",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum wird alm_asset extendiert statt eine freie Tabelle zu bauen?",
+        "answer": "Die Basistabelle bleibt erhalten, Felder und Logik werden geerbt und die Tabelle bleibt im CSDM-Modell sichtbar; die Datensätze liegen in der Basistabelle."
+      },
+      {
+        "question": "Darf {field} auf {table} umbenannt werden, wenn es von alm_asset geerbt wäre?",
+        "answer": "Nein. Geerbte Felder gehören zur Basistabelle und gelten für alle extending Tabellen; eigene Felder werden neu angelegt und mit u_-Präfix benannt."
+      },
+      {
+        "question": "Welche Präfix-Regel gilt für Tabellen und Felder?",
+        "answer": "Selbst definierte Tabellen und eigene Felder brauchen das u_-Präfix; Systemtabellen und geerbte Felder behalten ihre Namen."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_notebook",
+        "u_monitor"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_asset_tag",
+        "u_warranty_end"
+      ]
+    }
+  },
+  {
+    "id": "t-db-002",
+    "title": "Rolle, Gruppe und ACL: {field} auf {table} nur für {role} schreibbar",
+    "area": "database_security",
+    "difficulty": "exam",
+    "estimatedMinutes": 30,
+    "scenario": "Auf {table} wird {field} gepflegt. Die Nordwind IT möchte, dass nur die Mitglieder der Gruppe {group} diesen Wert ändern dürfen, alle anderen Rollen ihn nur lesen. In der PDI soll das mit einer eigenen Rolle und zwei ACLs nachgewiesen werden: Table-ACL und Field-ACL. Ein Testnutzer ohne Gruppenmitgliedschaft soll {field} sehen, aber nicht ändern können.",
+    "requirements": [
+      "Eigene Rolle {role} anlegen (Custom-Rollen brauchen das u_-Präfix)",
+      "Gruppe {group} anlegen und {role} über die Related List 'Roles' auf der Gruppe zuweisen",
+      "Table-ACL auf {table} definieren: read für die relevanten Rollen, write nur für {role}",
+      "Field-ACL auf {field} definieren, die write zusätzlich einschränkt",
+      "Testnutzer ohne {role} anmelden und das Verhalten dokumentieren",
+      "Festhalten, dass eine Gruppenmitgliedschaft allein keine Berechtigung erzeugt"
+    ],
+    "hints": [
+      "Stufe 1: Zwei getrennte Baustellen – Rollen werden unter Users/Security verwaltet, Berechtigungen im Access-Control-Bereich. Test immer mit einem Nicht-Admin.",
+      "Stufe 2: ACLs wirken auf Tabelle und zusätzlich auf Feld; eine Feld-ACL ist eine zusätzliche Einschränkung, keine eigenständige Erlaubnis auf die Tabelle.",
+      "Stufe 3: Application Navigator > 'Roles' > New > {role} > Save. Application Navigator > 'Groups' > {group} > Roles related list > Add. Danach Application Navigator > 'ACLs' > New: Table {table}, Role {role}, Write aktivieren; zweite ACL auf Field {field}; als Testnutzer prüfen."
+    ],
+    "solution": "1. Application Navigator > 'Roles' > New > Name {role} (Custom-Rolle mit u_-Präfix), Save.\n2. Application Navigator > 'Groups' > {group} > Related List 'Roles' > {role} hinzufügen; Testnutzer in die Gruppe aufnehmen.\n3. Application Navigator > 'ACLs' (Security > Access Control) > New: Table {table}, Type Table, Role {role}, Write aktiviert, Save.\n4. Zweite ACL: New > Table {table}, Type Field, Field {field}, Role {role}, Write aktiviert; Save.\n5. Mit einem Nicht-Admin-Nutzer ohne {role} (z. B. itil) ein Formular öffnen: {field} ist sichtbar, aber schreibgeschützt.\n6. Doku: Ohne Rolle auf der Gruppe ändert sich nichts an den Rechten – ACLs prüfen Rollen, und Rollen können über Vererbung wirken.",
+    "commonMistakes": [
+      "Gruppe als Rechtegeber betrachtet – ACLs prüfen Rollen; eine Gruppe ohne zugewiesene Rolle bringt nichts.",
+      "Field-ACL ohne Table-ACL angelegt und erwartet, dass alle in der Feld-ACL genannten Rollen Zugriff haben.",
+      "mit der admin-Rolle getestet – admin umgeht ACLs, das Testergebnis ist wertlos.",
+      "ACL auf der Basistabelle statt auf {table} gesetzt oder Rollenvererbung ignoriert."
+    ],
+    "examRelevance": "Access Control ist eine der häufigsten CSA-Fragen: Rolle vs. Gruppe, Field-ACL als zusätzliche Einschränkung, dass Admin ACLs umgeht und dass Custom-Rollen ein u_-Präfix brauchen.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum reicht Gruppenmitgliedschaft nicht für Schreibrechte?",
+        "answer": "Berechtigungen hängen an Rollen. Eine Gruppe verleiht nur Rechte, wenn ihr Rollen zugewiesen sind und der Nutzer diese Rollen über die Gruppe erhält."
+      },
+      {
+        "question": "Wie verhält sich eine Field-ACL zu einer Table-ACL?",
+        "answer": "Die Table-ACL entscheidet, ob der Nutzer die Tabelle darf. Die Field-ACL schränkt zusätzlich ein; die effektive Berechtigung ist die Kombination aus beiden."
+      },
+      {
+        "question": "Warum sieht ein Test mit admin-Rolle alles, obwohl ACLs definiert sind?",
+        "answer": "Die admin-Rolle umgeht Access Controls; für Berechtigungstests braucht man einen Nutzer ohne erhöhte Rechte."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_vendor"
+      ],
+      "role": [
+        "u_hardware_admin",
+        "itil",
+        "sn_change_approver"
+      ],
+      "group": [
+        "Hardware Support",
+        "Asset Management"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_vendor_rating"
+      ]
+    }
+  },
+  {
+    "id": "t-db-003",
+    "title": "Field Permission und ACL gemeinsam prüfen: {field} auf {table}",
+    "area": "database_security",
+    "difficulty": "advanced",
+    "estimatedMinutes": 25,
+    "scenario": "In der Nordwind-PDI soll {field} auf {table} für die Rolle {role} nur lesbar sein, für die Gruppe {group} aber schreibbar. Es existiert bereits eine Table-ACL, die {role} Lesezugriff gibt. Der Auditor verlangt eine Dokumentation, wie Field Permission und ACL zusammenwirken, und einen Nachweis mit einem Nicht-Admin-Nutzer.",
+    "requirements": [
+      "Field Permission (Field Level Security) für {field} auf {table} definieren",
+      "bestehende Table-ACL auf {table} dokumentieren und ihre Rollen auflisten",
+      "effektive Berechtigung für {role} und für eine Rolle der Gruppe {group} vergleichen",
+      "testweise einen Nutzer ohne Table-Zugriff hinzufügen und das Ergebnis dokumentieren",
+      "festhalten, wann im Unternehmen ACL und wann Field Permission gewählt wird"
+    ],
+    "hints": [
+      "Stufe 1: Es gibt zwei Ebenen der Zugriffskontrolle – eine für Tabellen, eine für einzelne Felder. Die restriktivere Ebene gewinnt.",
+      "Stufe 2: Field Level Security findest du im Security-Center-Bereich; es arbeitet pro Rolle und setzt voraus, dass die Rolle die Tabelle überhaupt darf.",
+      "Stufe 3: Application Navigator > 'Field Level Security' bzw. Security Center > Field Level Security > New > Table {table}, Field {field}, Rolle {role}, Access Read; dann als Testnutzer Formular und Liste prüfen."
+    ],
+    "solution": "1. Application Navigator > 'ACLs' öffnen und die vorhandene Table-ACL auf {table} heraussuchen; Rollen und read/write notieren.\n2. Application Navigator > 'Field Level Security' (im Security Center; ältere Instanzen: Security > Field Level Security) > New > Table {table}, Field {field}, Role {role}, Access Read.\n3. Für die Gruppe {group} prüfen, welche Rollen die Gruppe hat, und diese Rollen in der Field Permission bzw. ACL eintragen.\n4. Testnutzer ohne Table-Zugriff anlegen und ein Formular öffnen – {field} ist nicht sichtbar, auch wenn die Field Permission auf Read steht.\n5. Ergebnis dokumentieren: Field Permission verfeinert nur Rollen, die über die Table-ACL bereits Zugriff haben; ACL bleibt die maßgebliche Ebene. Anmerkung: In aktuellen Versionen läuft Field Level Security über das Security Center und kann als 'Field Permissions' bezeichnet werden.",
+    "commonMistakes": [
+      "Field Permission als Ersatz für eine Table-ACL betrachtet – ohne Tabellenzugriff zeigt der Nutzer kein Feld.",
+      "Field Permission für {role} auf Read gesetzt und dann per ACL doch Write erlaubt, sodass die Kombination überrascht.",
+      "Rollen der Gruppe nicht geprüft und nur die Gruppenmitgliedschaft dokumentiert.",
+      "Test mit admin durchgeführt und daraus falsche Schlüsse gezogen."
+    ],
+    "examRelevance": "Typische Prüfungsfrage im Security-Bereich: 'Welche Aussage zu Field Level Security und ACL ist korrekt?' – Antwort ist meist, dass ACLs der maßgebliche Mechanismus sind und beide gemeinsam die restriktivste Wirkung ergeben.",
+    "comprehensionQuestions": [
+      {
+        "question": "Was passiert, wenn {role} in der Field Permission steht, aber nicht in der Table-ACL?",
+        "answer": "Der Nutzer bekommt keinen Zugriff, weil Feldzugriff Tabellenzugriff voraussetzt."
+      },
+      {
+        "question": "Warum ist ACL gegenüber Field Permission die bevorzugte Lösung?",
+        "answer": "ACLs sind konsistent dokumentiert, wirken auf alle Zugangswege und lassen sich pro Tabelle und Feld steuern; Field Permission ist eine zusätzliche Ebene, die leicht vergessen wird."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_contract",
+        "u_vendor",
+        "u_laptop"
+      ],
+      "field": [
+        "u_vendor_rating",
+        "u_budget_code"
+      ],
+      "role": [
+        "itil",
+        "u_vendor_reader",
+        "sn_business_unit_manager"
+      ],
+      "group": [
+        "Procurement Team",
+        "Hardware Support"
+      ]
+    }
+  },
+  {
+    "id": "t-db-004",
+    "title": "Data Source und Import Set: CSV auf {table} hochladen und ausführen",
+    "area": "database_security",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "scenario": "Die Nordwind IT erhält wöchentlich eine CSV-Datei mit 60 Notebook-Datensätzen. In der PDI soll der Import reproduzierbar aufgebaut werden: eine Data Source für die Datei, eine Staging-Tabelle und ein Import Set, der die Daten in {table} überführt. Vor dem ersten Testlauf soll geklärt werden, welche Bausteine zusammengehören.",
+    "requirements": [
+      "Data Source vom Typ 'CSV file upload' anlegen und die Beispieldatei hochladen",
+      "Zuordnung der Staging-Tabelle prüfen und benennen",
+      "Import Set auf die Data Source und die Staging-Tabelle anlegen",
+      "Import ausführen ('Run Import Set' bzw. 'Run All') und die Anzahl importierter Zeilen prüfen",
+      "Dokumentieren, dass ohne Transform Map keine Zielbefüllung erfolgt"
+    ],
+    "hints": [
+      "Stufe 1: Import funktioniert in drei Schichten: Quelle, Staging, Ziel. Ohne Transform Map bleibt der Import ein Rohdatensatz.",
+      "Stufe 2: Im Data-Import-Bereich gibt es Data Sources, Import Sets und Transform Maps; die Data Source definiert Herkunft und Staging-Tabelle.",
+      "Stufe 3: Application Navigator > 'Data Sources' > New > Data source type 'CSV file upload' > Choose source (Datei hochladen) > Import Table wählen > Save. Dann Application Navigator > 'Import Sets' > New > Data Source und Staging-Tabelle wählen > Save > 'Run Import Set'."
+    ],
+    "solution": "1. Application Navigator > 'Data Sources' > New; Name 'Nordwind Laptop CSV'; Data source type 'CSV file upload'; Spaltennamen aus dem Header übernehmen.\n2. 'Choose source' öffnen und die CSV-Datei hochladen; Staging-Tabelle auswählen (existing oder neu, Name mit u_-Präfix) > Save.\n3. Application Navigator > 'Import Sets' > New: Data Source zuordnen, Import Table setzen, Application setzen, Save.\n4. Import Set mit 'Run Import Set' ausführen; in aktuellen Versionen heißt der UI-Action 'Run', in Listenansichten gibt es zusätzlich 'Run All'.\n5. Ergebnis in der Staging-Tabelle prüfen und notieren: ohne Transform Map passiert mit den Staging-Zeilen nichts – die Zielbefüllung erfolgt erst im nächsten Auftrag.",
+    "commonMistakes": [
+      "Transform Map nicht mit dem Import Set verknüpft und danach einen leeren Import erwartet.",
+      "Staging-Tabelle durch die Transform Map ersetzt – die Daten landen zuerst immer in der Staging-Tabelle.",
+      "Spaltennamen in der CSV geändert und die Data Source nicht aktualisiert.",
+      "Import mehrfach gestartet und Duplikate in der Zielgruppe gesehen, weil Lookup Keys fehlen."
+    ],
+    "examRelevance": "Importing Data gehört zu den sichereren CSA-Fragen: Was ist Data Source, was Import Set, was Transform Map – und dass Coalesce/Lookup Key erst im Transform Map definiert werden.",
+    "comprehensionQuestions": [
+      {
+        "question": "Was entscheidet die Data Source und was der Import Set?",
+        "answer": "Die Data Source definiert Herkunft und Staging-Tabelle; der Import Set verbindet Data Source, Staging-Tabelle, Transform Maps und Data Policies und führt den Import aus."
+      },
+      {
+        "question": "Warum ist die Staging-Tabelle nötig?",
+        "answer": "Sie hält die Rohdaten unverändert, damit Lookup, Coalesce und Data Policies sauber darauf arbeiten können, ohne die Quelle zu verändern."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_asset"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_purchase_date"
+      ]
+    }
+  },
+  {
+    "id": "t-db-005",
+    "title": "Transform Map mit Lookup Key, Coalesce und Rechoice auf {table}",
+    "area": "database_security",
+    "difficulty": "advanced",
+    "estimatedMinutes": 30,
+    "scenario": "Der Import von t-db-004 soll sauber in {table} landen. Die Nordwind IT verlangt, dass bestehende Datensätze über {field} erkannt und aktualisiert werden statt dupliziert zu werden. Außerdem soll ein Choice-Feld {field} aus einem Kürzel der CSV entstehen (zum Beispiel 'C' -> 'Critical'), und ein Wert soll aus einer Referenztabelle ergänzt werden.",
+    "requirements": [
+      "Transform Map auf {table} anlegen und mit dem Import Set verknüpfen",
+      "Field Maps für alle benötigten Spalten der Staging-Tabelle definieren",
+      "Lookup Key auf {field} setzen und Coalesce aktivieren",
+      "Rechoice für ein Choice-Feld definieren",
+      "Data Policy mit Field Mapping ergänzen (Default Value oder Reference Lookup)",
+      "Import ausführen und anhand von zwei identischen {field}-Werten das Aktualisierungsverhalten nachweisen"
+    ],
+    "hints": [
+      "Stufe 1: Coalesce ohne Lookup Key wirkt nicht – ServiceNow muss wissen, woran ein vorhandener Datensatz erkannt wird.",
+      "Stufe 2: Transform Maps liegen im Data-Import-Bereich; Field Maps, Lookup Keys und Rechoices sind getrennte Related Lists; Data Policies laufen vor dem Einfügen.",
+      "Stufe 3: Application Navigator > 'Transform Maps' > New > Target Table {table}, Source Table = Staging-Tabelle > Save. Related List 'Field Maps' > New; Related List 'Lookup Keys' > New > Field {field}, Coalesce aktivieren; Related List 'Rechoices' > New; danach Application Navigator > 'Data Policies' > New mit Field Mapping."
+    ],
+    "solution": "1. Application Navigator > 'Transform Maps' > New: Name 'Laptop CSV to {table}', Target Table {table}, Source Table = Staging-Tabelle des Import Sets, Application setzen.\n2. Related List 'Field Maps' > New: jeweils Source-Column und Target-Feld, z. B. Import-Spalte {field}; 'Update only' dort prüfen, wo das Feld nicht überschrieben werden soll.\n3. Related List 'Lookup Keys' > New: Field {field}, Coalesce aktivieren – vorhandene Datensätze werden aktualisiert, neue eingefügt.\n4. Related List 'Rechoices' > New: Source-Wert 'C' auf Zielwert 'Critical' mappen; 'Use Label' nicht aktivieren, wenn der Choice-Wert erwartet wird.\n5. Application Navigator > 'Data Policies' > New > Table = Staging-Tabelle; Definition 'Field Mapping' mit Default Value oder Reference Lookup; Data Policy im Import Set zuordnen.\n6. Import Set ausführen (Run bzw. Run All) und prüfen: zweiter Lauf mit gleichem {field} erzeugt keine Duplikate, sondern aktualisiert. Anmerkung: Die Modulnamen können in aktuellen Versionen unter 'Data Import' gruppiert sein.",
+    "commonMistakes": [
+      "Coalesce aktiviert, aber kein Lookup Key definiert – danach wird jeder Import dupliziert.",
+      "Rechoice mit Label statt Choice-Wert gepflegt und danach falsche Choice-Anzeigen.",
+      "Data Policy auf der Zielgruppe statt auf der Staging-Tabelle definiert.",
+      "Transform Map nicht mit dem Import Set verbunden und sich gewundert, dass 'Run All' nichts bewegt.",
+      "Business Rules erwartet, weil beim Import 'Run Business Rules' nicht gesetzt ist."
+    ],
+    "examRelevance": "Transform Map-Fragen sind stark prüfungsrelevant: Was macht Coalesce, was braucht Coalesce zwingend, wann laufen Data Policies und warum werden Business Rules beim Import oft nicht ausgeführt.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum ist {field} als Lookup Key gesetzt, nicht als einfaches Field Map?",
+        "answer": "Der Lookup Key identifiziert den vorhandenen Ziel-Datensatz; erst dadurch kann Coalesce aktualisieren statt einfügen."
+      },
+      {
+        "question": "Wann wirkt eine Data Policy – vor oder nach dem Transform Map?",
+        "answer": "Data Policies wirken auf die Staging-Daten vor dem Einfügen/Aktualisieren; das Transform Map entscheidet das Mapping und das Insert/Update-Verhalten."
+      },
+      {
+        "question": "Was passiert beim zweiten Lauf mit identischem {field}-Wert?",
+        "answer": "Der vorhandene Datensatz wird aktualisiert (Coalesce), es entsteht kein zweiter Datensatz."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_asset"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_priority",
+        "u_vendor_rating"
+      ]
+    }
+  },
+  {
+    "id": "t-db-006",
+    "title": "Data Policy mit Field Mapping auf {table} definieren",
+    "area": "database_security",
+    "difficulty": "advanced",
+    "estimatedMinutes": 25,
+    "scenario": "Beim Import auf {table} soll {field} nicht aus der CSV übernommen, sondern standardisiert werden: ein Default-Wert, wenn die Datei leer ist, und eine Referenzauflösung auf die Tabelle {app}. Die Nordwind IT möchte Data Policies nutzen, weil Business Rules beim Massenimport bewusst nicht laufen sollen. Gleichzeitig soll dokumentiert werden, warum Business Rules in diesem Fall nicht die richtige Wahl sind.",
+    "requirements": [
+      "Data Policy auf der Staging-Tabelle des Imports definieren",
+      "Data Policy Definitions anlegen: Field Mapping mit Default Value und Reference Lookup",
+      "Data Policy dem Import Set zuordnen und Import ausführen",
+      "Ergebnis auf drei Testzeilen prüfen (leer, gefüllt, unpassender Wert)",
+      "Notieren, wann Business Rules beim Import laufen und wann nicht"
+    ],
+    "hints": [
+      "Stufe 1: Data Policies gehören in den Data-Import-Bereich und wirken nur dort – nicht im normalen Formular.",
+      "Stufe 2: Data Policies sind pro Staging-Tabelle definiert; die Definitionen arbeiten mit Feld-Mapping, Default Value, Choice und Reference Lookup.",
+      "Stufe 3: Application Navigator > 'Data Policies' > New > Table = Staging-Tabelle > Save; Related List 'Data Policy Definitions' > New > Field Mapping; danach Import Set öffnen und die Data Policy zuordnen."
+    ],
+    "solution": "1. Application Navigator > 'Data Policies' > New: Name 'Nordwind Laptop Data Policy', Table = Staging-Tabelle, Application setzen.\n2. Related List 'Data Policy Definitions' > New: Type 'Field Mapping', Source Field leer, Target Field {field}, Default Value setzen.\n3. Zweite Definition: Reference Lookup auf {app} mit Match auf einem Import-Wert; danach Import Set öffnen und die Data Policy per Related List 'Data Policies' zuordnen.\n4. Import ausführen (Run bzw. Run All) und drei Zeilen testen: leerer Wert bekommt den Default, gefüllter Wert bleibt, unpassender Wert bleibt leer oder wird abgewiesen.\n5. Dokumentation: Business Rules würden nur laufen, wenn die Import-Ausführung 'Run Business Rules' aktiviert hat – in Data-Policy-Designs ist das bewusst nicht der Fall.",
+    "commonMistakes": [
+      "Data Policy auf der Zielgruppe {table} statt auf der Staging-Tabelle definiert.",
+      "Data Policy im Import Set nicht zugeordnet und keine Wirkung gesehen.",
+      "Field Mapping in der Data Policy mit dem Transform Map verwechselt und doppelte Mapping-Regeln gebaut.",
+      "Business Rules erwartet und sich gewundert, dass sie beim Import nicht ausgeführt werden."
+    ],
+    "examRelevance": "Data Policy wird gern als Abgrenzungsfrage gefragt: 'Welches Werkzeug standardisiert Importdaten, ohne Business Rules auszulösen?' – die Antwort ist Data Policy, weil sie im Importkontext vor Insert/Update wirkt.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum wirkt die Data Policy nicht, wenn ein Formular geöffnet wird?",
+        "answer": "Data Policies sind an den Import gekoppelt; im Formular wirken UI Policies, Client Scripts und Business Rules."
+      },
+      {
+        "question": "Welche Data-Policy-Definition würdest du für einen Pflicht-Default nutzen?",
+        "answer": "Field Mapping mit Default Value; für Referenzen Reference Lookup mit Match auf einem Import-Feld."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_vendor"
+      ],
+      "field": [
+        "u_vendor_rating",
+        "u_budget_code"
+      ],
+      "app": [
+        "incident",
+        "u_vendor",
+        "alm_asset"
+      ]
+    }
+  },
+  {
+    "id": "t-db-007",
+    "title": "CMDB-Klasse {table} erweitern, CI anlegen und Identification Rule testen",
+    "area": "database_security",
+    "difficulty": "advanced",
+    "estimatedMinutes": 30,
+    "scenario": "Die Nordwind IT führt Notebooks als CIs und möchte eine eigene Klasse, die cmdb_ci_computer extendiert. Aus einer Importquelle werden dieselben Geräte mehrfach geliefert, weil die Seriennummer in zwei Systemen gepflegt wird. Es soll eine Identification Rule greifen, die Duplikate über {field} erkennt, und eine Reconciliation-Regel, die gepflegte Felder nachzieht.",
+    "requirements": [
+      "CMDB-Klasse {table} definieren, die cmdb_ci_computer extendiert",
+      "zwei CI-Datensätze mit gleicher {field} anlegen und das Verhalten beobachten",
+      "Identification Rule mit Match auf {field} und passender Priorität definieren",
+      "Identification/Reconciliation-Regeln auf die Data Source schalten",
+      "Import erneut ausführen und nachweisen, dass keine Duplikate entstehen"
+    ],
+    "hints": [
+      "Stufe 1: CMDB ist ein eigener Bereich mit Klassen, Instanzen und Identification – nicht zu verwechseln mit einer normalen Custom-Tabelle.",
+      "Stufe 2: Identification Rules arbeiten pro Data Source und matchen über Felder; ohne Match-Feld kann keine Rule greifen.",
+      "Stufe 3: Application Navigator > 'CMDB Studio' bzw. 'Tables' > Extend template = cmdb_ci_computer > Klasse {table}. Application Navigator > 'Identification Rules' > New > Source Table/Data Source wählen, Match Field {field}, Priorität setzen; danach Import erneut laufen lassen."
+    ],
+    "solution": "1. Application Navigator > 'CMDB Studio' (früher CMDB > CMDB Studio) > Classes > New > Name {table}, Extends cmdb_ci_computer, Save.\n2. CI anlegen: Application Navigator > 'CMDB Instance' bzw. Liste {table} > New; {field} und Name füllen.\n3. Zweiten CI mit gleicher {field} aus der Importquelle anlegen, um den Konflikt sichtbar zu machen.\n4. Application Navigator > 'Identification Rules' (früher Identification and Reconciliation) > New: Data Source wählen, Match Criteria auf {field}, Priorität setzen, Save.\n5. Auf der Data Source die Identification- und Reconciliation-Regeln zuordnen und Import ausführen.\n6. Ergebnis prüfen: Die beiden {field}-Werte führen zu einem CI; die Reconciliation-Regel aktualisiert die definierten Felder. Anmerkung: In aktuellen Versionen heißen die Module 'CMDB Studio' bzw. 'Identification Rules'; die genaue Menüführung kann abweichen.",
+    "commonMistakes": [
+      "CMDB-Klasse als normale Custom-Tabelle angelegt und dadurch CI-Vererbung und CSDM-Bezug verloren.",
+      "Identification Rule ohne passende Data Source definiert – die Rule läuft dann nie.",
+      "Match-Feld {field} nicht als eindeutiges Schlüsselfeld geprüft und Duplikate akzeptiert.",
+      "Reconciliation-Regel vergessen und danach Felder aus der Quelle überschrieben gesehen."
+    ],
+    "examRelevance": "CMDB und CSDM stehen im Blueprint als eigener Subtopic. Gefragt wird: Wie vererben CMDB-Klassen, was macht eine Identification Rule, was unterscheidet Identification von Reconciliation.",
+    "comprehensionQuestions": [
+      {
+        "question": "Was entscheidet eine Identification Rule, was eine Reconciliation Rule?",
+        "answer": "Identification entscheidet, ob ein Importdatensatz einem vorhandenen CI entspricht; Reconciliation entscheidet, welche Felder danach aktualisiert werden."
+      },
+      {
+        "question": "Warum ist {field} als Match-Feld besser geeignet als der Name?",
+        "answer": "Die Seriennummer ist stabil und eindeutig, Namen können sich ändern oder doppelt vorkommen."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_notebook",
+        "u_network_switch"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_asset_tag"
+      ]
+    }
+  },
+  {
+    "id": "t-db-008",
+    "title": "Security Center: Scan-Definition und Shared Responsibility nachweisen",
+    "area": "database_security",
+    "difficulty": "exam",
+    "estimatedMinutes": 35,
+    "scenario": "Die Nordwind IT soll in einem Audit zeigen, welche Instance-Verantwortungen sie im Shared Responsibility Model selbst trägt und welche Verantwortung ServiceNow übernimmt. Zusätzlich soll für die Anwendung {app} eine Scan-Definition vorbereitet werden, die bei aktivem Scan-Engine einen Bericht erzeugt. In der PDI soll beides dokumentiert werden, inklusive der Einschränkungen.",
+    "requirements": [
+      "Security Center öffnen und prüfen, ob das zuständige Plugin installiert ist",
+      "Shared-Responsibility-Seite aufrufen und die eigenen Verantwortungen markieren",
+      "Liste der offenen Prüfungen dokumentieren und eine Priorität ableiten",
+      "Scan Definition für {app} anlegen: Scan Application, Scan Method und Scan Target zuordnen",
+      "Prüfen, dass für Application-Scans ein MID Server bzw. Scan Engine nötig ist",
+      "Ergebnis als kurzer Auditnachweis formulieren"
+    ],
+    "hints": [
+      "Stufe 1: Security Center ist ein eigener App-Bereich mit Compliance-, Scan- und Verantwortungs-Sichten – nicht das klassische Service Desk.",
+      "Stufe 2: Das Shared Responsibility Model ist eine dokumentierte Aufteilung zwischen ServiceNow und dem Kunden; Scan Definitions brauchen das Security-Plugin und meist einen MID Server.",
+      "Stufe 3: Application Navigator > 'Security Center' > Übersicht bzw. 'Responsibilities' > eigene Verantwortungen prüfen. Danach Application Navigator > 'Scan Definitions' bzw. Security Center > Scans > New > Scan Application und Scan Method wählen."
+    ],
+    "solution": "1. Application Navigator > 'Security Center' öffnen; auf der Übersichtsseite prüfen, ob Security Control Compliance (früher CIS-SP Compliance Manager) aktiv ist.\n2. Bereich 'Shared Responsibility Model' bzw. 'Responsibilities' öffnen und dokumentieren, welche Prüfungen die Instanz betreffen (Passwortrichtlinien, Verschlüsselung, Backup-Fenster, Plugin-Stand).\n3. Offene Punkte mit Status und Fristen notieren und die zuständige Rolle {role} zuordnen.\n4. Application Navigator > 'Scan Definitions' > New: Scan Application wählen, Scan Method zuordnen, Scan Target und Credentials setzen; Zuordnung zur Gruppe {group} dokumentieren.\n5. Ohne MID Server bzw. Scan Engine kann ein Application-Scan nicht ausgeführt werden – das als Einschränkung in den Nachweis schreiben.\n6. Anmerkung: Die Menüführung im Security Center hat sich in aktuellen Versionen mehrfach geändert; prüfe in deiner PDI, ob 'Scan Definitions' im Security Center oder unter Compliance zu finden ist. Nicht raten – im Zweifel Screenshots im Auditnachweis ergänzen.",
+    "commonMistakes": [
+      "Shared Responsibility als reine Info-Seite gelesen und keine eigenen Verantwortungen dokumentiert.",
+      "Scan Definition ohne Scan Application oder Scan Method angelegt und danach keine Ergebnisse gesehen.",
+      "Scan ohne MID Server erwartet, obwohl Application-Scans einen Scan Engine brauchen.",
+      "Plugin-Status nicht geprüft und Compliance-Aussagen getroffen, die die PDI nicht hergibt."
+    ],
+    "examRelevance": "Security Center und das Shared Responsibility Model stehen als Subtopic im Blueprint. In Prüfungsnähe wird gern gefragt, welche Verantwortung der Kunde trägt und welches Werkzeug dafür die Nachweise liefert.",
+    "comprehensionQuestions": [
+      {
+        "question": "Was belegt das Shared Responsibility Model in einem Audit?",
+        "answer": "Die Aufteilung der Sicherheitsverantwortung zwischen ServiceNow als Plattformbetreiber und der Organisation als Instanzbetreiber, inklusive der vom Kunden zu erfüllenden Kontrollen."
+      },
+      {
+        "question": "Warum liefert eine Scan Definition allein keinen Bericht?",
+        "answer": "Eine Scan Definition beschreibt nur, was geprüft wird; die Ausführung braucht einen Scan Engine bzw. MID Server und passende Credentials."
+      }
+    ],
+    "variables": {
+      "app": [
+        "uh_bundle",
+        "incident",
+        "sn_hr_core"
+      ],
+      "role": [
+        "u_security_admin",
+        "itil",
+        "sn_business_unit_manager"
+      ],
+      "group": [
+        "Security Team",
+        "IT Operations"
+      ]
+    }
+  }
+]

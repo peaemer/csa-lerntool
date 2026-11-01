@@ -1,0 +1,158 @@
+[
+  {
+    "id": "t-ic-001",
+    "title": "System Property anlegen und Instance-Brandung anpassen",
+    "area": "instance_configuration",
+    "difficulty": "beginner",
+    "estimatedMinutes": 15,
+    "scenario": "Die Nordwind IT möchte die Instanz einheitlich erscheinen lassen: Logo und Farbe im Header sowie eine zentrale System Property für die Support-Mailadresse, die in Templates und Flows genutzt wird. Die Property soll auswertbar sein, ohne dass Skripte Hardcodes enthalten. Zusätzlich soll dokumentiert werden, wie sich eine Property programmseitig lesen lässt und welche Rollen die Property betreffen.",
+    "requirements": [
+      "System Property mit sprechendem Namen anlegen und Wert setzen",
+      "Property-Typ und Rollenzuordnung dokumentieren",
+      "Test über Background Scripts mit getProperty und einem Default-Wert",
+      "Brandung im Next Experience bzw. in den Systemeinstellungen prüfen",
+      "dokumentieren, dass persönliche Einstellungen anderer Nutzer davon unberührt bleiben",
+      "Ergebnis als kurze Instanz-Konfiguration festhalten"
+    ],
+    "hints": [
+      "Stufe 1: Instanzweite Werte werden über System Properties gepflegt, nicht über Notizen in Skripten.",
+      "Stufe 2: System Properties liegen im System-Definition-Bereich; eigene Properties bekommen einen eindeutig erkennbaren Namen.",
+      "Stufe 3: Application Navigator > 'System Properties' > 'Custom Properties' > New; Werte in der Related List 'Values' setzen. Brandung findet sich im Bereich 'Branding' bzw. bei den Themes."
+    ],
+    "solution": "1. Application Navigator > 'System Properties' > 'Custom Properties' > New: Name u_nordwind_support_email, Type String, Save.\n2. Related List 'Values' öffnen und den Standardwert einstellen; Rollen der Property prüfen und dokumentieren.\n3. Application Navigator > 'Background Scripts' > New: gs.getProperty('u_nordwind_support_email', 'support@nordwind.example') ausführen und Ergebnis notieren.\n4. Brandung anpassen: Application Navigator > 'Branding' bzw. 'Themes' suchen; Logo und Header-Farbe setzen. Anmerkung: In älteren Instanzen läuft Brandung über System Properties (UI Branding), in aktuellen Versionen über den Branding-Bereich der Next Experience – die genaue Menüführung kann abweichen.\n5. Mit einem zweiten Nutzer prüfen, dass die Brandung instanzweit wirkt, persönliche Einstellungen aber nicht verändert werden.\n6. Kurze Doku: Property, Wert, Verantwortliche Rolle {role} und Gruppe {group} festhalten.",
+    "commonMistakes": [
+      "Property ohne Eintrag in der Values-Related-List angelegt und danach einen leeren Wert gelesen.",
+      "Hardcode im Template statt Property genutzt und bei einem Instanzwechsel falsche Adressen bekommen.",
+      "Rollen auf der Property nicht gesetzt und Rechtewirkung nicht dokumentiert.",
+      "persönliche Theme-Einstellung mit instanzweiter Brandung verwechselt."
+    ],
+    "examRelevance": "Instance Configuration ist ein Blueprint-Subtopic: System Properties, persönliche Anpassung und Brandung werden gern als Zuordnungsfragen gestellt (was ist instanzweit, was ist nutzerbezogen).",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum ist eine System Property einem Hardcode vorzuziehen?",
+        "answer": "Der Wert ist zentral gepflegt, kann pro Instanz unterschiedlich sein und bleibt in Templates und Skripten stabil nutzbar."
+      },
+      {
+        "question": "Wirkt die Brandung für alle Nutzer?",
+        "answer": "Instanzweite Brandung wirkt für alle; persönliche Theme- oder Spracheinstellungen bleiben nutzerbezogen."
+      }
+    ],
+    "variables": {
+      "role": [
+        "itil",
+        "u_hardware_admin"
+      ],
+      "group": [
+        "IT Operations",
+        "Platform Team"
+      ]
+    }
+  },
+  {
+    "id": "t-ic-002",
+    "title": "Homepage bzw. Workspace für {role} zuweisen und personalisieren",
+    "area": "instance_configuration",
+    "difficulty": "advanced",
+    "estimatedMinutes": 25,
+    "scenario": "Der Service Desk der Nordwind IT soll beim Einstieg eine Startseite mit zwei Reports und den wichtigsten Schnellzugriffen sehen. Diese Startseite soll der Rolle {role} zugeordnet werden, nicht einzelnen Personen. Für die Gruppe {group} soll zusätzlich ein Workspace mit einer eigenen Ansicht entstehen. Es soll dokumentiert werden, welche Einstellungen instanzweit, welche rollenbasiert und welche persönlich sind.",
+    "requirements": [
+      "Startseite bzw. Homepage anlegen und der Rolle {role} zuweisen",
+      "mindestens zwei Reports und drei Schnellzugriffe einbinden",
+      "Workspace anlegen und einer Rolle zuordnen",
+      "persönliche Startseite eines Nutzers davon abgrenzen",
+      "Verhalten mit einem zweiten Nutzer testen",
+      "dokumentieren, dass Favoriten und persönliche Ansichten nicht rollenweit wirken"
+    ],
+    "hints": [
+      "Stufe 1: Startseiten sind rollenbasiert konfigurierbar; persönliche Favoriten sind nutzerbezogen.",
+      "Stufe 2: In aktuellen Versionen ist die Next Experience der Normalfall – dort arbeiten Workspaces und Startseiten statt der klassischen Homepage.",
+      "Stufe 3: Application Navigator > 'Homepages' bzw. 'Workspaces' > New; Rollen auf der Related List zuordnen; Reports über die Related List Reports hinzufügen."
+    ],
+    "solution": "1. Application Navigator > 'Homepages' (sys_home) bzw. der Bereich für Startseiten: New, sprechender Name, Inhalte und Reports auswählen.\n2. Related List 'Assign to roles' mit {role}; Save und mit einem Nutzer dieser Rolle testen.\n3. Application Navigator > 'Workspaces' > New: Workspace für die Gruppe {group}; Rolle {role} zuordnen; Sections oder Schnellzugriffe konfigurieren.\n4. Zwei Reports einbinden und die Schnellzugriffe auf die häufigsten Module setzen.\n5. Mit einem zweiten Nutzer prüfen, dass die rollenbasierte Startseite erscheint, persönliche Favoriten aber individuell bleiben.\n6. Anmerkung: Die Bezeichnung variiert zwischen klassischen Instanzen und Next Experience; wenn 'Homepages' nicht sichtbar ist, nach 'Start pages' bzw. Workspaces suchen und die Abweichung dokumentieren.",
+    "commonMistakes": [
+      "Startseite persönlich gesetzt und als rollenbasierte Lösung dokumentiert.",
+      "Workspace ohne Rollen-Zuordnung geöffnet und den zweiten Nutzer nicht gefunden.",
+      "Reports auf der Startseite erwartet, obwohl sie nicht auf die Rolle freigegeben sind.",
+      "persönliche Favoriten für die ganze Gruppe erwartet.",
+      "Schnellzugriffe auf Module gesetzt, die {role} gar nicht aufrufen darf."
+    ],
+    "examRelevance": "Personalisieren der Instanz und gemeinsame Nutzerflächen sind Blueprint-Subtopics. Typische Frage: Welche Einstellungen sind instanzweit, welche pro Rolle, welche pro Nutzer.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum ist die Startseite pro Rolle sinnvoller als pro Nutzer?",
+        "answer": "Weil alle Mitglieder einer Rolle dieselbe Einstiegsfläche bekommen und die Konfiguration wartbar bleibt; persönliche Vorlieben bleiben davon getrennt."
+      },
+      {
+        "question": "Was ist der Unterschied zwischen Workspace und klassischer Startseite?",
+        "answer": "Ein Workspace ist eine rollenbasierte, abgegrenzte Arbeitsfläche mit eigenen Sichten; die klassische Startseite ist die Report- und Linkseite der klassischen Oberfläche."
+      }
+    ],
+    "variables": {
+      "role": [
+        "itil",
+        "u_hardware_admin",
+        "field_agent"
+      ],
+      "group": [
+        "L1 Support",
+        "Hardware Support",
+        "Facilities Team"
+      ]
+    }
+  },
+  {
+    "id": "t-ic-003",
+    "title": "Plugin installieren und den Einfluss auf die Instanz prüfen",
+    "area": "instance_configuration",
+    "difficulty": "exam",
+    "estimatedMinutes": 20,
+    "scenario": "Die Nordwind IT möchte in der PDI ein Application-Plugin aktivieren, das Skripte an Anhänge bindet, und danach dokumentieren, was Installation bedeutet. Es soll geprüft werden, ob das Plugin in einer Produktivinstanz ohne Freigabe installierbar wäre und welche Konsequenzen ein Plugin für Module, Rollen und Aktualisetzungen hat. Zum Abschluss soll der Plugin-Status und die zugehörige Anwendung dokumentiert werden.",
+    "requirements": [
+      "Plugin-Liste im Application Navigator öffnen und ein Plugin suchen",
+      "Plugin installieren und den Status prüfen",
+      "prüfen, welche Module und Rollen durch das Plugin sichtbar werden",
+      "dokumentieren, dass Installation in Produktion geregelt ist und ein Neustart nötig sein kann",
+      "dokumentieren, dass Plugins in der Regel nicht sauber deinstalliert werden",
+      "kurze Entscheidungshilfe schreiben, wann ein Plugin die richtige Wahl ist"
+    ],
+    "hints": [
+      "Stufe 1: Plugins sind optionale Erweiterungen; sie erweitern Datenmodell, Module und Rollen.",
+      "Stufe 2: Der Plugin-Bereich liegt im System-Definition-Umfeld; Installation ist adminabhängig und in Produktion häufig geregelt.",
+      "Stufe 3: Application Navigator > 'Plugins' > Filter auf das gewünschte Plugin > Install; danach Status und Application prüfen."
+    ],
+    "solution": "1. Application Navigator > 'Plugins' (früher System Definition > Plugins) öffnen und nach 'Attach and Execute Scripts' bzw. einem gewünschten Plugin suchen.\n2. Install ausführen und den Status dokumentieren; danach Instanz neu laden und prüfen, ob Module und Rollen sichtbar sind.\n3. Prüfen, welche Anwendung das Plugin aktiviert und welche Rollen das Modul öffnen dürfen; Zuordnung zu {role} notieren.\n4. Einschränkung dokumentieren: In Produktion ist die Installation meist über Freigaben oder ServiceNow-Store-Prozesse geregelt, und die Installation kann einen Neustart erfordern.\n5. Deinstallation nur als Risiko dokumentieren – ein Plugin wird in der Praxis nicht einfach entfernt, weil Datenmodell und Module weiter genutzt werden.\n6. Anmerkung: Plugin-Namen und Menüführung unterscheiden sich zwischen Versionen; prüfe in deiner PDI den tatsächlichen Plugin-Namen und folge nicht einer Annahme.",
+    "commonMistakes": [
+      "Plugin als Anwendung verwechselt und die Installation für die falsche Anwendung dokumentiert.",
+      "Installation ohne Admin getestet und die Statusänderung nicht gesehen.",
+      "Deinstallation erwartet und dabei Datenverlust durch bereits genutzte Tabellen übersehen.",
+      "Rollen nach Installation nicht geprüft und Modulsichtbarkeit falsch beurteilt.",
+      "Plugin in Produktion ohne Freigabe installieren wollen."
+    ],
+    "examRelevance": "Installing applications and plugins ist ein eigenes Blueprint-Subtopic. Gern gefragt: Was installiert ein Plugin, welche Rolle braucht man dafür und warum ist das Entfernen problematisch.",
+    "comprehensionQuestions": [
+      {
+        "question": "Was erweitert ein Plugin typischerweise?",
+        "answer": "Tabellen und Felder, Module, Rollen und Benutzeroberflächen – also mehr als eine reine Funktionsgruppe."
+      },
+      {
+        "question": "Warum sollte ein installiertes Plugin nicht einfach entfernt werden?",
+        "answer": "Weil Daten und Konfiguration weiter genutzt werden und das Entfernen das Datenmodell sowie laufende Prozesse beschädigen kann."
+      },
+      {
+        "question": "Welche Voraussetzung braucht eine Plugin-Installation in Produktion?",
+        "answer": "In der Regel eine admin-berechtigte Ausführung und eine Freigabe über den Änderungsprozess bzw. den Store-Prozess."
+      }
+    ],
+    "variables": {
+      "role": [
+        "admin",
+        "itil",
+        "u_platform_admin"
+      ],
+      "group": [
+        "Platform Team",
+        "IT Operations"
+      ]
+    }
+  }
+]

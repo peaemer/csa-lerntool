@@ -1,0 +1,566 @@
+[
+  {
+    "id": "q-self-001",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Knowledge Management",
+    "question": "Ein Knowledge-Autor pflegt Artikel vollständig in der Platform UI und verwendet Knowledge Templates. Welche Voraussetzung ist zwingend erforderlich?",
+    "options": [
+      {"id": "a", "text": "Das Knowledge Management Plugin (SMKP) ist installiert; ohne Plugin stehen Knowledge Templates in der Platform UI nicht zur Verfügung."},
+      {"id": "b", "text": "Die Rolle „knowledge_contributor“ ersetzt das Plugin, weil sie Artikel in der Platform UI anlegt."},
+      {"id": "c", "text": "Knowledge Classes müssen nach der Installation manuell gelöscht werden, damit automatisch Templates daraus entstehen."},
+      {"id": "d", "text": "Das SMKP wirkt nur auf das Service Portal, auf die Platform UI hat es keine Auswirkungen."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Das Knowledge Management Plugin ist die Grundlage für das neue Knowledge-Datenmodell (Knowledge Templates statt Knowledge Classes) und für die Arbeit in der Platform UI. b ist falsch, weil Rollen das Datenmodell nicht ersetzen: „knowledge_contributor“ erlaubt das Erstellen/Bearbeiten von Artikeln, aber keine Templates. c ist falsch, weil Classes durch Templates abgelöst werden, nicht durch manuelles Löschen. d ist falsch, weil das Plugin instance-weit wirkt und nicht nur das Portal betrifft.",
+    "docsReference": "Knowledge Management Plugin (SMKP)",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-002",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Knowledge Management",
+    "question": "Ein Artikel steht im Life-Cycle-Status „Review“, der mit 70 % Progress hinterlegt ist. Welche Aussage zur Progress-Anzeige ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Progress wird über die Prozentsätze der Life-Cycle-Status ermittelt; ein Artikel gilt als veröffentlicht, sobald ein Status mit 100 % erreicht wird."},
+      {"id": "b", "text": "Progress wird vom Autor manuell auf einer Skala von 0–100 gesetzt."},
+      {"id": "c", "text": "Progress ergibt sich ausschließlich aus der Anzahl der Quality Checks."},
+      {"id": "d", "text": "Progress ist eine feste Vorgabe des Knowledge Templates und kann nicht beeinflusst werden."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Der Progress-Wert ist die Summe des Prozentsatzes, den der aktuelle Life-Cycle-Status hat (Draft/Review/Publish/Retire – jeweils konfigurierbar). Ab 100 % wird der Artikel veröffentlicht und ist in den Kanälen sichtbar. b, c und d sind falsch: Progress ist keine manuelle Eingabe, kein Quality-Check-Zähler und nicht an ein Template gebunden.",
+    "docsReference": "Knowledge Life Cycle und Progress",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-003",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Knowledge Management",
+    "question": "Ein Reviewer prüft Artikel systematisch. Welche Aussagen zu Quality Checks und Quality Instructions sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Quality Instructions enthalten die Kriterien, anhand derer ein Quality Check durchgeführt wird."},
+      {"id": "b", "text": "Ein Quality Check kann einem Reviewer oder einer Gruppe zugewiesen werden."},
+      {"id": "c", "text": "Quality Instructions sind an ein einzelnes Knowledge Template gebunden und können keiner Gruppe zugewiesen werden."},
+      {"id": "d", "text": "Ein Quality Check wird als Record dokumentiert und kann bestanden, nicht bestanden oder bedingt bestanden bewertet werden."},
+      {"id": "e", "text": "Ein Quality Check ist nur möglich, wenn der Artikel bereits den Status „Published“ erreicht hat."}
+    ],
+    "correct": ["a", "b", "d"],
+    "correctCount": 3,
+    "explanation": "Quality Instructions sind der Katalog der Prüfkriterien (a), Check- und Task-Kriterien. Checks werden als Record geführt (d) und können einem Approver bzw. einer Gruppe zugewiesen werden (b). c ist falsch, weil Quality Instructions instance-weit gepflegt und Gruppen/Rollen zuordenbar sind. e ist falsch: Ein Quality Check ist unabhängig vom Life-Cycle-Status möglich – er ist gerade ein Schritt vor der Veröffentlichung.",
+    "docsReference": "Quality Checks und Quality Instructions",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-004",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Knowledge Management",
+    "question": "Im Knowledge-Management werden Blocks als eigenständige Objekte behandelt. Welche Aussagen sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {"id": "a", "text": "Wiederverwendbare Blocks können in mehrere Artikel übernommen werden; Änderungen wirken auf alle Artikel, die den Block nutzen."},
+      {"id": "b", "text": "Standalone-Blocks werden eigenständig veröffentlicht und sind suchbar, während reusable Blocks nur im aufrufenden Artikel erscheinen."},
+      {"id": "c", "text": "Blocks können grundsätzlich nicht in Knowledge Artikel eingefügt werden."},
+      {"id": "d", "text": "Ein Block ersetzt den Artikel vollständig, nachdem er veröffentlicht wurde."}
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Blocks sind wiederverwendbare Wissensbausteine (a) und werden als reusable oder standalone geführt. Standalone-Blocks publizieren eigenständig und sind suchbar, reusable Blocks erscheinen als Block im aufrufenden Artikel (b). c ist falsch, genau das ist der Kern von Blocks. d ist falsch: Der Artikeltext bleibt erhalten und der Block ist nur ein Inhaltselement.",
+    "docsReference": "Knowledge Block vs. Knowledge Article",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-005",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Knowledge Management",
+    "question": "Ein Auftrag im Service Portal sucht nach einem Artikel und findet ihn nicht, obwohl er als Published markiert ist. Welche Konfiguration führt zuverlässig dazu, dass Artikel im Portal gefunden werden?",
+    "options": [
+      {"id": "a", "text": "Der Artikel muss den Status Published erreicht haben und in mindestens einem Kanal veröffentlicht sein, der im Portal genutzt wird."},
+      {"id": "b", "text": "Der Artikel muss im Status Draft sein und den Flag-Wert „Public“ tragen."},
+      {"id": "c", "text": "Ein bestandener Quality Check genügt, um Artikel im Portal sichtbar zu machen."},
+      {"id": "d", "text": "Knowledge Artikel werden nur gefunden, wenn sie über Variable Sets an eine Service Catalog Category gebunden sind."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Vorausgabe ist die Kombination aus 100 % Progress und einem Channel, der im Portal aktiv ist. b ist Unsinn, weil ein Artikel im Draft nicht veröffentlicht ist. c ist falsch, ein Quality Check allein publiziert nicht. d ist falsch, Category und Varien gehören zum Service Catalog, nicht zur Knowledge-Suche.",
+    "docsReference": "Knowledge Suche und Kanäle",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-006",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Knowledge Management",
+    "question": "Ein Agent verknüpft einen Knowledge Artikel über die Related List mit einem Incident. Welche Aussage ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Die Verknüpfung dokumentiert die Nutzung des Artikels und erlaubt die Verwendung als Vorlage für künftige Incidents, ohne den Artikelinhalt zu verändern."},
+      {"id": "b", "text": "Der Artikel wird durch die Verknüpfung automatisch in den Status „Author in progress“ gesetzt."},
+      {"id": "c", "text": "Die Verknüpfung kann nur auf CSM Incidents, nicht auf ITIL Incidents erfolgen."},
+      {"id": "d", "text": "Eine Verknüpfung ist nur möglich, wenn der Artikel zuvor einen Quality Check bestanden hat."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Die Related-List „Knowledge Article on Incident Related“ zeigt die Nutzung und kann als Vorlage (use as template) wiederverwendet werden – der Artikel selbst bleibt unverändert. b ist falsch, die Verknüpfung ändert keinen Life-Cycle-Status. c ist falsch, die Verknüpfung ist plattformübergreifend für alle Incident-Typen möglich. d ist falsch, Quality Checks sind keine Voraussetzung für Related-Records.",
+    "docsReference": "Knowledge Article on Incident Related",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-007",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Knowledge Management",
+    "question": "Zu Knowledge Klassen und Merkmalen (Knowledge Classes/Attributes bzw. Knowledge Templates im SMKP): Welche Aussagen sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Knowledge Classes bestimmen die Merkmale, die auf einem Knowledge Article angezeigt werden."},
+      {"id": "b", "text": "Im Knowledge Management Plugin ersetzen Knowledge Templates die Knowledge Classes und legen das Article-Form fest."},
+      {"id": "c", "text": "Ein Merkmal kann nur genutzt werden, wenn das Feld im Knowledge Article-Form bereits vorhanden ist."},
+      {"id": "d", "text": "Jede Knowledge Class erzwingt zwingend einen Quality Check."},
+      {"id": "e", "text": "Knowledge Classes sind an die Rolle „knowledge_admin“ gebunden und können nur von Administratoren definiert werden."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Classes bzw. Templates definieren das Article-Form und die Merkmale (a, b); Merkmale sind an vorhandene Systemfelder des Article-Forms gebunden (c). d ist falsch: Quality Checks sind freiwillig bzw. konfigurierbar und keine Pflicht einer Class. e ist falsch, Autoren und Reviewer arbeiten rollenabhängig, aber Class-Definition ist nicht ausschließlich Administratoren vorbehalten – die Rollen „knowledge_contributor“ und „knowledge_approve“ sind entscheidend.",
+    "docsReference": "Knowledge Classes, Merkmale und Knowledge Management Permissions",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-008",
+    "type": "boolean",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Knowledge Management",
+    "question": "Aussage: Ein Quality Check wird unabhängig vom Life-Cycle-Status des Artikels erstellt und setzt den Artikel nicht in einen neuen Life-Cycle-Status.",
+    "options": [
+      {"id": "a", "text": "Richtig"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["a"],
+    "explanation": "Quality Checks sind eigene Records, die losgelöst vom Life-Cycle-Status erstellt werden – sie dokumentieren das Ergebnis einer Prüfung, ändern aber nicht den Status des Artikels. Der Statuswechsel erfolgt weiterhin durch den Reviewer bzw. Approver.",
+    "docsReference": "Quality Checks",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-009",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Service Catalog",
+    "question": "Ein Katalogadministrator baut die Service Catalog Kategorien hieratisch auf. Welche Aussage zu Catalog Categories ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Categories können eine Elternkategorie haben; eine untergeordnete Category kann Items, Order Guides und Record Producer aufnehmen."},
+      {"id": "b", "text": "Eine Category kann ausschließlich Catalog Items enthalten."},
+      {"id": "c", "text": "Eine Category wird über den Access Type „Advanced“ ausschließlich Admins sichtbar gemacht."},
+      {"id": "d", "text": "Categories sind immer role-basiert und können ohne Rollen nicht sichtbar sein."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Hierarchie über die Parent Category ist erlaubt und Categories können Catalog Items, Order Guides, Record Producer, Variable Sets und Knowledge Artikel enthalten (a). b ist zu eng. c verwechselt Categories mit Catalog Items: „Advanced“ ist eine Eigenschaft des Items, nicht der Category. d ist falsch, Sichtbarkeit entsteht über Role-Based Service Catalog bzw. „Accessible by roles“, nicht zwingend über einzelne Rollen.",
+    "docsReference": "Catalog Category",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-010",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Service Catalog",
+    "question": "Ein Auftrag soll nicht Fulfillment-Aufgaben auslösen, sondern direkt einen Datensatz in einer Tabelle erzeugen. Welche Objektart ist dafür vorgesehen?",
+    "options": [
+      {"id": "a", "text": "Record Producer, weil er Varien nutzt und direkt einen Record in einer Tabelle des Instances erzeugt."},
+      {"id": "b", "text": "Catalog Item, weil es immer einen Datensatz in einer Tabelle erzeugt."},
+      {"id": "c", "text": "Order Guide, weil er Varien aus Variable Sets übernimmt."},
+      {"id": "d", "text": "Variable Set, weil es einen Fulfilo Task erzeugt."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Record Producer sind Catalog-Objekte mit Varien, die statt RITM und Fulfillment einen Record in einer Ziel-Tabelle erzeugen. b ist falsch, Catalog Items erzeugen RITM und SR. c ist falsch, Order Guides bündeln Items und erzeugen ihrerseits RITM. d ist falsch, Variable Sets sind wiederverwendbare Variengruppen ohne eigene Record-Erzeugung.",
+    "docsReference": "Catalog Item vs. Record Producer",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-011",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Service Catalog",
+    "question": "Ein Manager möchte mehrere Items in einem Vorgang bestellen und zusätzlich eigene Angaben machen. Welche Kombination aus Order Guide und Category ist fachlich richtig?",
+    "options": [
+      {"id": "a", "text": "Ein Order Guide bündelt mehrere Catalog Items und kann zusätzliche Varien aus Variable Sets enthalten; die Category dient der Einordnung und Sichtbarkeit."},
+      {"id": "b", "text": "Ein Order Guide kann keine Varien enthalten, weil Varien ausschließlich in Catalog Items definiert werden."},
+      {"id": "c", "text": "Ein Order Guide darf nur für Manager verwendet werden, die selbst bestellen."},
+      {"id": "d", "text": "Ein Order Guide erzeugt für jedes Item einen eigenen Service Request."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Order Guides sind für Mehrfachbestellungen (typisch Manager) gedacht und übernehmen sowohl Items als auch Varien aus Variable Sets; Categories ordnen Items und Order Guides ein und steuern die Sichtbarkeit. b ist falsch, Order Guides können eigene Varien und Sets haben. c ist falsch, auch normale Kunden können Order Guides nutzen. d ist falsch, alle Items eines Order Guides erzeugen RITM innerhalb desselben Service Request.",
+    "docsReference": "Order Guide vs. Order Guide Category",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-012",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Service Catalog",
+    "question": "Zu Variable Types im Service Catalog: Welche Aussagen sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Simple Varien wie Text oder Date erfassen genau einen Wert; Select Box wird als Auswahlliste dargestellt (im Slide-out des Catalog Items)."},
+      {"id": "b", "text": "Page Break dient nur der Darstellung und speichert keinen Wert im RITM."},
+      {"id": "c", "text": "Multi Row Variable Editor unterstützt mehrere Zeilen desselben Varien – auch aus einem Variable Set."},
+      {"id": "d", "text": "Select Box und Multi Select speichern beide mehrere Werte gleichzeitig."},
+      {"id": "e", "text": "Variable Sets werden im Order Guide als eigener Varien-Typ „Variable Set“ angelegt."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Simple Typen erfassen genau einen Wert, Select Box zeigt die Auswahl als Liste bzw. Radiobuttons (a). Page Break ist reine Struktur ohne Datens (b). Multi Row Variable Editor erlaubt wiederholte Zeilen und kann als Set wiederverwendet werden (c). d ist falsch: nur Multi Select speichert mehrere Werte, Select Box genau einen. e ist falsch, ein Variable Set ist kein Varien-Typ, sondern ein wiederverwendbarer Satz, der dem Item oder Order Guide zugeordnet wird.",
+    "docsReference": "Variable Types (Simple, Select Box, Multi Row, Page Break, Hybrid Container)",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-013",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Service Catalog",
+    "question": "Ein Team pflegt dieselben Angaben wiederholt in verschiedenen Catalog Items und Order Guides. Welche Aussage zu Variable Sets ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Ein Variable Set kann in mehreren Catalog Items und Order Guides verwendet werden; Änderungen am Set wirken auf alle Objekte, die es nutzen."},
+      {"id": "b", "text": "Ein Variable Set kann nur in genau einem Catalog Item verwendet werden."},
+      {"id": "c", "text": "Variable Sets enthalten ausschließlich Varien vom Typ Simple List."},
+      {"id": "d", "text": "Ein Variable Set erzeugt beim Fulfillment automatisch einen Task in einer beliebigen Tabelle."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Variable Sets sind wiederverwendbare Variengruppen und funktionieren in Catalog Items wie in Order Guides, mit zentraler Pflege. b ist falsch, die Mehrfachnutzung ist gerade der Zweck. c ist falsch, alle Varien-Typen sind möglich. d ist falsch, Variable Sets lösen keine Fulfilo Task Automation aus – dafür sind Task Templates und Task Rules zuständig.",
+    "docsReference": "Variable Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-014",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Service Catalog",
+    "question": "Eine Category soll nur einem definierten Nutzerkreis angezeigt werden. Welche Aussagen sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {"id": "a", "text": "Über „Accessible by roles“ an der Category werden Category und ihre Objekte nur Nutzern mit diesen Rollen angezeigt."},
+      {"id": "b", "text": "Eine Category kann Catalog Items, Order Guides, Record Producer, Knowledge Artikel und Variable Sets enthalten."},
+      {"id": "c", "text": "„Available for all clients“ auf einem Catalog Item ersetzt die Rollen der Category vollständig."},
+      {"id": "d", "text": "Role-basierte Sichtbarkeit in Categories erfordert zwingend die Rolle „catalog_admin“."}
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Role-basierte Service Catalog Sichtbarkeit wird über „Accessible by roles“ der Category gesteuert (a) und Categories enthalten alle Katalogobjekte inklusive Variable Sets und Knowledge Artikel (b). c ist falsch: „Available for all clients“ hebt nur die Beschränkung des einzelnen Items auf (Access Type Advanced), ersetzt aber keine Rollen. d ist falsch, die Admin-Rolle ist für die Pflege nötig, nicht für die Sichtbarkeit.",
+    "docsReference": "Categories, „Accessible by roles“ und „Available for all clients“",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-015",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Service Catalog",
+    "question": "Nach Freigabe eines RITM sollen automatisch Aufgaben in mehreren Tabellen erzeugt werden. Welche Lösung nutzt der Katalogadministrator dafür?",
+    "options": [
+      {"id": "a", "text": "F fulfilo Task Automation: Task Templates werden über Task Rules bzw. Task Plans an Catalog Items oder Order Guides gebunden und erzeugen Task Records."},
+      {"id": "b", "text": "Variable Sets, weil sie Aufgaben in Aufgabentabeln erzeugen."},
+      {"id": "c", "text": "Order Guide Categories, weil sie Fulfillment Activities definieren."},
+      {"id": "d", "text": "Approval Rules, weil sie Approer-Gruppen zuordnen und damit Aufgaben erzeugen."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Task Automation (F fulfilo bzw. Fulfilo) arbeitet mit Task Templates, Task Plans und Task Rules – Regeln lösen die Automatisierung aus, Plweise werden Items und Order Guides zugeordnet. b ist falsch, Variable Sets speichern nur Angaben. c ist falsch, Categories ordnen ein und definieren keine Fulfillment Activities. d ist falsch, Approval bestimmt Approer und löst keine Task-Erzeugung aus.",
+    "docsReference": "F fulfilo Task/Order und Fulfillment Activity",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-016",
+    "type": "boolean",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Service Catalog",
+    "question": "Aussage: Approval Rules können Approer als Nutzer oder Gruppe definieren und die Freigabe erfolgt vor dem Fulfillment.",
+    "options": [
+      {"id": "a", "text": "Richtig"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["a"],
+    "explanation": "Approval Rules definieren Approer (Einzelperson oder Gruppe) und setzen die Freigabe vor der Abarbeitung bzw. vor dem Fulfillment des RITM. Erst nach erfolgter Approval werden die Fulfillment Aktivitäten bzw. Task Rules ausgeführt. Die Aussage ist daher richtig.",
+    "docsReference": "Approval Rules und Approval vor Fulfullment",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-017",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Workflow Studio",
+    "question": "Ein Prozess soll in Flow Designer abgebildet werden. Welche Zuordnung von Flow-Designer-Bausteinen ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Actions haben Inputs und Outputs und können als Subflow ausgeführt werden; Triggers starten einen Flow."},
+      {"id": "b", "text": "Logic wird als Subflow bezeichnet und ist der einzige Baustein, der einen Flow starten kann."},
+      {"id": "c", "text": "Subflows können nur über Skripte ausgelöst werden."},
+      {"id": "d", "text": "Flows bestehen immer aus einem Trigger plus einer Action ohne Condition."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Actions sind die wiederverwendbaren Bausteine mit Inputs und Outputs; Subflows sind Actions mit eigener Logik und werden über Subflow Trigger ausgelöst. b ist falsch, Logic ist die Logik im Flow, nicht der Startbaustein. c ist falsch, Flow Designer ist eine Low-Code-Oberfläche ohne Skriptpflicht. d ist falsch, Flows bestehen aus Trigger, optionalen Conditions und Actions bzw. Logic.",
+    "docsReference": "Flow Designer: Actions, Trigger und Logic",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-018",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Workflow Studio",
+    "question": "Ein Flow ist in Flow Designer fertig gebaut, aber noch nicht aktiv. Welche Aussage ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Ein Flow kann getestet werden, ohne aktiv zu sein; erst durch die Aktivierung führt er im Live-Betrieb Aktionen aus."},
+      {"id": "b", "text": "Ohne Aktivierung können keine Testläufe durchgeführt werden."},
+      {"id": "c", "text": "Ein Flow kann nur einmal aktiviert werden, anschließend ist ein Testlauf ausgeschlossen."},
+      {"id": "d", "text": "Aktivierung ist nur in der Testumgebung möglich."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Testläufe sind unabhängig von der Aktivierung möglich; die Aktivierung ist die Voraussetzung für die Ausführung im Live-Betrieb. b ist falsch, der Flow Test ist gerade ohne Aktivierung nutzbar. c ist falsch, ein Flow kann deaktiviert und erneut aktiviert werden. d ist falsch, Aktivierung ist unabhängig von einer separaten Testumgebung.",
+    "docsReference": "Flow Test und Flow Aktivierung",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-019",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Workflow Studio",
+    "question": "Zur Fehlersuche in Flow Designer: Welche Aussagen sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Die Execution History dokumentiert jeden Lauf eines Flow und zeigt Fehler einzelner Schritte."},
+      {"id": "b", "text": "Ein Flow Test läuft mit Testdaten und liefert Ergebnisse pro Schritt, ohne dass der Flow aktiv sein muss."},
+      {"id": "c", "text": "Ein fehlgeschlagener Lauf kann aus der Execution History erneut ausgeführt werden."},
+      {"id": "d", "text": "Flow Test ist ausschließlich in einer separaten Testumgebung möglich, weil Testläufe lokal dokumentiert werden."},
+      {"id": "e", "text": "Fehlerhafte Flows müssen zwingend in den Workflow Editor migriert werden."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Execution History (a), Flow Test (b) und erneutes Ausführen (c) sind die üblichen Werkzeuge der Fehlersuche. d ist falsch, Testläufe können in jeder Instanz durchgeführt werden – Testergebnisse sind allerdings instanzlokal und werden nicht über Update Sets übertragen. e ist falsch, eine Migration in den Workflow Editor ist nicht erforderlich.",
+    "docsReference": "Flow Test, Flow History und Execution History",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-020",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Workflow Studio",
+    "question": "Es soll ein einfacher Feld-Update bei Record-Änderung umgesetzt werden; später sind mehrstufige Aktionen und asynchrone Verarbeitung geplant. Welche Entscheidung ist fachlich am besten?",
+    "options": [
+      {"id": "a", "text": "Für den einfachen Feld-Update eine Business Rule; für mehrstufige, asynchrone Abläufe ein Flow in Flow Designer."},
+      {"id": "b", "text": "Für beide Fälle Flow Designer, weil Business Rules asynchron ausgeführt werden."},
+      {"id": "c", "text": "Für beide Fälle ein Flow, weil Flow Designer synchron aufzeichnet und keine Condition kennt."},
+      {"id": "d", "text": "Für den einfachen Update ein Flow, weil Flow Designer Bedingungen besser als Business Rules verarbeiten kann."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Business Rules sind die schlankere Lösung für einfache Feld-Updates und laufen synchron; Flow Designer empfiehlt sich für mehrstufige, asynchrone Abläufe, Benachrichtigungen und externe Aktionen. b ist falsch, Business Rules sind nicht asynchron. c ist falsch, Flow Designer kennt Conditions. d ist falsch, für einen einfachen Update ist die Business Rule der einfachen Lösung vorzugeben.",
+    "docsReference": "Business Rule vs. Flow",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-021",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Workflow Studio",
+    "question": "Ein bestehender Workflow Editor Flow soll in Flow Designer weitergeführt werden. Welche Aussage ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Flow Designer ist die empfohlene Lösung; bestehende Workflow Editor Flüsse können in Flow Designer überführt werden."},
+      {"id": "b", "text": "Workflow Editor kann nicht überführt werden, solange kein benutzerdefenziertes Skript vorhanden ist."},
+      {"id": "c", "text": "Flsse in Flow Designer können nur auf einer einzigen Tabelle ausgelöst werden und sind Legacy."},
+      {"id": "d", "text": "Subflows ersetzen in Flow Designer die Triggers vollständig."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Flow Designer ist die aktuelle, empfohlene Lösung und ersetzt den Workflow Editor; migrierbare Workflows können überführt werden. b ist falsch, die Überführung ist ohne Skript möglich. c ist falsch, Flow Designer ist nicht Legacy und kann auf mehreren Tabellen arbeiten. d ist falsch, Subflows sind eigenständige Bausteine, Triggers bleibt die Startkomponente des Flusses.",
+    "docsReference": "Flow Designer vs. Workflow Editor (Legacy)",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-022",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Workflow Studio",
+    "question": "Zu Actions und Subflows in Flow Designer: Welche Aussagen sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {"id": "a", "text": "Actions haben Inputs und Outputs und werden als wiederverwendbare Bausteine in Flows und Subflows verwendet."},
+      {"id": "b", "text": "Subflows können als Action aufgerufen und über einen Subflow Trigger ausgelöst werden."},
+      {"id": "c", "text": "Inputs einer Action können im Flow als Varien verwendet werden, wenn sie nicht ausgegeben werden."},
+      {"id": "d", "text": "Ein Flow kann nur einen einzigen Trigger und keine Condition besitzen."},
+      {"id": "e", "text": "Actions können ausschließlich auf Records einer Tabelle basieren."}
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Actions sind Bausteine mit Inputs und Outputs (a) und können in Subflows verwendet werden, Subflows sind Actions mit Logik und eigenem Trigger (b). c ist falsch, Varien entstehen aus Outputs und können als Flow Varien definiert werden. d ist falsch, ein Flow kann Bedingungen haben. e ist falsch, Actions sind nicht auf Tabellen beschränkt.",
+    "docsReference": "Actions, Subflows und Flow Varien",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-023",
+    "type": "boolean",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Workflow Studio",
+    "question": "Aussage: Ein Flow Test kann nur in einer separaten Testumgebung durchgeführt werden, weil Testläufe ausschließlich instanzlokal dokumentiert werden.",
+    "options": [
+      {"id": "a", "text": "Richtig"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "explanation": "Testläufe sind in jeder Instanz möglich, die Antwort ist zu eng formuliert. Richtig ist: Testergebnisse sind instanzlokal und werden nicht über Update Sets übertragen; Flow Artifacts (Flsse, Actions, Subflows) werden sehr wohl über Update Sets übernommen. Damit ist die Aussage, Test könnten nur in einer separaten Testumgebung laufen, falsch.",
+    "docsReference": "Flow Test in Testumgebung und Update Sets",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-024",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Virtual Agent",
+    "question": "Ein Team diskutiert die Begriffe Bot Builder, Virtual Agent und Conversational Interface. Welche Zuordnung ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Bot Builder ist die Autoren-Oberfläche für Virtual Agent; Virtual Agent stellt die Dialoge bereit und wird im Now Experience Interface genutzt."},
+      {"id": "b", "text": "Conversational Interface ist der neue Name des Bot Builders und ersetzt die Topics vollständig."},
+      {"id": "c", "text": "Virtual Agent benötigt zwingend einen Workflow in Flow Designer."},
+      {"id": "d", "text": "Bot Builder wurde durch Virtual Agent abgelöst und ist nicht mehr verfügbar."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Bot Builder (Virtual Agent) ist die Autorenumgebung für Topics und Dialoge; die Conversational Interface ist die Chat-Oberfläche bzw der Workspace, in dem Nutzer den Bot verwenden. b ist falsch, Conversational Interface ist nicht der Name des Bot Builders. c ist falsch, Virtual Agent kann ohne Flow arbeiten; Flow Integration ist optional. d ist falsch, Bot Builder ist die heutige Bezeichnung der Autorenumgebung innerhalb von Virtual Agent.",
+    "docsReference": "Bot Builder vs. Virtual Agent",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-025",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Virtual Agent",
+    "question": "Ein Dialog soll zunächst Varien erfassen und anschließend antworten. Welche Aussage zu Dialog-Elementen ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Inputs erfassen Werte des Nutzers, Responses geben Text aus und Topics sind die Bausteine eines Dialogs."},
+      {"id": "b", "text": "Topics erfassen Werte, Inputs antworten und Responses sind die Auslöser eines Bots."},
+      {"id": "c", "text": "Ein Bot kann nur aus einem einzigen Topic bestehen."},
+      {"id": "d", "text": "Dialoge sind an den Now Experience Workspace gebunden und können nicht im Service Portal verwendet werden."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Die Reihenfolge ist: Topic als Baustein, Input für die Erfassung von Werten, Response für die Ausgabe. b dreht die Begriffe um. c ist falsch, ein Bot bzw Dialog kann mehrere Topics enthalten. d ist falsch, Virtual Agent wird in Now Experience und im Service Portal genutzt.",
+    "docsReference": "Dialogs: Topics, Inputs und Response",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-026",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Virtual Agent",
+    "question": "Welche Aussagen zu Virtual Agent Dialogs sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Ein Topic kann in mehreren Bots bzw Dialogs wiederverwendet werden."},
+      {"id": "b", "text": "System Topics stehen dem Bot zur Verfügung, ohne dass sie in jeden Dialog aufgenommen werden müssen."},
+      {"id": "c", "text": "Ein Topic kann über Flow Designer bzw Actions Werte aus dem Instance übernehmen."},
+      {"id": "d", "text": "Dialoge sind immer an die Rolle „itil“ gebunden."},
+      {"id": "e", "text": "Ein Bot kann nur einen einzigen Dialog enthalten."}
+    ],
+    "correct": ["a", "b", "c"],
+    "correctCount": 3,
+    "explanation": "Topics sind wiederverwendbar (a), System Topics ergänzen den Bot ohne feste Zuordnung (b) und Virtual Agent kann über Flow Integration Daten aus dem Instance abrufen (c). d ist falsch, Virtual Agent ist nicht an itil gebunden. e ist falsch, ein Bot kann mehreren Dialogen zugeordnet werden bzw einen Dialog mit mehreren Topics nutzen.",
+    "docsReference": "Virtual Agent Topics und Dialogs",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-027",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Virtual Agent",
+    "question": "Zwei Personen arbeiten an einem Bot: Eine erstellt Topics, die andere veröffentlicht den Bot. Welche Aussage zu Virtual Agent Rollen ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Autoren erstellen und bearbeiten Topics; für das Veröffentlichen und Deaktivieren eines Bots ist die Virtual-Admin-Rolle erforderlich."},
+      {"id": "b", "text": "Autoren veröffentlichen Bots, Administratoren pflegen ausschließlich Dialoge."},
+      {"id": "c", "text": "Virtual Agent Rollen sind identisch mit den Service Catalog Rollen."},
+      {"id": "d", "text": "Ohne Rolle „itil“ kann ein Bot nicht veröffentlicht werden."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Die Virtual Agent Rollen sind getrennt: Author für Topics und Dialoge, Admin für das Publizieren und die Bot-Verwaltung (a). b ist falsch, die Rollen wirken umgekehrt. c ist falsch, Virtual Agent Rollen sind eigene Rollen und nicht an Service Catalog Rollen gekoppelt. d ist falsch, itil ist eine Service-Modul-Rolle und keine Virtual Agent Rolle.",
+    "docsReference": "Virtual Agent Roles",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-028",
+    "type": "multiple",
+    "topic": "self_service",
+    "difficulty": "medium",
+    "subtopic": "Virtual Agent",
+    "question": "Zum Verhältnis von Conversational Interface und Virtual Agent: Welche Aussagen sind korrekt? Wähle genau 2 Antworten.",
+    "options": [
+      {"id": "a", "text": "Conversational Interface ist die Oberfläche, in der Nutzer mit einem Bot chatten; Virtual Agent ist der Bot mit Dialogen und Topics."},
+      {"id": "b", "text": "Ein Bot kann über Kanäle bereitgestellt werden und mehrere Dialoge bzw Topics nutzen."},
+      {"id": "c", "text": "Conversational Interface ersetzt Virtual Agent in allen neueren Releases."},
+      {"id": "d", "text": "Topics können nur in Bot Builder, nicht in Now Experience angezeigt werden."}
+    ],
+    "correct": ["a", "b"],
+    "correctCount": 2,
+    "explanation": "Die Conversational Interface stellt die Chat-Oberfläche im Workspace bzw Portal bereit, Virtual Agent liefert die Inhalte (a). Bots werden über Kanäle veröffentlicht und können mehrere Dialoge nutzen (b). c ist falsch, beide Begriffe haben unterschiedliche Ebenen. d ist falsch, Now Experience nutzt dieselben Topics und Dialoge des Virtual Agent.",
+    "docsReference": "Conversational Interface vs. Virtual Agent",
+    "needsReview": false
+  },
+  {
+    "id": "q-self-029",
+    "type": "single",
+    "topic": "self_service",
+    "difficulty": "hard",
+    "subtopic": "Virtual Agent",
+    "question": "Ein Nutzer in einem Now Experience Workspace soll bestimmte Topics eines Bots sehen. Welche Aussage ist korrekt?",
+    "options": [
+      {"id": "a", "text": "Der Workspace zeigt den Virtual Agent über die Conversational Interface; die Sichtbarkeit wird über Bot, Dialog und Rollen gesteuert."},
+      {"id": "b", "text": "Virtual Agent ist in Now Experience ausschließlich Administratoren vorbehalten."},
+      {"id": "c", "text": "In Now Experience kann Virtual Agent nur über das Service Portal genutzt werden."},
+      {"id": "d", "text": "Ein Bot kann nicht in einem Workspace verwendet werden, weil Bots immer an ein Portal gebunden sind."}
+    ],
+    "correct": ["a"],
+    "correctCount": 1,
+    "explanation": "Now Experience nutzt die Conversational Interface als Chat-Oberfläche; Bot, Dialog und Rollen bestimmen die Sichtbarkeit für den Nutzer. b ist falsch, auch Requester können den Bot nutzen. c ist falsch, Virtual Agent steht in Now Experience und im Portal zur Verfügung. d ist falsch, Bots können in Workspaces und Portalen genutzt werden.",
+    "docsReference": "Virtual Agent in Now Experience",
+    "needsReview": true
+  },
+  {
+    "id": "q-self-030",
+    "type": "boolean",
+    "topic": "self_service",
+    "difficulty": "easy",
+    "subtopic": "Virtual Agent",
+    "question": "Aussage: Virtual Agent kann ausschließlich im Now Experience Interface verwendet werden, nicht im Service Portal.",
+    "options": [
+      {"id": "a", "text": "Richtig"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "explanation": "Virtual Agent wird in Now Experience und im Service Portal bzw CSM Portal bereitgestellt. Die falsche Aussage schließt das Portal aus, obwohl genau dieses einer der Standardkanäle ist.",
+    "docsReference": "Virtual Agent Kanäle und Portal",
+    "needsReview": false
+  }
+]

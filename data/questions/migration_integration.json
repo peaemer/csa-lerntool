@@ -1,0 +1,328 @@
+[
+  {
+    "id": "q-mig-001",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "easy",
+    "subtopic": "UI Policies",
+    "question": "Auf dem Incident-Formular soll das Feld 'Additional comments' immer dann verpflichtend sein, wenn der Status 'Awaiting user info' lautet. Die Fachabteilung wünscht eine einfache Lösung ohne Skript. Welches Werkzeug wird empfohlen?",
+    "options": [
+      {"id": "a", "text": "UI Policy mit Bedingung und Aktion 'Mandatory = True'"},
+      {"id": "b", "text": "Data Policy mit Aktion 'Mandatory = True'"},
+      {"id": "c", "text": "Business Rule (before, update) mit Skript"},
+      {"id": "d", "text": "Client Script (on change) mit g_form.setMandatory()"}
+    ],
+    "correct": ["a"],
+    "explanation": "UI Policies sind für die bedingte Steuerung von Feldverhalten auf dem Formular das empfohlene Werkzeug: Sie wirken ohne Skript und definieren genau die drei Feld-Aktionen Mandatory, Visible und Read only. Die Bedingung 'State is Awaiting user info' plus Aktion Mandatory = True erfüllt die Anforderung exakt. Fehleranalyse: b) Data Policies erzwingen Pflicht serverseitig – das wäre sinnvoll, wenn auch API-Änderungen gelten sollen, aber die Anforderung ist reine Formularsteuerung. c) Business Rules ändern Daten in der Datenbank, nicht das Formularverhalten eines Nutzers. d) Ein Client Script wäre technisch möglich, ist aber unnötig, weil UI Policies ohne Skript auskommen und zusätzlich die kontrollierbare Reihenfolge (Order) bieten.",
+    "docsReference": "UI Policies",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-002",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "UI Policies",
+    "question": "Eine UI Policy macht das Feld 'Urgency' verpflichtend, wenn die Bedingung 'Impact = High' erfüllt ist. Ein Agent ändert den Wert 'Impact' jedoch über die Listenbearbeitung (List Editor) bzw. über einen Button auf dem Formular – die UI Policy greift nicht. Welche Erklärung ist korrekt?",
+    "options": [
+      {"id": "a", "text": "UI Policies werden in der Listenansicht grundsätzlich nicht ausgewertet, weil alle Aktionen clientseitig sind"},
+      {"id": "b", "text": "Die Bedingungen der UI Policy werden nur neu geprüft, wenn ein Feld direkt auf dem Formular vom Nutzer geändert wird – Änderungen durch UI Actions, Kontextmenüs oder Listenbearbeitung werden nicht ausgewertet"},
+      {"id": "c", "text": "UI Policies laufen erst nach dem Absenden des Formulars, deshalb ist die Listenbearbeitung zu früh"},
+      {"id": "d", "text": "Das Feld 'Urgency' ist auf dem Formular nicht sichtbar, daher kann keine Aktion ausgeführt werden"}
+    ],
+    "correct": ["b"],
+    "explanation": "UI Policies werten ihre Bedingung nur dann neu aus, wenn der Nutzer ein Feld auf dem Formular manuell ändert. Erfolgt die Änderung durch eine UI Action, ein Kontextmenü oder die Listenbearbeitung, bleibt die UI Policy unberührt – deshalb greift sie hier nicht. Fehleranalyse: a) ist zu pauschal: UI Policy-Aktionen wirken auf Formularen, nicht auf Listen; die Ursache liegt an der Art der Änderung, nicht an der Liste selbst. c) onLoad und On load sind als Auslöser definiert – eine UI Policy kann bereits beim Laden des Formulars wirken. d) wäre nur dann zutreffend, wenn das Feld nicht auf dem Formular wäre; dann wäre die eigentliche Ursache die fehlende Sichtbarkeit, nicht die Listenbearbeitung.",
+    "docsReference": "UI Policies",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-003",
+    "type": "boolean",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "UI Policies",
+    "question": "Eine UI Policy mit der Aktion 'Mandatory = True' macht ein Feld auch dann verpflichtend, wenn der Datensatz per Import oder REST-API ohne Formular geschrieben wird.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "explanation": "Falsch. Feld-Aktionen einer UI Policy (Mandatory, Visible, Read only) sind Formularsteuerung im Browser – sie gelten nur, wenn das Formular geöffnet wird. Bei Datenimport oder API-Update ohne Formular wirkt die UI Policy nicht. Für serverseitig gültige Pflichtvorgaben ist eine Data Policy (oder eine validateierende before-Business-Rule mit setAbortAction) die richtige Wahl.",
+    "docsReference": "UI Policies",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-004",
+    "type": "multiple",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "UI Policies",
+    "question": "Zu den UI Policies: Welche Aussagen sind korrekt? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Die Feld-Aktionen einer UI Policy sind Mandatory, Visible und Read only – jeweils mit der Auswahl 'Leave alone'"},
+      {"id": "b", "text": "Mit 'Reverse if false' werden die Aktionen einer UI Policy zurückgenommen, wenn ihre Bedingung nicht erfüllt ist"},
+      {"id": "c", "text": "Das Feld 'On load' steuert, ob die UI Policy auch beim Laden des Formulars ausgewertet wird"},
+      {"id": "d", "text": "UI Policies erzwingen eine verpflichtende Feldvorgabe immer serverseitig in der Datenbank"},
+      {"id": "e", "text": "Die Skripte 'Execute if true' und 'Execute if false' einer UI Policy laufen auf dem Server aus"}
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "a) Die drei Aktionen sind Mandatory, Visible, Read only; pro Aktion kann 'Leave alone' gewählt werden. b) 'Reverse if false' kehrt die Aktionen um, wenn die Bedingung falsch ist – so spart man eine zweite UI Policy. c) Über den Advanced-View-Schalter 'On load' entscheidet man, ob die Policy beim Formular-Aufruf oder nur bei Änderung greift. Fehleranalyse: d) ist falsch, denn UI Policies sind clientseitige Formularlogik; serverseitige Erzwingung erfolgt über Data Policies oder Business Rules. e) ist falsch: Die Skripte einer UI Policy laufen im Browser (Client), während die Bedingung auf dem Server geprüft wird.",
+    "docsReference": "UI Policies",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-005",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "easy",
+    "subtopic": "Business Rules",
+    "question": "Ein Entwickler möchte in einer Business Rule Feldwerte des aktuellen Records während des Speicherns setzen und die Speicherung bei einem Verstoß gegen die Vorgabe abbrechen. Welcher Ausführungszeitpunkt ist geeignet?",
+    "options": [
+      {"id": "a", "text": "before"},
+      {"id": "b", "text": "after"},
+      {"id": "c", "text": "async"},
+      {"id": "d", "text": "display"}
+    ],
+    "correct": ["a"],
+    "explanation": "before-Business-Rules laufen synchron vor der Datenbankaktion – also nach dem Absenden des Formulars, aber bevor das Record in der Datenbank verändert wird. Nur dort können Werte von 'current' gesetzt und mit current.setAbortAction(true) die Aktion verhindert werden. Fehleranalyse: b) after läuft nach der Datenbankaktion; ein Abbrechen ist dort nicht mehr möglich, und Änderungen an 'current' wirken nicht. c) async läuft in einem separaten Prozess nach der Aktion und ist für lange Prozesse ohne zeitnahe Ausgabe gedacht. d) display dient dazu, Serverwerte für Client-Skriekte bereitzustellen (z. B. g_scratchpad), nicht für Datensatzänderungen.",
+    "docsReference": "Business Rules",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-006",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "Business Rules",
+    "question": "Ein Skript in einer after-Business-Rule soll ein Feld des aktuellen Incident-Records ändern. Im Test bleibt das Feld unverändert. Welche Erklärung ist zutreffend?",
+    "options": [
+      {"id": "a", "text": "after-Rules werden erst nach allen Benachrichtigungen ausgeführt und können daher keine Feldwerte ändern"},
+      {"id": "b", "text": "after-Rules laufen asynchron, deshalb ist das Ergebnis erst nach dem Timeout sichtbar"},
+      {"id": "c", "text": "Bei einer after-Business-Rule ist das Record bereits in der Datenbank gespeichert – Änderungen an 'current' werden nicht persistiert; für dasselbe Record muss ein separates GlideRecord-Update erfolgen"},
+      {"id": "d", "text": "Business Rules auf Extended-Tables erben keine after-Rules vom Parent"}
+    ],
+    "correct": ["c"],
+    "explanation": "after-Business-Rules laufen synchron nach der Datenbankaktion. Der Datensatz ist dann bereits geschrieben, sodass eine Änderung von 'current' keine Auswirkung auf die Datenbank hat. Für dieselbe Tabelle muss man deshalb ein separates Update (GlideRecord) oder eine vor dem Speichern laufende before-Rule verwenden. after-Rules sind für related Records und previous-Werte geeignet. Fehleranalyse: a) Die Reihenfolge der Ausführung ist definiert (before – before engines – Datenbank – after – after engines), nicht erst nach Benachrichtigungen. b) 'after' ist synchron; nur 'async' läuft in einem Hintergrundprozess. d) Vererbung betrifft UI Policies und Client Scripts, nicht die Wirkung einer after-Rule.",
+    "docsReference": "Business Rules",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-007",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "Business Rules",
+    "question": "Ein before-Business-Rule-Skript setzt den Wert von 'current.u_release'. Muss im Skript current.update() aufgerufen werden, damit der Wert in der Datenbank steht?",
+    "options": [
+      {"id": "a", "text": "Ja, current.update() ist zwingend erforderlich"},
+      {"id": "b", "text": "Nein – Änderungen an 'current' in before-Rules werden automatisch gespeichert, sobald alle before-Rules abgeschlossen sind"},
+      {"id": "c", "text": "Nein, aber erst nach einem aktuellen Update durch den Nutzer"},
+      {"id": "d", "text": "Ja, aber nur wenn die Business Rule den Wert 'Advanced' gesetzt hat"
+      }
+    ],
+    "correct": ["b"],
+    "explanation": "In before-Business-Rules ist das Record noch nicht geschrieben; die Änderungen an 'current' werden übernommen, wenn alle before-Rules beendet sind. current.update() ist dort nicht nötig und sollte nicht verwendet werden – es löst einen zusätzlichen Datenbankvorgang aus, der doppelte Benachrichtigungen, rekursive Schleifen und Performanceprobleme verursachen kann. Fehleranalyse: a) widerspricht der Ausführung vor der Datenbankaktion. c) der Wert wird bereits im Rahmen der ursprünglichen Speicherung gesetzt. d) der Schalter 'Advanced' steuert nur die Bedingung per Skript, nicht das Speichern.",
+    "docsReference": "Business Rules",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-008",
+    "type": "multiple",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "Business Rules",
+    "question": "Welche Werte sind offizielle Ausführungszeitpunkte ('When') einer Business Rule in ServiceNow? Wähle genau 4 Antworten.",
+    "options": [
+      {"id": "a", "text": "before"},
+      {"id": "b", "text": "after"},
+      {"id": "c", "text": "async"},
+      {"id": "d", "text": "display"},
+      {"id": "e", "text": "on change"}
+    ],
+    "correct": ["a", "b", "c", "d"],
+    "explanation": "Offiziell sind die Time-Felder-Werte 'before' (synchron vor der Datenbankaktion), 'after' (synchron danach), 'async' (nach der Aktion als Scheduled Job, Ausführung ohne garantierende Reihenfolge) und 'display' (bei der Anzeige des Formulars, gerade nach dem Lesen der Daten aus der Datenbank). Fehleranalyse: e) 'on change' gehört zu den Client-Script-Typen bzw. UI-Policy-Auswertungen, nicht zu den Business-Rule-Ausführungszeitpunkten. Ergänzend sind die Record-Operationen als Aktionen wählbar: insert, update, delete, query.",
+    "docsReference": "Business Rules",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-009",
+    "type": "boolean",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "Business Rules",
+    "question": "In einer async Business Rule können die GlideElement-Methoden changes(), changesTo() und changesFrom() im Skript verwendet werden, um den previous-Wert zu vergleichen.",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "explanation": "Falsch. Async-Business-Rules haben keinen Zugriff auf die vorherige Version des Records; changes(), changesTo() und changesFrom() funktionieren im async-Skript nicht. Die Ausführung kann zudem außerhalb der Reihenfolge erfolgen, wenn mehrere schnelle Aktualiv updates desselben Records erfolgen. Für solche Vergleiche sind after-Business-Rules oder System Events die empfohlene Alternative – Condition Builder und das Bedingungsfeld unterstützen die changes()-Methoden allerdings.",
+    "docsReference": "Business Rules",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-010",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "Update Sets",
+    "question": "Ein Update Set in der Entwicklungsinstanz soll in die Zielinstanz übernommen werden. Welcher Ablauf ist korrekt?",
+    "options": [
+      {"id": "a", "text": "State 'Complete' setzen, dann in der Zielinstanz unter System Update Sets > Remote Update Sets abrufen (Retrieve), previewen und commiten"},
+      {"id": "b", "text": "State 'Committed' setzen und das Update Set direkt in der Entwicklungsinstanz speichern"},
+      {"id": "c", "text": "State 'Retrieved' setzen, damit es automatisch in die Zielinstanz geschrieben wird"},
+      {"id": "d", "text": "State 'Ignore' setzen, damit die Zielinstanz die Änderungen beim Klonen übernimmt"}
+    ],
+    "correct": ["a"],
+    "explanation": "Der Lifecycle ist: Update Set in der Quellinstanz auf 'Complete' setzen (erst dann ist es für andere Instanzen abrufbar), auf der Zielinstanz über System Update Sets > Remote Update Sets retrieven, im Preview prüfen und erst danach commiten. Fehleranalyse: b) 'Committed' beschreibt den Zustand in der Zielinstanz nach erfolgreichem Commit, nicht die Voraussetzung für den Abruf. c) 'Retrieved' ist das Ergebnis des Abrufs in der Zielinstanz – es wird nicht manuell gesetzt. d) 'Ignore' verhindert lediglich ein erneutes Commiten beim Klonen; Completed Update Sets auf Production soll man auf 'Ignore' setzen.",
+    "docsReference": "Update Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-011",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "Update Sets",
+    "question": "Ein Update Set wurde in der Produktionsinstanz erfolgreich commitet. Nachfolgende Klon-Vorgänge sollen verhindern, dass dieselben Änderungen erneut geschrieben werden. Welche Maßnahme ist richtig?",
+    "options": [
+      {"id": "a", "text": "Das Update Set auf 'Ignore' setzen"},
+      {"id": "b", "text": "Das Update Set löschen und die Änderungen manuell dokumentieren"},
+      {"id": "c", "text": "Den State zurück auf 'In progress' setzen und die Updates verschieben"},
+      {"id": "b2", "text": "Das Update Set mit Merge in ein Parent-Update Set überführen"}
+    ],
+    "correct": ["a"],
+    "explanation": "Der empfohlene Zustand für abgeschlossene Update Sets auf der Produktionsinstanz ist 'Ignore' – dadurch wird das Update Set beim Klonen nicht erneut commitet. Die Datensätze bleiben erhalten. Fehleranalyse: b) Update Sets dürfen nicht gelöscht werden, bevor sie erfolgreich merged wurden; einzelne sys_update_xml-Einträge verschiebt man nur in das Default Update Set. c) Ein Completed Update Set soll nicht zurück auf 'In progress' gesetzt werden; für restliche Arbeiten erstellt man ein neues Update Set. d) Batching/Merge ist für Releases sinnvoll, ersetzt aber nicht das Setzen von 'Ignore' in Production.",
+    "docsReference": "Update Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-012",
+    "type": "multiple",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "Update Sets",
+    "question": "Update Sets erfassen Konfiguration, aber keine Daten. Welche Änderungen werden nicht erfasst? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Daten in Tabellen mit dem Präns 'u_' (user-created tables), etwa aufgefüllte Import-Set-Zeilen"},
+      {"id": "b", "text": "Die Aktivierung eines Plugins"},
+      {"id": "c", "text": "Das Anlegen von Datenbank-Indizes auf Tabellen"},
+      {"id": "d", "text": "Die Definition eines Service-Katalogartikels und seiner Varien"},
+      {"id": "e", "text": "Ein neu erstelltes UI Policy auf der Tabelle Incident"}
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "a) Update Sets erfassen Prozess- und Konfigurationsdaten, aber keine Task- oder Anwendungsdaten – Datensätze in u_-/x_ Tabellen werden nicht übertragen, ebenso nicht die im Test aufgefüllten Import-Set-Zeilen. b) Plugin-Aktivierung und c) Index-Erzeugung sind manuelle Schritte, die in keinem Update Set stehen und nach dem Commit manuell ausgeführt werden müssen. Fehleranalyse: d) Katalogdefinitionen inklusive Varien und Variable Choices sind Konfiguration und werden erfasst. e) UI Policies, Business Rules und Client Scripts sind konfigurierbare Objekte im Update Set.",
+    "docsReference": "Update Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-013",
+    "type": "multiple",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "Update Sets",
+    "question": "Zum Preview und Commit eines Update Sets: Welche Aussagen stimmen? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "Ein Update Set soll vor dem Commiten previewt werden; commtet werden kann es erst, wenn alle Probleme im Preview gelöst sind"},
+      {"id": "b", "text": "Der Preview erkennt Kollisionen anhand des Zeitpunkts der aufgezeichneten Änderungen"},
+      {"id": "c", "text": "Der Merge Update Sets-Tool vergleicht doppelte Dateien zwischen Update Sets und wählt die neueste Version"},
+      {"id": "d", "text": "Ein Update Set kann vollständig commtet werden, auch wenn es Probleme enthält – die Probleme werden automatisch übersprungen"},
+      {"id": "e", "text": "Der Commit-Log zeigt alle Änderungen inklusive der automatisch übersprungenen 'unsafe edits'"
+      }
+    ],
+    "correct": ["a", "b", "c"],
+    "explanation": "a) Preview vor Commit ist Standard; ohne gelöste Probleme ist ein Commit nicht möglich. b) Kollisionen entstehen durch gleichzeitige Änderungen und werden über das Datum der Änderung erkannt. c) Manuelles Movern von Updates ist nicht vorgesehen – das Merge-Tool nutzt die neueste Version. Fehleranalyse: d) ist falsch, weil der Commit abgebrochen wird und einzelne Updates explizit als 'Commit' markiert sein müssen. e) 'unsafe edits' (änderungen mit Datenverlust) werden automatisch übersprungen und müssen ggf. manuell nachgezogen werden – der Log listet diese Warnungen, aber die Änderung ist nicht commitet.",
+    "docsReference": "Update Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-014",
+    "type": "boolean",
+    "topic": "migration_integration",
+    "difficulty": "easy",
+    "subtopic": "Update Sets",
+    "question": "Update Sets enthalten die im Test angelegten Incident-Tickets und Katalogaufträge (Requests, Items, Tasks).",
+    "options": [
+      {"id": "a", "text": "Wahr"},
+      {"id": "b", "text": "Falsch"}
+    ],
+    "correct": ["b"],
+    "explanation": "Falsch. Update Sets erfassen Konfiguration (Definitionen von Katalogartikeln, UI Policies, Varien mit Choices), aber keine Task- oder Prozessdaten. Auftrags- und Ticketdaten werden über Data Extracts oder Import Sets übertragen, nicht über Update Sets.",
+    "docsReference": "Update Sets",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-015",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "easy",
+    "subtopic": "Scripting",
+    "question": "Für welche Sprache sind die Skripte in ServiceNow (Business Rules, Client Scripts, Script Includes) definiert?",
+    "options": [
+      {"id": "a", "text": "JavaScript – serverseitig im Glide-Skriptumfeld und clientseitig im Browser"},
+      {"id": "b", "text": "Java, das im Anwendungsscore kompisiert wird"},
+      {"id": "c", "text": "Python in der Regel für Server-Skripte"},
+      {"id": "d", "text": "PHP als Skriptsprache der Platform"}
+    ],
+    "correct": ["a"],
+    "explanation": "ServiceNow-Skripte sind JavaScript: Business Rules und Script Includes laufen auf dem Server in der Glide-Laufzeit (Objecte wie current, previous, gs), Client Scripts laufen als JavaScript im Browser. Fehleranalyse: b), c), d) sind keine Skriptsprachen der Platform für diese Objekte; Java/Python werden nur in speziellen Erweiterungs- oder Integrationswegen genutzt.",
+    "docsReference": "Scripting",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-016",
+    "type": "single",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "Scripting",
+    "question": "Ein Client Script soll beim Laden des Incident-Formulars einen Serverwert des aktuellen Records auswerten (z. B. den Standort des Users). Welche Lösung ist vorgesehen?",
+    "options": [
+      {"id": "a", "text": "Client Script (on change) mit einem Ajax-Call zur Tabelle sys_user"},
+      {"id": "b", "text": "Display-Business-Rule, die den Wert in g_scratchpad schreibt und im Client Script ausliest"},
+      {"id": "c", "text": "Data Policy mit Skript im Feld 'Execute if true'"},
+      {"id": "d", "text": "UI Policy mit Aktion 'Visible = True' für das Feld u_standort"}
+    ],
+    "correct": ["b"],
+    "explanation": "Die vorgesehene Lösung ist eine display-Business-Rule: Sie wird ausgeführt, wenn das Formular angezeigt wird – direkt nach dem Lesen der Daten aus der Datenbank – und stellt Serverwerte für clientseitige Skriekte über g_scratchpad bereit. Fehleranalyse: a) wäre ein unnötiger Netzwerk-Call; die Anzeige von Werten ohne Serverzugriff ist nicht möglich, und on change greift nur bei Feldänderung. c) Data Policy-Skripte laufen serverseitig bei Datenbankaktionen, nicht beim Formular-Laden. d) eine UI Policy verändert Sichtbarkeit, aber keinen Wert; sie wirkt ohnehim nur im Browser. Ergänzend: Client Scripts werden auf dem Formular ausgeführt, nicht in Mobile-Apps.",
+    "docsReference": "Scripting",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-017",
+    "type": "multiple",
+    "topic": "migration_integration",
+    "difficulty": "medium",
+    "subtopic": "Scripting",
+    "question": "Client Scripts. Welche Typen sind offiziell definiert? Wähle genau 4 Antworten.",
+    "options": [
+      {"id": "a", "text": "on load"},
+      {"id": "b", "text": "on submit"},
+      {"id": "c", "text": "on change"},
+      {"id": "d", "text": "on cell edit"},
+      {"id": "e", "text": "on display"}
+    ],
+    "correct": ["a", "b", "c", "d"],
+    "explanation": "on load (Formular wird zuerst gerendert), on submit (beim Absenden, Rückgabe von false bricht ab), on change (bei Wertänderung eines definierten Felds) und on cell edit (beicell edit in der Listenbearbeitung) sind die Client-Script-Typen. Fehleranalyse: e) 'on display' ist der Ausführungszeitpunkt einer Business Rule bzw. UI-Policy-Auswertung, kein Client-Script-Typ.",
+    "docsReference": "Scripting",
+    "needsReview": false
+  },
+  {
+    "id": "q-mig-018",
+    "type": "multiple",
+    "topic": "migration_integration",
+    "difficulty": "hard",
+    "subtopic": "Scripting",
+    "question": "Skripte und Sicherheit. Welche Aussagen stimmen? Wähle genau 3 Antworten.",
+    "options": [
+      {"id": "a", "text": "In einer Business Rule sind 'current' und 'previous' die Record-Objekte des bearbeiteten Datensatzes"},
+      {"id": "b", "text": "Das Objekt gs (GlideSystem) steht in Client Scripts zur Verfügung"},
+      {"id": "c", "text": "Script Includes werden nicht automatisch ausgeführt, sondern nur, wenn sie von anderen Skripten aufgerufen werden"},
+      {"id": "d", "text": "Für Inline-Skripte in Flow Designer ist die Rolle flow_designer_scripting bzw. die Entwicklerberechtigung 'Allow Scripting' erforderlich"},
+      {"id": "e", "text": "Client Scripts werden in Mobile-Apps ausgeführt, wenn der UI Type 'Mobile' gewählt ist"}
+    ],
+    "correct": ["a", "c", "d"],
+    "explanation": "a) current/previous sind GlideRecord-Objekte der Business Rule. c) Script Includes sind Funktionen/Klassen, die nur bei Auuf durch andere Skripte laufen – sie werden bei Bedarf geladen und sind die empfohlene Lösung für komplexe Business-Rule-Logik. d) Inline-Skrichte in Flow Designer/Workflow Studio sind durch die Rolle flow_designer_scripting oder die Delegierte-Entwickler-Berechtigung Allow Scripting abgesichert – das ist Teil der Skript-Sicherheit. Fehleranalyse: b) gs läuft nur auf dem Server; im Browser stehen g_form, g_user, g_scratchpad zur Verfügung. e) Client Scripts sind in Mobile-Anwendungen nicht unterstützt; clientseitige Skriekte wirken nur auf Formularen und Suchseiten (onCellEdit bildet die Ausnahme bei Listenbearbeitung).",
+    "docsReference": "Scripting",
+    "needsReview": false
+  }
+]

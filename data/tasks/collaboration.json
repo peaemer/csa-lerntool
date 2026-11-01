@@ -1,0 +1,240 @@
+[
+  {
+    "id": "t-col-001",
+    "title": "Form Layout, Form Template und List Header für {app} personalisieren",
+    "area": "collaboration",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "scenario": "Der Service Desk der Nordwind IT soll auf {app} ein aufgeräumtes Formular sehen: nur die Felder, die {role} wirklich braucht. Beim Anlegen neuer Datensätze sollen Standardwerte gesetzt werden, damit nicht jeder dieselben Felder von Hand füllt. In der Liste soll die Kopfzeile auf vier Spalten reduziert und als persönliche Ansicht gespeichert werden. Die Nordwind-Anforderung lautet, Form Layout und Form Template sauber zu trennen.",
+    "requirements": [
+      "Form Layout für {app} erstellen und {role} zuweisen",
+      "Form Template mit Standardwerten erstellen und derselben Rolle zuordnen",
+      "List Header auf vier Spalten personalisieren und die Ansicht speichern",
+      "Unterschied Layout (Sichtbarkeit und Reihenfolge) vs. Template (Standardwerte) dokumentieren",
+      "Verhalten mit einem zweiten Nutzer prüfen und den Unterschied user- vs. rollenbasiert festhalten",
+      "dokumentieren, dass persönliche Listenpersonalisierung nicht auf andere Nutzer wirkt"
+    ],
+    "hints": [
+      "Stufe 1: Formularfelder werden über Layouts gesteuert, Standardwerte über Templates – beides sind getrennte Konfigurationen.",
+      "Stufe 2: Form Layouts liegen im System-Definition-Bereich und werden über Rollen zugewiesen; Form Templates arbeiten mit Defaultwerten und Zuordnung.",
+      "Stufe 3: Application Navigator > 'Form Layouts' > New > Table {app}; Application Navigator > 'Form Templates' > New; Listenpersonalisierung über das Zahnrad in der Listenkopfzeile bzw. 'Personalize columns'."
+    ],
+    "solution": "1. Application Navigator > 'Form Layouts' > New: Table {app}, Felder hinzufügen bzw. entfernen, Save; Related List 'Assign to roles' mit {role}.\n2. Application Navigator > 'Form Templates' > New: Table {app}, Standardwerte für {field} und Status setzen, Save; Zuordnung an Rolle oder Nutzer.\n3. Liste von {app} öffnen (Application Navigator > '{app}'), über das Zahnrad 'Personalize columns' vier Spalten wählen, Reihenfolge anpassen und die Ansicht als persönliche Ansicht speichern.\n4. Filter auf die Liste setzen und dokumentieren, ob der Filter persönlich oder geteilt ist.\n5. Zweiten Nutzer anmelden: Formularfeld-Sichtbarkeit bleibt rollenbasiert, die Listenpersonalisierung ist Nutzer individuell.\n6. Anmerkung: In aktuellen Versionen sind Form Templates und Form Layouts im Application Navigator direkt suchbar; die klassische Zuordnung über das Nutzerformular bleibt sichtbar.",
+    "commonMistakes": [
+      "Form Layout auf die falsche Rolle gezogen und im Testformular nichts gesehen.",
+      "Form Template für vorhandene Datensätze erwartet – Standardwerte wirken nur beim Anlegen neuer Records.",
+      "persönliche Listenpersonalisierung als rollenweite Lösung dokumentiert.",
+      "Felder aus dem Layout entfernt und danach eine ACL oder Data Policy vermisst, die das Feld weiterhin schreibt."
+    ],
+    "examRelevance": "List, Form und Form Configuration gehören zu den kollaborationsnahen Subtopics. Typische Frage: Welches Werkzeug steuert Feldsichtbarkeit, welches liefert Standardwerte und welche Personalisierung gilt pro Nutzer.",
+    "comprehensionQuestions": [
+      {
+        "question": "Was ist der Unterschied zwischen Form Layout und Form Template?",
+        "answer": "Das Layout bestimmt Felder und Reihenfolge im Formular, das Template liefert vorausgefüllte Werte für neue Datensätze."
+      },
+      {
+        "question": "Gilt die personalisierte Listenkopfzeile für alle Nutzer der Rolle {role}?",
+        "answer": "Nein, sie ist eine persönliche Einstellung des jeweiligen Nutzers; rollenweite Wirkung entsteht nur über Konfiguration auf Rolle bzw. Instanz."
+      }
+    ],
+    "variables": {
+      "app": [
+        "incident",
+        "sc_task",
+        "change"
+      ],
+      "role": [
+        "itil",
+        "u_hardware_admin",
+        "field_agent"
+      ],
+      "field": [
+        "u_budget_code",
+        "u_vendor_rating"
+      ]
+    }
+  },
+  {
+    "id": "t-col-002",
+    "title": "Visual Task Board für {app} aufbauen und teilen",
+    "area": "collaboration",
+    "difficulty": "beginner",
+    "estimatedMinutes": 15,
+    "scenario": "Die Gruppe {group} der Nordwind IT möchte offenen Notebook-Aufgaben als Karten sehen, sortiert nach Status und zugewiesener Person. Es soll ein Visual Task Board entstehen, das nur Karten mit {condition} zeigt. Der Board-Test soll zeigen, wie Karten verschoben, gefiltert und per Filter gespeichert werden.",
+    "requirements": [
+      "Visual Task Board anlegen und Board-Typ passend zur Tabelle wählen",
+      "Spalten nach Status oder Gruppe definieren",
+      "Kartenfilter auf {condition} setzen",
+      "Board mit {group} teilen und Zugriffsrechte dokumentieren",
+      "drei Karten verschieben und die Rückwirkung auf die Datensätze prüfen",
+      "dokumentieren, warum ein Task Board für Nicht-Task-Tabellen ein List Board ist"
+    ],
+    "hints": [
+      "Stufe 1: Visual Task Boards arbeiten mit Karten; es gibt Task Boards für Task-Tabellen und List Boards für beliebige Tabellen.",
+      "Stufe 2: Board-Einstellungen regeln Spalten, Filter und Anzeige; Karten sind Verknüpfungen auf echte Datensätze.",
+      "Stufe 3: Application Navigator > 'Visual Task Boards' > New > Task Board oder List Board > Table {app} wählen > Spalten bearbeiten > Filter setzen."
+    ],
+    "solution": "1. Application Navigator > 'Visual Task Boards' > New: Name 'Nordwind Hardware Board', Board Type 'Task Board' für Task-Tabellen bzw. 'List Board' für {app}, Table wählen.\n2. Spalten definieren (zum Beispiel New, In Progress, Closed) und die Board-Farbe bzw. swimlane über {group} setzen.\n3. Kartenfilter auf {condition} beschränken und die Filterauswahl speichern.\n4. Über die Board-Einstellungen {group} als berechtigten Kreis aufnehmen; Rolle {role} prüfen.\n5. Drei Karten verschieben und danach im Datensatz kontrollieren, ob Status und Zuordnung geschrieben wurden.\n6. Anmerkung: Karten zeigen ausgewählte Felder; über 'Card Settings' lassen sich die angezeigten Felder anpassen.",
+    "commonMistakes": [
+      "Task Board auf einer Nicht-Task-Tabelle angelegt – dann fehlt die Task-Logik und die Spalten bleiben leer.",
+      "Board nicht geteilt und {group} konnte die Karten nicht sehen.",
+      "Karten verschoben und die Datenänderung im Datensatz erwartet, ohne Board-Filter geprüft zu haben.",
+      "Board-Filter und Listenfilter verwechselt und ein Board mit falschen Karten dokumentiert."
+    ],
+    "examRelevance": "Visual Task Boards sind ein eigener Blueprint-Subtopic: Welche Board-Typen gibt es, welche Tabelle eignet sich, und wie werden Boards einer Gruppe zugänglich gemacht.",
+    "comprehensionQuestions": [
+      {
+        "question": "Wann ist ein List Board die richtige Wahl?",
+        "answer": "Wenn die Tabelle keine Task-Tabelle ist oder beliebige Datensätze als Karten gezeigt werden sollen."
+      },
+      {
+        "question": "Was passiert fachlich beim Verschieben einer Karte?",
+        "answer": "Die Karte schreibt die Änderung in den zugrunde liegenden Datensatz, etwa Status oder Zuordnung – abhängig von den Board-Einstellungen."
+      }
+    ],
+    "variables": {
+      "app": [
+        "sc_task",
+        "incident",
+        "u_laptop"
+      ],
+      "group": [
+        "Hardware Support",
+        "L1 Support"
+      ],
+      "role": [
+        "itil",
+        "u_hardware_admin"
+      ],
+      "condition": [
+        "state = new",
+        "state = in_progress",
+        "u_assigned_group ist nicht leer"
+      ]
+    }
+  },
+  {
+    "id": "t-col-003",
+    "title": "Report und Dashboard mit Filter auf {table} erstellen",
+    "area": "collaboration",
+    "difficulty": "advanced",
+    "estimatedMinutes": 25,
+    "scenario": "Die Nordwind IT möchte eine Auswertung der Notebook-Daten nach Hersteller und nach Status. Es soll ein interaktiver Report mit Gruppierung entstehen, dazu ein Dashboard mit interaktivem Filter auf {field}. Das Dashboard wird der Gruppe {group} geteilt. Am Ende soll dokumentiert werden, warum der Report in einem Ordner mit Rollen abgelegt wird.",
+    "requirements": [
+      "Report auf {table} mit Gruppierung nach {field} erstellen",
+      "Interaktiven Report wählen und die Visualisierung sauber benennen",
+      "Filter auf den Report setzen und das Ergebnis mit mindestens zwei Filterwerten prüfen",
+      "Dashboard anlegen, Report hinzufügen und interaktiven Filter einrichten",
+      "Report-Ordner und Dashboard für {group} freigeben",
+      "Unterscheidung persönliche Report-Ansicht und rollenbasierte Freigabe dokumentieren"
+    ],
+    "hints": [
+      "Stufe 1: Reports bestehen aus Datenquelle, Visualisierung und Filter – die Gruppierung entscheidet, wie Werte zusammengefasst werden.",
+      "Stufe 2: Dashboards sind Sammlungen von Reports; interaktive Filter wirken auf Reports innerhalb des Dashboards.",
+      "Stufe 3: Application Navigator > 'Reports' > New (Create New Report) > Type Interactive bzw. Grouped List; Application Navigator > 'Dashboards' > New > Report hinzufügen und Filter aktivieren."
+    ],
+    "solution": "1. Application Navigator > 'Reports' > New; Report Type 'Interactive' (Bar oder Column) bzw. 'Grouped List', Data Source {table}.\n2. Group By {field} wählen und eine zweite Gruppierung für Status setzen; Spalten und Sortierung definieren.\n3. Filter setzen, zum Beispiel {condition}; Report benennen und in einem Ordner mit Freigabe für {group} speichern.\n4. Application Navigator > 'Dashboards' > New: Dashboard 'Nordwind Hardware'; Report über die Related List hinzufügen.\n5. Interaktiven Filter auf {field} aktivieren und das Dashboard mit {group} teilen.",
+    "commonMistakes": [
+      "Report in einem persönlichen Ordner gespeichert und {group} konnte ihn nicht öffnen.",
+      "Grouped List mit Interactive verwechselt und die Gruppenbildung fehlt.",
+      "interaktiven Filter nur auf einer Report-Instanz gesetzt, nicht auf dem Dashboard.",
+      "Datumsfilter ohne Zeitzone geprüft und andere Ergebnisse als erwartet bekommen."
+    ],
+    "examRelevance": "Visualizations, Dashboards und Reports stehen als Subtopic im Blueprint. Gern gefragt: Was ist ein interaktiver Report, was ist ein Grouped List Report und wie werden Dashboards geteilt.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum braucht der Report einen Ordner mit Rollen?",
+        "answer": "Ordner steuern, wer einen Report sehen darf; ohne Freigabe ist der Report nur für den Ersteller und Admins sichtbar."
+      },
+      {
+        "question": "Worin unterscheidet sich ein interaktiver Report von einer einfachen Liste?",
+        "answer": "Der Report ist visualisiert, gruppiert und kann interaktiv gefiltert werden; eine Liste zeigt Einzeldatensätze."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_vendor"
+      ],
+      "field": [
+        "u_vendor_rating",
+        "u_budget_code",
+        "u_purchase_date"
+      ],
+      "group": [
+        "Hardware Support",
+        "L1 Support"
+      ],
+      "condition": [
+        "state = new",
+        "active true",
+        "company = Acme"
+      ]
+    }
+  },
+  {
+    "id": "t-col-004",
+    "title": "Assignment Rule, SLA-Definition und Eskalations-Notification auf {app}",
+    "area": "collaboration",
+    "difficulty": "exam",
+    "estimatedMinutes": 40,
+    "scenario": "Auf {app} sollen neue Datensätze automatisch an die Gruppe {group} gehen, wenn {condition}. Parallel braucht die Nordwind IT eine SLA-Definition mit Start- und Stoppbedingung; bei Überschreitung soll eskaliert und {role} per Nachricht informiert werden. Die Nachricht soll über ein Event ausgelöst und über ein Template geschrieben werden. Zum Abschluss ist ein dokumentierter Testlauf gefordert.",
+    "requirements": [
+      "Assignment Rule auf {app} mit Bedingung {condition} und Ausführungsreihenfolge anlegen",
+      "SLA-Definition mit Start-, Stopp- und Pausebedingung erstellen",
+      "SLA Assignment Rule definieren und die Zuordnung zur Gruppe {group} prüfen",
+      "Eskalation abbilden (Escalation bzw. Flow oder Business Rule) und den Weg dokumentieren",
+      "Notification mit Bedingung, Empfänger und Template erstellen",
+      "Event-Nutzung prüfen und dokumentieren, dass ein registriertes Event nötig ist",
+      "Testdatensatz anlegen und den kompletten Ablauf protokollieren"
+    ],
+    "hints": [
+      "Stufe 1: Zuordnung, Zeitziel und Nachricht sind drei verschiedene Bausteine – Assignment Rule, SLA und Notification.",
+      "Stufe 2: SLAs arbeiten mit Start-, Stopp- und Pause-Definitionen; Eskalationen sind abhängig von der SLA-Version der Instanz.",
+      "Stufe 3: Application Navigator > 'Assignment Rules' > New; Application Navigator > 'SLA Definitions' > New; Application Navigator > 'Notifications' > New; Application Navigator > 'Email Templates' > New."
+    ],
+    "solution": "1. Application Navigator > 'Assignment Rules' > New: Table {app}, Bedingung {condition}, Ausführung 'When: record is created', Ziel Gruppe {group}, Order setzen.\n2. Application Navigator > 'SLA Definitions' > New: Start When, Stop When und Pause When definieren; SLA Base und Pläne prüfen.\n3. Application Navigator > 'SLA Assignment Rules' > New: Bedingung und Ziel {group}; Zuordnung zur SLA-Definition dokumentieren.\n4. Eskalation abbilden: in aktuellen Versionen über SLA Delivery bzw. eine Flow oder Business Rule mit Benachrichtigung; in älteren Instanzen über Escalation Delays. Diese Einschränkung ausdrücklich in der Dokumentation erwähnen.\n5. Application Navigator > 'Email Templates' > New; dann Application Navigator > 'Notifications' > New: When to run 'when an event is fired' bzw. 'when a record changes to', Bedingung {condition}, Empfänger Rolle {role} bzw. Gruppe {group}, Template zuordnen.\n6. Für den Event-Weg ein Event im Event Registry bzw. über die Event-Definition registrieren und auslösen; alternativ eine Notification auf Record-Change nutzen.\n7. Testdatensatz anlegen, Zuordnung, SLA-Uhr und Nachricht im Testlauf prüfen und das Protokoll sichern.",
+    "commonMistakes": [
+      "Assignment Rule ohne Order definiert und eine zweite Rule mit höherer Priorität überschreibt die Zuordnung.",
+      "SLA ohne Startbedingung erstellt und die Uhr läuft nie.",
+      "Eskalation in der falschen SLA-Version gesucht – moderne Instanzen nutzen SLA Delivery oder Flows statt der klassischen Escalation Delays.",
+      "Event-basierte Notification ohne registriertes Event gebaut, dann kommt keine Nachricht.",
+      "Notification an Nutzer statt Gruppe geschickt und die Rollenabhängigkeit übersehen.",
+      "Test mit Admin-Nutzer durchgeführt, obwohl Zuordnung und Benachrichtigung rollenabhängig sind."
+    ],
+    "examRelevance": "Task Management ist im Blueprint als Subtopic verankert. Prüfungsnah sind Fragen: Welches Werkzeug weist automatisch zu, wie sind SLAs aufgebaut und was passiert bei einer Eskalation.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum braucht eine SLA-Definition Start, Stopp und Pause?",
+        "answer": "Die SLA-Uhr muss wissen, wann sie läuft, wann sie pausiert und wann sie abgeschlossen ist – sonst stimmt die Zielerreichung nicht."
+      },
+      {
+        "question": "Warum kann eine Event-Notification ohne Event-Definition keine Nachricht senden?",
+        "answer": "Event-basierte Benachrichtigungen setzen ein bekanntes Event voraus; ohne Registrierung kennt die Instanz den Auslöser nicht."
+      }
+    ],
+    "variables": {
+      "app": [
+        "incident",
+        "sc_task",
+        "change"
+      ],
+      "group": [
+        "Hardware Support",
+        "L1 Support",
+        "Change Approver Group"
+      ],
+      "role": [
+        "itil",
+        "u_hardware_admin",
+        "sn_change_approver"
+      ],
+      "condition": [
+        "state = new",
+        "u_priority = 1",
+        "u_assigned_group ist leer"
+      ]
+    }
+  }
+]

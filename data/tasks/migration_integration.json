@@ -1,0 +1,288 @@
+[
+  {
+    "id": "t-mi-001",
+    "title": "Feld auf {table} anlegen und per UI Policy verstecken",
+    "area": "migration_integration",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "scenario": "Im Notebook-Formular der Nordwind IT soll {field} nur sichtbar sein, wenn {condition}. Auf dem Formular soll zusätzlich eine Meldung erscheinen, wenn der Wert geändert wird. Der Auftraggeber betont, dass es ein reines Formular-Verhalten ist – in Listen, Importen und über API soll nichts passieren.",
+    "requirements": [
+      "UI Policy auf {table} mit Bedingung {condition} anlegen",
+      "UI Policy Action definieren: {field} nicht sichtbar, mit 'Reverse if condition is false'",
+      "Run when auf 'User opens a record' bzw. 'User update a record on form' setzen",
+      "Client Script onChange ergänzen, das eine Meldung zeigt, wenn {field} geändert wird",
+      "Verhalten auf dem Formular testen und dokumentieren, dass lists und Imports unberührt bleiben"
+    ],
+    "hints": [
+      "Stufe 1: Für Formular-Steuerung gibt es zwei Werkzeuge – eines steuert Sichtbarkeit und Pflichtfelder, das andere zeigt Meldungen im Browser.",
+      "Stufe 2: UI Policies arbeiten mit Bedingung und Actions; Client Scripts laufen im Formular und reagieren auf onLoad oder onChange.",
+      "Stufe 3: Application Navigator > 'UI Policies' > New > Table {table}, Bedingung {condition}, Advanced zunächst aus. Related List 'UI Policy Actions' > New > Field {field}, Visible aus, Reverse if condition is false an. Danach Application Navigator > 'Client Scripts' > New > Type onChange."
+    ],
+    "solution": "1. Application Navigator > 'UI Policies' > New: Table {table}, Name 'Warranty sichtbar bei Nutzung', Bedingung über das einfache Condition Builder {condition}, Save.\n2. 'Run when' auf 'User opens a record' und 'User update a record on form' setzen; Order prüfen (Standard 100).\n3. Related List 'UI Policy Actions' > New: Field {field}, Visibility deaktiviert, 'Reverse if condition is false' aktiviert, Save.\n4. Optional zweite Action: {field} Mandatory, wenn die Bedingung greift.\n5. Application Navigator > 'Client Scripts' > New: Table {table}, Type onChange, Field Name {field}, Script mit g_form.showFieldMsg('{field}', 'Hinweis: Wert bitte prüfen', 'info'), 'Advanced' aus, damit die einfache Bedingung {condition} genutzt werden kann.\n6. Formular testen: Bedingung erfüllt -> Feld sichtbar; Bedingung nicht erfüllt -> Feld ausgeblendet. Anmerkung: UI Policies wirken nur auf Formulare, nicht auf Listen, Imports oder API-Aufrufe.",
+    "commonMistakes": [
+      "'Reverse if condition is false' vergessen – das Feld bleibt dann in einem Fall unsichtbar, obwohl es sichtbar sein müsste.",
+      "UI Policy als Berechtigung missdeutet: Sie versteckt nur im Formular, schreibt aber keine Daten und ersetzt keine ACL.",
+      "Client Script ohne 'Advanced' mit einer komplexen Bedingung gebaut und die Bedingung dadurch ignoriert.",
+      "Pflichtfeld über UI Policy gesetzt und erwartet, dass es beim Import erfüllt wird."
+    ],
+    "examRelevance": "UI Policies sind ein eigener Blueprint-Subtopic. Typische Frage: 'Welches Werkzeug macht ein Feld im Formular sichtbar bzw. pflichtig und wirkt nicht serverseitig?' – Antwort ist UI Policy, nicht Business Rule.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum wirkt die UI Policy nicht im Import?",
+        "answer": "UI Policies laufen im Browser auf dem Formular; Importe und API-Aufrufe öffnen kein Formular, deshalb greifen Business Rules oder Data Policies."
+      },
+      {
+        "question": "Was bedeutet 'Reverse if condition is false'?",
+        "answer": "Die Action wird im Gegenzustand umgekehrt – ist die Bedingung nicht erfüllt, wird {field} wieder sichtbar bzw. das Gegenteil der Action angewendet."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_asset"
+      ],
+      "field": [
+        "u_warranty_end",
+        "u_serial_number",
+        "u_vendor_rating"
+      ],
+      "condition": [
+        "state = in_use",
+        "u_asset_state = new",
+        "u_priority = 1"
+      ]
+    }
+  },
+  {
+    "id": "t-mi-002",
+    "title": "Business Rule auf {table}: Feldsetzung bei {condition}",
+    "area": "migration_integration",
+    "difficulty": "beginner",
+    "estimatedMinutes": 25,
+    "scenario": "Im Backend der Nordwind IT soll {field} automatisch gesetzt werden, wenn {condition}. Das soll auch bei Importen und über API gelten, damit die Daten konsistent bleiben. Gleichzeitig soll die Rule nur bei Änderungen eines bestimmten Feldes laufen und nicht bei jedem Speichern.",
+    "requirements": [
+      "Business Rule auf {table} anlegen und die Ausführung klar benennen (before/after/async/on change)",
+      "Bedingung {condition} definieren und 'Advanced' nur nutzen, wenn die einfache Bedingung nicht ausreicht",
+      "{field} im Script setzen und das Persistenz-Verhalten dokumentieren",
+      "'When to run' auf 'When: record is created' und 'record changes value of' {field} begrenzen",
+      "Execution Order prüfen und die Rule mit einem Testdatensatz verifizieren"
+    ],
+    "hints": [
+      "Stufe 1: Im Backend gibt es eine Regelart, die serverseitig bei Erstellung oder Änderung läuft – sie ist unabhängig vom Formular.",
+      "Stufe 2: Business Rules unterscheiden nach before, after und async; before kann Feldwerte vor dem Speichern verändern.",
+      "Stufe 3: Application Navigator > 'Business Rules' > New > Table {table}, When to run 'Before', Bedingung {condition}; im Script current.{field} = ...; Save. Danach Testdatensatz anlegen und Feld prüfen."
+    ],
+    "solution": "1. Application Navigator > 'Business Rules' > New: Name 'Nordwind {table} Feldsetzung', Table {table}, Application setzen.\n2. 'When to run' auf 'Before' und 'When' auf 'record is created' sowie 'record changes value of' {field} setzen.\n3. Bedingung {condition} über den Condition Builder; 'Advanced' nur aktivieren, wenn eine programmierte Bedingung nötig ist.\n4. Im Advanced-Tab das Script setzen: current.{field} = <Wert>; bei einer before-Rule wird der Wert mitgespeichert, ohne current.update().\n5. Execution Order dokumentieren (Standard 100) und prüfen, dass keine zweite Rule dasselbe Feld überschreibt.\n6. Test: Testdatensatz anlegen und {field} kontrollieren; zusätzlich über Import oder API testen, um den serverseitigen Charakter zu zeigen. Anmerkung: In aktuellen Versionen heißt der Bereich im Application Navigator 'Business Rules' und liegt unter System Definition.",
+    "commonMistakes": [
+      "In einer after- oder async-Rule current.update() aufgerufen und Rekursion oder Doppeländerungen ausgelöst.",
+      "'When to run' auf every change gelassen und damit die Rule bei jedem Speichern ausgeführt.",
+      "Simple Condition aktiv gelassen und eine komplexe Bedingung im Script erwartet.",
+      "Rule nicht auf 'Before' gesetzt und den geänderten Wert im Formular später überschrieben gesehen."
+    ],
+    "examRelevance": "Business Rules sind im Blueprint als Subtopic verankert und erscheinen regelmäßig als Frage: Wann läuft before, wann after, wann async und warum kann eine Client-Automatisierung serverseitige Regeln nicht ersetzen.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum ist 'Before' hier die richtige Ausführung?",
+        "answer": "Eine before-Rule verändert current vor dem Schreiben in die Datenbank; der Wert wird ohne zusätzliches update() übernommen."
+      },
+      {
+        "question": "Wann wäre async richtig?",
+        "answer": "Wenn die Rule aufwendig ist oder externe Systeme anspricht und die Änderung des ausgelösten Datensatzes nicht mehr nötig ist – async läuft nach dem Commit."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_contract"
+      ],
+      "field": [
+        "u_vendor_rating",
+        "u_budget_code",
+        "u_serial_number"
+      ],
+      "condition": [
+        "u_priority = 1",
+        "state = new",
+        "u_assigned_group ist nicht leer"
+      ]
+    }
+  },
+  {
+    "id": "t-mi-003",
+    "title": "Client Script und UI Policy sauber abgrenzen: {field} bei {condition}",
+    "area": "migration_integration",
+    "difficulty": "advanced",
+    "estimatedMinutes": 30,
+    "scenario": "Der Service Desk der Nordwind IT soll {field} nur bei {condition} sehen und pflichten; beim Öffnen des Formulars soll eine Meldung erscheinen. Die IT-Leitung verlangt zusätzlich, dass dieselbe Logik serverseitig abgesichert ist, weil Importe und API-Aufrufe das Formular umgehen. In der PDI soll beides dokumentiert und getestet werden.",
+    "requirements": [
+      "UI Policy mit Advanced Condition für {table} anlegen",
+      "UI Policy Action mit Mandatory und Visibility definieren",
+      "Client Script onLoad mit Meldung ergänzen",
+      "Serverseitige Absicherung über Business Rule oder Data Policy dokumentieren",
+      "Verhalten im Formular, per Import und mit einem Nicht-Formular-Zugang vergleichen",
+      "Notieren, dass clientseitige Automatisierung keine Berechtigung ist"
+    ],
+    "hints": [
+      "Stufe 1: Zwei Ebenen – Browser und Server. Wenn etwas in beiden Fällen gelten soll, braucht es eine serverseitige Regel.",
+      "Stufe 2: Client Scripts laufen nur auf Formulare; UI Policies ebenfalls. Importe und REST-Aufrufe umgehen beide.",
+      "Stufe 3: Application Navigator > 'UI Policies' > New > Advanced aktivieren und Bedingung {condition}; Client Scripts > New > Type onLoad. Für die serverseitige Absicherung Application Navigator > 'Business Rules' > New mit derselben Bedingung."
+    ],
+    "solution": "1. Application Navigator > 'UI Policies' > New: Table {table}, 'Advanced' aktivieren, Bedingung {condition} programmieren (oder über den Condition Builder abbilden), Run when 'User opens a record' und 'User update a record on form'.\n2. UI Policy Action: Field {field}, Mandatory aktiv, Visibility aktiv, 'Reverse if condition is false' gesetzt.\n3. Application Navigator > 'Client Scripts' > New: Table {table}, Type onLoad, Meldung über g_form.showFieldMsg; zweite Client Script-Instanz onChange für die plausibilitätsprüfung, optional g_form.setMandatory.\n4. Serverseitige Absicherung: Application Navigator > 'Business Rules' > New mit identischer Bedingung und {field}-Setzung, damit Importe und API dieselbe Logik erhalten.\n5. Testdokumentation: Formular öffnen (UI Policy wirkt), CSV-Import laufen lassen (UI Policy wirkt nicht, Business Rule wirkt), REST-Aufruf oder background script prüfen.\n6. Anmerkung: In aktuellen Versionen wird clientseitige Automatisierung zunehmend in Flow Designer abgebildet; für CSA gilt weiterhin die Abgrenzung Formular-Logik vs. serverseitige Business Rule.",
+    "commonMistakes": [
+      "Client Script als Sicherheitsmechanik missdeutet – er verhindert keine Schreibrechte.",
+      "Mandatory nur per UI Policy gesetzt und beim Import leere {field}-Werte erhalten.",
+      "Advanced Condition in UI Policy und Business Rule unterschiedlich formuliert und damit widersprüchliches Verhalten.",
+      "Zwei Client Scripts auf demselben Feld mit gleicher Funktion angelegt und doppelte Meldungen gesehen."
+    ],
+    "examRelevance": "Sehr prüfungsnahe Fragestellung: 'Welche Automatisierung wirkt nur auf dem Formular?' sowie 'Wie erzwingt man eine Regel auch bei Import und API?' – Antwort: UI Policy/Client Script für Formular, Business Rule serverseitig.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum braucht die Aufgabe eine Business Rule zusätzlich zur UI Policy?",
+        "answer": "Weil Importe, REST-Aufrufe und Hintergrundskripte kein Formular öffnen; nur serverseitige Regeln greifen dort."
+      },
+      {
+        "question": "Welche Client-Script-Art würdest du für eine Meldung beim Öffnen nutzen?",
+        "answer": "onLoad – sie läuft beim Öffnen des Formulars; onChange läuft nur bei einer tatsächlichen Wertänderung."
+      },
+      {
+        "question": "Ist eine UI Policy eine Zugriffskontrolle?",
+        "answer": "Nein. Sie ändert nur die Darstellung im Formular; Berechtigungen werden über ACLs und Field Permissions geregelt."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_student",
+        "u_car"
+      ],
+      "field": [
+        "u_room_number",
+        "u_warranty_end",
+        "u_purchase_date"
+      ],
+      "condition": [
+        "u_priority = 1",
+        "state = new",
+        "company = Acme"
+      ]
+    }
+  },
+  {
+    "id": "t-mi-004",
+    "title": "Script Include, Message Catalog und async Business Rule kombinieren",
+    "area": "migration_integration",
+    "difficulty": "advanced",
+    "estimatedMinutes": 30,
+    "scenario": "Die Nordwind IT möchte wiederverwendbare Logik: eine Funktion, die aus {field} einen Text erzeugt, und einen standardisierten Meldungstext, der in mehreren Modulen gleich klingt. Die Logik soll serverseitig in einer async Business Rule auf {table} aufgerufen werden. Der Auslöser ist {condition}; die Meldung soll über den Message Catalog kommen, damit Texte zentral gepflegt werden.",
+    "requirements": [
+      "Script Include mit public-Funktion anlegen (Name mit u_-Präfix)",
+      "Message Catalog-Eintrag mit Application und Module definieren",
+      "async Business Rule auf {table} schreiben, die das Script Include aufruft",
+      "Verhalten bei Import und im Formular vergleichen",
+      "Rekursion prüfen und dokumentieren, dass async nach dem Commit läuft",
+      "notieren, wann ein Script Include clientseitig nutzbar ist"
+    ],
+    "hints": [
+      "Stufe 1: Wiederverwendbare Serverlogik wird in Script Includes gekapselt; Meldetexte gehören in den Message Catalog.",
+      "Stufe 2: Script Includes sind Object-Definitionen mit public-Funktionen; die Client-Fähigkeit ist eine eigene Einstellung.",
+      "Stufe 3: Application Navigator > 'Script Includes' > New; Application Navigator > 'Message Catalog' > New; Application Navigator > 'Business Rules' > New > When to run 'Async'."
+    ],
+    "solution": "1. Application Navigator > 'Script Includes' > New: Name u_nordwind_helper, Type public, Application setzen; Function im Template anlegen und Save.\n2. Function-Logik: aus current.{field} einen Text erzeugen und zurückgeben; dabei gs.getProperty und gs.getUser nur nutzen, wenn wirklich nötig.\n3. Application Navigator > 'Message Catalog' > New: Application und Module wählen, Name und Text definieren; Platzhalter nur nutzen, wenn die Text-Variante dafür vorgesehen ist.\n4. Application Navigator > 'Business Rules' > New: Table {table}, When to run 'Async' (async ist nie 'Before'), Bedingung {condition}; im Script var helper = new u_nordwind_helper(); danach Message-Text nutzen.\n5. Test mit Background Scripts ausführen und das Ergebnis protokollieren; Rekursion ausschließen, indem die Rule kein Feld ändert, das sie selbst triggert.\n6. Anmerkung: In aktuellen Versionen liegt der Message Catalog im Bereich 'Message Codes'; die Menüführung kann abweichen, und clientseitige Nutzung eines Script Includes erfordert 'Client callable'.",
+    "commonMistakes": [
+      "Script Include ohne 'Client callable' in einem Client Script verwendet.",
+      "async-Rule als 'Before' erwartet und deshalb Feldwerte im Formular überschrieben sah.",
+      "Message Catalog ohne Application/Module angelegt und den Text im falschen Modul gesucht.",
+      "Rekursion ausgelöst, weil die Rule genau das Feld ändert, das sie als Trigger nutzt.",
+      "public-Funktion nicht mit return definiert und einen leeren Text erhalten."
+    ],
+    "examRelevance": "Scripting in ServiceNow ist ein Blueprint-Subtopic: Script Include vs. Business Rule, Client callable, und die Frage, wann eine Meldung zentral über Message Catalog gepflegt wird.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum wird async statt before gewählt?",
+        "answer": "Die Logik ist aufwendig und betrifft den ausgelösten Datensatz nicht mehr; async läuft nach dem Commit und blockiert die Transaktion nicht."
+      },
+      {
+        "question": "Was spricht für den Message Catalog gegenüber einem Text im Script?",
+        "answer": "Texte sind zentral gepflegt, können in mehreren Modulen und Sprachen verwendet werden und müssen nicht im Code angepasst werden."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_vendor",
+        "u_book"
+      ],
+      "field": [
+        "u_vendor_rating",
+        "u_serial_number",
+        "u_budget_code"
+      ],
+      "condition": [
+        "u_assigned_group ist nicht leer",
+        "u_priority = 1",
+        "active true"
+      ]
+    }
+  },
+  {
+    "id": "t-mi-005",
+    "title": "Update Set anlegen, Änderungen erfassen und abschließen",
+    "area": "migration_integration",
+    "difficulty": "exam",
+    "estimatedMinutes": 30,
+    "scenario": "Die Nordwind IT hat in der PDI eine Business Rule und eine UI Policy auf {table} gebaut und soll die Änderungen dokumentiert in ein Zielinstanz übertragen. Dazu ist ein Update Set nötig, das die Änderungen wirklich erfasst – die UI Policy wurde vor dem Anlegen des Update Sets erstellt und soll ergänzt werden. Außerdem soll geprüft werden, welche Änderungen ein Update Set grundsätzlich nicht mitnimmt.",
+    "requirements": [
+      "Local Update Set anlegen und als 'current update set' markieren",
+      "danach eine Business Rule auf {table} erstellen und im Update Set prüfen",
+      "die zuvor erstellte UI Policy als Transaktion manuell ergänzen",
+      "State auf 'complete' bzw. 'escaped' setzen und 'Close update set' ausführen",
+      "im Zielinstanz bzw. Migration Center importieren, Preview und Commit testen",
+      "dokumentieren, dass Update Sets Konfiguration, keine Daten erfassen"
+    ],
+    "hints": [
+      "Stufe 1: Ein Update Set ist eine Sammlung von Konfigurationsänderungen; erfasst wird nur, was nach dem Anlegen passiert.",
+      "Stufe 2: Erfasst werden nur Änderungen, wenn das Update Set als current markiert ist; fehlende Transaktionen kann man manuell ergänzen.",
+      "Stufe 3: Application Navigator > 'Update Sets' bzw. 'Local Update Sets' > New; auf dem Record 'Mark this as your current update set' nutzen; Transaktionen in der Related List prüfen; UI-Action 'Close update set'."
+    ],
+    "solution": "1. Application Navigator > 'Update Sets' (früher System Definition > Update Sets > Local Update Sets) > New: Name 'Nordwind {table} Änderung', State 'draft', Approval und Owner setzen.\n2. Auf dem Update-Set-Record 'Mark this as your current update set' klicken; danach erst die Business Rule auf {table} anlegen.\n3. Related List 'Transactions' öffnen und prüfen, dass die Business Rule enthalten ist; die zuvor erstellte UI Policy manuell als Transaktion ergänzen (Table und sys_id notieren).\n4. State auf 'complete' bzw. 'escaped' setzen und 'Close update set' nutzen – danach keine weiteren Änderungen in diesem Update Set.\n5. Im Zielinstanz (oder im Migration Center) das Update Set öffnen, 'Preview update set' ausführen und Reihenfolge sowie Abhängigkeiten prüfen; erst dann Commit.\n6. Dokumentation: Update Sets erfassen Konfiguration, keine Datenrecords und keine persönlichen Nutzer-Einstellungen. Anmerkung: In aktuellen Versionen läuft die Übertragung oft über Migration Center; 'Local Update Sets' bleibt in vielen Instanzen sichtbar.",
+    "commonMistakes": [
+      "Änderungen vor dem Anlegen oder vor der 'current'-Markierung durchgeführt und danach fehlende Transaktionen.",
+      "Datenänderungen im Update Set erwartet – Datensätze werden nicht übertragen.",
+      "State nicht geschlossen und danach weitere Änderungen automatisch aufgenommen.",
+      "Commit ohne Preview durchgeführt und Abhängigkeiten übersehen.",
+      "Update Set in ein Zielinstanz ohne passende Rollen oder ohne Migration Center übertragen wollen."
+    ],
+    "examRelevance": "System Update Sets sind ein eigener Blueprint-Subtopic und erscheinen regelmäßig: Was erfasst wird, welche State-Regeln gelten und warum persönliche Einstellungen nicht migriert werden.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum war die UI Policy nicht im Update Set?",
+        "answer": "Weil sie vor dem Anlegen bzw. vor der 'current'-Markierung erstellt wurde; Update Sets erfassen nur Änderungen im aktivierten Zustand."
+      },
+      {
+        "question": "Warum ist Preview vor Commit wichtig?",
+        "answer": "Preview zeigt Reihenfolge, fehlende Abhängigkeiten und Konflikte; Commit schreibt danach in die Zielinstanz."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_contract"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_budget_code"
+      ],
+      "role": [
+        "itil",
+        "u_change_admin"
+      ],
+      "group": [
+        "Change Approver Group",
+        "Platform Team"
+      ]
+    }
+  }
+]

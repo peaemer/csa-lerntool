@@ -1,0 +1,11 @@
+# Abhängigkeiten und Build
+node_modules/
+dist/
+*.log
+.vite/
+
+# Lokale Betriebssystem-/Editor-Dateien
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

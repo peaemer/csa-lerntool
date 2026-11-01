@@ -1,0 +1,229 @@
+[
+  {
+    "id": "t-ss-001",
+    "title": "Catalog Item mit Variablen, Variable Set und Ordering aufbauen",
+    "area": "self_service",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "scenario": "Die Nordwind IT soll im Service Catalog ein Artikel für die Notebook-Bestellung entstehen. Ein Artikel braucht drei Variablen (Auswahl Modell, Anzahl, Begründung), und die Anschriftsvariablen sollen über ein wiederverwendbares Variable Set kommen. Im Catalog soll der Artikel in der Kategorie IT Hardware an erster Stelle stehen. Am Ende soll die Bestellung als Self-Service-Nutzer getestet werden.",
+    "requirements": [
+      "Catalog Item anlegen und die Kategorie 'IT Hardware' sichtbar machen",
+      "mindestens drei Variablen anlegen (Select, Single Row oder Integer, Multiline Text)",
+      "Variable Set erstellen und dem Item zuordnen",
+      "Ordering über Kategorie-Order und Item-Order steuern",
+      "Item als Self-Service-Nutzer testen und das Ergebnis dokumentieren",
+      "Variablennamen stabil halten, weil Templates und Flows darauf zugreifen"
+    ],
+    "hints": [
+      "Stufe 1: Service Catalog arbeitet mit Artikeln, Kategorien, Variablen und Order Guides – Bestellung ist kein direkter Datenzugriff auf eine Tabelle.",
+      "Stufe 2: Ein Variable Set ist eine Gruppe von Variablen, die mehrfach verwendet wird; Ordering entsteht über Kategorie und den Order-Wert des Items.",
+      "Stufe 3: Application Navigator > 'Service Catalog' > Items (früher Service Catalog Definitions > Maintain Items) > New > Catalog Item. Variablen über die Related List 'Variables'; Variable Sets über das eigene Modul zuordnen."
+    ],
+    "solution": "1. Application Navigator > 'Service Catalog' > Categories: Kategorie 'IT Hardware' anlegen, 'Available in catalog' aktiv, Order setzen.\n2. Items bzw. 'Maintain Items' > New: Catalog Item, Name 'Notebook Bestellung', Kategorie 'IT Hardware', Short Description und Active aktiv.\n3. Variablen anlegen: u_modell (Select with choices), u_anzahl (Integer), u_begründung (Multiline Text); Namen stabil halten, weil sie in Templates und Flows als {{variables.u_modell}} verwendet werden.\n4. Application Navigator > 'Variable Sets' > New; darin u_standort und u_kostenstelle; Variable Set im Item über die Related List 'Variable Sets' zuordnen.\n5. Ordering: Item-Order auf 10 setzen und dokumentieren, dass innerhalb der Kategorie nach Order sortiert wird.\n6. Als Nutzer mit Self-Service-Rechten den Catalog öffnen und testen; den Requested Item (sc_req_item) und die daraus entstandene Aufgabe (sc_task) notieren.",
+    "commonMistakes": [
+      "Variable Set im Item editiert – die Variablen gehören zum Set und werden nur dort gepflegt.",
+      "Order nur am Item gesetzt und die Kategorie vergessen, sodass die Sortierung in der Liste nicht stimmt.",
+      "Catalog Item ohne Self-Service-Rolle getestet und den Artikel nicht gefunden.",
+      "Variablennamen später geändert und bestehende Templates oder Flows dadurch gebrochen."
+    ],
+    "examRelevance": "Service Catalog ist ein Kern-Subtopic des Selbstservice-Bereichs: Was ist Variable Set, was ist Order Guide, und welche Einstellung macht einen Artikel überhaupt bestellbar.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum wirkt ein Variable Set nicht, wenn es nicht dem Item zugeordnet ist?",
+        "answer": "Das Set definiert nur die Variablen; erst die Zuordnung zum Catalog Item bringt sie in die Bestellung und in die Aufgabenaufgabe."
+      },
+      {
+        "question": "Wodurch entsteht die Reihenfolge im Catalog?",
+        "answer": "Zuerst durch die Kategorie und deren Order, dann durch den Order-Wert des Items innerhalb der Kategorie."
+      }
+    ],
+    "variables": {
+      "group": [
+        "Hardware Support",
+        "Facilities Team"
+      ],
+      "role": [
+        "itil",
+        "sn_approver"
+      ]
+    }
+  },
+  {
+    "id": "t-ss-002",
+    "title": "Approval Rule und Order Guide für die Notebook-Bestellung",
+    "area": "self_service",
+    "difficulty": "advanced",
+    "estimatedMinutes": 25,
+    "scenario": "Bestellungen mit mehr als fünf Geräten sollen von der Gruppe {group} genehmigt werden, bevor sc_task erzeugt wird. Die Nordwind IT möchte dafür eine einfache Approval Rule statt eines Workflows nutzen. Zusätzlich soll ein Order Guide entstehen, der neue Mitarbeiter durch die vier Standardartikel führt. Testnutzer darf {role} sein und muss die Genehmigung im eigenen Postfach sehen.",
+    "requirements": [
+      "Approval Rule mit Bedingung und Genehmiger-Gruppe definieren",
+      "Rule dem Catalog Item zuordnen und den Weg bis zur Aufgabe dokumentieren",
+      "Order Guide anlegen, Order Plan mit den Artikelpositionen füllen",
+      "Order Guide auf Rollen und Gruppen beschränken",
+      "Testbestellung auslösen und Genehmigungsstatus prüfen",
+      "dokumentieren, warum eine einfache Approval Rule einem Workflow vorzuziehen ist"
+    ],
+    "hints": [
+      "Stufe 1: Genehmigungen im Catalog sind eine eigene Funktion – sie laufen über Regeln oder Flows, nicht über das Formular des Artikels.",
+      "Stufe 2: Order Guides bündeln Artikel über Order Pläne und werden über Rollen gesteuert; Approval Rules arbeiten mit Bedingungen und Genehmigern.",
+      "Stufe 3: Application Navigator > 'Approval Rules' > New > Type Simple Approval, Bedingung und Approver {group}; Zuordnung zum Item. Order Guides im Service-Catalog-Bereich > New > Order Plan."
+    ],
+    "solution": "1. Application Navigator > 'Approval Rules' (früher Service Catalog Definitions > Process Rules > Approval Rules) > New.\n2. Name 'Nordwind Großbestellung'; Bedingung: u_anzahl > 5 auf dem Item bzw. auf der Variablen; Type 'Simple Approval'; Approver Gruppe {group}; Save.\n3. Approval Rule auf dem Catalog Item zuordnen (Process Rules bzw. Simple Approval Designer) und dokumentieren, wann die Genehmigung im Lebenslauf erscheint.\n4. Application Navigator > 'Order Guides' > New: 'Neue Mitarbeiter'; Category und Order Plan mit den vier Artikeln; 'Available for' auf {role} setzen.\n5. Testbestellung als {role} ausführen und den Statusverlauf beobachten: approval pending -> approved -> RAC bzw. sc_task.\n6. Anmerkung: In aktuellen Versionen liegen Approval Rules im Service-Catalog-App-Bereich und können als 'Process Rules' bezeichnet werden; moderne Instanzen nutzen dafür auch Flow Designer mit Approval-Aktion.",
+    "commonMistakes": [
+      "Approval Rule ohne Zuordnung zum Item erstellt und keine Genehmigung gesehen.",
+      "Bedingung auf der falschen Ebene formuliert (Variable statt Requested Item) und die Regel springt nie.",
+      "Order Guide ohne Rollenfreigabe getestet und den Guide nicht gefunden.",
+      "Approver als einzelne Person statt Gruppe gepflegt und bei Abwesenheit keine Genehmigung erhalten."
+    ],
+    "examRelevance": "Genehmigungen und Order Guides werden gern kombiniert gefragt: Welches Werkzeug braucht eine bedingungsbasierte Genehmigung im Catalog, und wie werden Order Guides einer Rolle zugänglich gemacht.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum ist eine einfache Approval Rule hier besser als ein Workflow?",
+        "answer": "Sie ist konfigurierbar ohne Code, leichter zu pflegen und in modernen Instanzen der empfohlene Weg; Flows sind nur nötig, wenn mehrere Schritte oder Eskalationen dazukommen."
+      },
+      {
+        "question": "Welche Dokumente entstehen bei einer Catalog-Bestellung?",
+        "answer": "Requested Item (sc_req_item) für die Bestellung und pro Aufgabenteil eine Aufgabe (sc_task) bzw. ein Request (sc_request)."
+      }
+    ],
+    "variables": {
+      "role": [
+        "itil",
+        "sn_approver",
+        "u_hardware_admin"
+      ],
+      "group": [
+        "Hardware Support",
+        "Change Approver Group",
+        "Procurement Team"
+      ]
+    }
+  },
+  {
+    "id": "t-ss-003",
+    "title": "Knowledge-Artikel mit Klasse, Kategorie und Genehmigung erstellen",
+    "area": "self_service",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "scenario": "Die Nordwind IT möchte die Anleitung zur Notebook-Einrichtung als Knowledge-Artikel ablegen. Der Artikel soll in einer eigenen Knowledge-Klasse landen, von {role} geschrieben und von der Gruppe {group} genehmigt werden, bevor er veröffentlicht wird. Außerdem soll getestet werden, ob ein Self-Service-Nutzer den Artikel findet und welche Bewertung möglich ist.",
+    "requirements": [
+      "Knowledge-Klasse bzw. Kategorie anlegen und die Nutzung durch Rollen prüfen",
+      "Artikel mit Titel, Inhalt und passender Kategorie schreiben",
+      "Artikel einreichen und die Genehmigung durch {group} ausführen",
+      "Veröffentlichung und Auffindbarkeit im Self-Service testen",
+      "dokumentieren, wie Knowledge-Versionen und Workflows zusammenhängen"
+    ],
+    "hints": [
+      "Stufe 1: Knowledge hat eigene Lebenszyklus-Stufen; Schreiben und Veröffentlichen sind getrennte Rechte.",
+      "Stufe 2: Knowledge-Klassen bzw. Kategorien sind die Ordnungsebene; die Genehmigung läuft über Knowledge-Approvals bzw. einen Workflow.",
+      "Stufe 3: Application Navigator > 'Knowledge Management Admin' > Configuration > Knowledge Classes; Artikel über Knowledge > Articles > New; Genehmigung über Knowledge Management Admin > Approvals."
+    ],
+    "solution": "1. Application Navigator > 'Knowledge Management Admin' > Configuration: Klasse bzw. Kategorie für Hardware anlegen und die Schreibrechte der Rolle {role} prüfen.\n2. Application Navigator > 'Knowledge' > Articles > New: Titel 'Notebook einrichten', Kategorie, Content mit Abschnitten und Anhang, Author {role}.\n3. Artikel einreichen (Submit for approval) und den Statusverlauf beobachten.\n4. Approval als {group}-Mitglied ausführen; danach ist der Artikel im Self-Service sichtbar und bewertbar.\n5. Test als Self-Service-Nutzer: Suche im Knowledge-Bereich, Bewertung und hilfreiche Meldung dokumentieren.\n6. Anmerkung: In aktuellen Versionen arbeitet Knowledge mit Kategorien und Templates statt der klassischen Klassen; in deiner PDI kann beides sichtbar sein. Für die Prüfung zählt die Abgrenzung Autor, Genehmiger und Veröffentlichung.",
+    "commonMistakes": [
+      "Artikel direkt veröffentlicht statt eingereicht – dann fehlt der Genehmigungs-Schritt in der Dokumentation.",
+      "Klasse bzw. Kategorie ohne Rollenfreigabe angelegt und den Artikel nicht gefunden.",
+      "Knowledge-Rechte mit itil verwechselt: itil darf Knowledge lesen, Schreiben braucht eine Knowledge-Rolle.",
+      "Bewertung nur im Admin-Bereich getestet und die Self-Service-Sicht vergessen."
+    ],
+    "examRelevance": "Knowledge Management ist im Selbstservice-Bereich verankert. Gern gefragt: welche Rolle darf schreiben, wie läuft die Genehmigung und was ist der Unterschied zwischen Draft, Approved und Published.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum reicht itil für Knowledge nicht?",
+        "answer": "itil ist eine Task-Rolle; für Knowledge braucht es die Knowledge-Rolle bzw. Knowledge-Administrator, sonst fehlt Schreibrecht und Genehmigungsrecht."
+      },
+      {
+        "question": "Welche Stufen zeigt der Knowledge-Lebenszyklus?",
+        "answer": "Draft bzw. Review, Approval, Publish und Retire – die Stufen sind konfigurierbar und rollenabhängig."
+      }
+    ],
+    "variables": {
+      "role": [
+        "knowledge",
+        "knowledge_admin",
+        "itil"
+      ],
+      "group": [
+        "Hardware Support",
+        "Knowledge Admin",
+        "L1 Support"
+      ]
+    }
+  },
+  {
+    "id": "t-ss-004",
+    "title": "Flow im Flow Designer: Trigger, Action, Bedingung und Approval",
+    "area": "self_service",
+    "difficulty": "exam",
+    "estimatedMinutes": 30,
+    "scenario": "Wenn auf {table} ein Datensatz mit {condition} entsteht, soll eine Aufgabe in {app} erzeugt, {field} gesetzt und eine Genehmigung durch {group} eingeholt werden. Nach der Genehmigung soll eine Meldung an {user} gehen. Die Nordwind IT verlangt eine testbare Flow ohne Business Rule. Zum Abschluss soll die Flow aktiviert und ein Testlauf dokumentiert werden.",
+    "requirements": [
+      "Flow anlegen und einen Record-Trigger auf {table} definieren",
+      "Bedingung {condition} als Logic-Baustein nutzen",
+      "Core Actions kombinieren: Record erstellen, Record aktualisieren, Approval",
+      "Approval auf {group} bzw. die Rollen {role} beschränken",
+      "Flow testen und die Ausführung im Flow-Designer-Log dokumentieren",
+      "Flow aktivieren und den Unterschied zu einer Business Rule erklären"
+    ],
+    "hints": [
+      "Stufe 1: Flow Designer ist die grafische Automatisierung – Trigger, Aktionen und Logik werden sichtbar zusammengesetzt.",
+      "Stufe 2: Für Approval gibt es eine Core Action; Bedingungen werden als If-Baustein abgebildet, nicht als Formularlogik.",
+      "Stufe 3: Application Navigator > 'Flow Designer' > New Flow > Add trigger 'Record Created' auf {table}; Add an action > Core Actions > If, Create Record, Update Record, Approval; danach Test und Activate."
+    ],
+    "solution": "1. Application Navigator > 'Flow Designer' > New Flow: Name 'Nordwind Notebook Eingang', Application setzen.\n2. Trigger 'Record Created' auf {table}; 'Record Triggered' gewählt und auf Insert beschränken.\n3. Logic-Baustein If mit Bedingung {condition}; im Then-Zweig Core Action 'Create Record' auf {app} mit Feldwerten.\n4. Core Action 'Approval' mit Approver {group} bzw. Rolle {role} und Beschreibung; danach 'Update Record' für {field}.\n5. Core Action 'Send Email' bzw. Notification nutzen, um {user} nach der Genehmigung zu informieren.\n6. 'Test' mit einem Testdatensatz ausführen, Ausführungshistorie prüfen und Flow aktivieren.\nAnmerkung: In aktuellen Versionen liegt Flow Designer im Automation Studio; die Flow-Ausführung läuft serverseitig und ersetzt die Business Rule nur, wenn sie aktiv ist.",
+    "commonMistakes": [
+      "Flow erstellt, aber nicht aktiviert und deshalb keine Automatisierung gesehen.",
+      "Approval ohne Genehmiger definiert und die Flow läuft im Test durch.",
+      "Bedingung als Aktion statt als Logic-Baustein gebaut.",
+      "Execution Context vergessen und dadurch Rollen- oder Feldrechte falsch beurteilt.",
+      "Testdatensatz im Live-Flow erstellt und die Ausführungshistorie verwechselt."
+    ],
+    "examRelevance": "Workflow Studio bzw. Flow Designer ist ein Blueprint-Subtopic: Was ist Trigger, was ist Core Action, wie wird eine Genehmigung abgebildet und wann ist Flow der Business Rule vorzuziehen.",
+    "comprehensionQuestions": [
+      {
+        "question": "Warum ersetzt die Flow hier keine Berechtigungsprüfung?",
+        "answer": "Flows führen Aktionen im definierten Ausführungskontext aus; Rechte von Rollen und ACLs bleiben davon unberührt."
+      },
+      {
+        "question": "Wann wäre eine Business Rule trotzdem sinnvoller?",
+        "answer": "Wenn die Logik rein auf einem Feldwert bei Änderung läuft, sehr häufig ausgelöst wird und keine mehrstufige Genehmigung braucht."
+      },
+      {
+        "question": "Was dokumentiert die Ausführungshistorie einer Flow?",
+        "answer": "Trigger, durchlaufene Aktionen, Entscheidungsast und Fehler – damit lässt sich ein Testlauf reproduzierbar nachweisen."
+      }
+    ],
+    "variables": {
+      "table": [
+        "u_laptop",
+        "u_hardware",
+        "u_student"
+      ],
+      "app": [
+        "sc_task",
+        "incident",
+        "sn_hr_core_profile"
+      ],
+      "field": [
+        "u_serial_number",
+        "u_budget_code"
+      ],
+      "condition": [
+        "u_anzahl > 5",
+        "state = new",
+        "u_assigned_group ist nicht leer"
+      ],
+      "group": [
+        "Hardware Support",
+        "Change Approver Group"
+      ],
+      "role": [
+        "itil",
+        "u_hardware_admin"
+      ],
+      "user": [
+        "Jobt Eitel",
+        "Fokko Semmekost"
+      ]
+    }
+  }
+]
