@@ -25,6 +25,28 @@ type TabKey = (typeof TABS)[number]['key'];
 
 const TAB_STORAGE_KEY = 'csa-lerntool.tab';
 
+const SYNC_TEXT: Record<string, string> = {
+  local: 'Lernstand: lokal',
+  synced: 'Lernstand: synchron',
+  pending: 'Lernstand: Übertragung …',
+  offline: 'Lernstand: Server nicht erreichbar',
+  error: 'Lernstand: Sync-Fehler',
+  conflict: 'Lernstand: Konflikt',
+};
+
+function SyncBadge({ store, onOpen }: { store: ReturnType<typeof useStore>; onOpen: () => void }) {
+  const status = store.sync.status;
+  return (
+    <button
+      className={`badge ${status === 'synced' ? 'ok' : status === 'conflict' || status === 'error' ? 'bad' : status === 'local' ? '' : 'warn'}`}
+      onClick={onOpen}
+      title="Lernstand synchronisieren – Einstellungen im Bereich Inhalte & Import"
+    >
+      {SYNC_TEXT[status] ?? 'Lernstand'}
+    </button>
+  );
+}
+
 export function App() {
   const store = useStore();
   const [tab, setTab] = useState<TabKey>(() => {
@@ -93,6 +115,7 @@ export function App() {
         <span className="muted">
           {store.questions.length} Fragen · {store.tasks.length} Aufgaben · {dueCount} fällig
         </span>
+        <SyncBadge store={store} onOpen={() => setTab('content')} />
         <button
           className="ghost"
           onClick={() => patchSettings({ theme: store.state.settings.theme === 'dark' ? 'light' : 'dark' })}

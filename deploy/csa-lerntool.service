@@ -1,0 +1,40 @@
+[Unit]
+Description=CSA-Lerntool (Node-Server für Oberfläche und Lernstände)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Anpassen: Benutzer und Installationspfad. Der Benutzer braucht nur Schreibrechte
+# im Ordner für die Lernstände.
+User=csa
+Group=csa
+WorkingDirectory=/opt/csa-lerntool
+
+# Umgebungsvariablen aus einer Datei (siehe deploy/env.example).
+EnvironmentFile=/etc/csa-lerntool.env
+Environment=PORT=8787
+Environment=HOST=127.0.0.1
+Environment=TRUST_PROXY=1
+Environment=STATE_DIR=/opt/csa-lerntool/server-state
+
+ExecStart=/usr/bin/node server/index.mjs
+Restart=always
+RestartSec=5
+
+# Härtung: Der Server braucht nur den Lernstand-Ordner zum Schreiben.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/csa-lerntool/server-state
+ProtectKernelTunables=true
+RestrictSUIDSGID=true
+MemoryMax=256M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=csa-lerntool
+
+[Install]
+WantedBy=multi-user.target

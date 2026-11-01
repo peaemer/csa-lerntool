@@ -3,6 +3,12 @@ node_modules/
 dist/
 *.log
 .vite/
+logs/
+
+# Lernstände und Zugang zum Server (nicht ins Archiv)
+server-state/
+.env
+deploy/.env
 
 # Lokale Betriebssystem-/Editor-Dateien
 Thumbs.db

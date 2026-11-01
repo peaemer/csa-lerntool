@@ -39,11 +39,31 @@ export function emptyState(): AppState {
   };
 }
 
-function normalize(incoming: unknown): AppState {
+/**
+ * Setzt einen unbekannten Datensatz zu einem vollständigen AppState zusammen.
+ * Wichtig: Jedes Feld bekommt seine vorgesehene Struktur zurück – ein kaputtes oder
+ * vertauschtes Feld (z. B. seenTaskVariants als Objekt statt als Liste) darf die Views
+ * nicht zum Absturz bringen.
+ */
+export function normalizeState(incoming: unknown): AppState {
   const base = emptyState();
   if (!incoming || typeof incoming !== 'object') return base;
-  const value = incoming as Partial<AppState>;
-  return { ...base, ...value, settings: { ...base.settings, ...(value.settings ?? {}) } };
+  const value = incoming as Record<string, unknown>;
+  const list = <T>(field: unknown, fallback: T[]): T[] => (Array.isArray(field) ? (field as T[]) : fallback);
+  const map = <T>(field: unknown, fallback: Record<string, T>): Record<string, T> =>
+    field && typeof field === 'object' && !Array.isArray(field) ? (field as Record<string, T>) : fallback;
+  return {
+    answers: map(value.answers, base.answers),
+    attempts: list(value.attempts, []),
+    examResults: list(value.examResults, []),
+    taskStatus: map(value.taskStatus, base.taskStatus),
+    taskNotes: map(value.taskNotes, base.taskNotes),
+    taskChecks: map(value.taskChecks, base.taskChecks),
+    seenTaskVariants: list(value.seenTaskVariants, []),
+    settings: { ...base.settings, ...(typeof value.settings === 'object' && value.settings !== null ? (value.settings as object) : {}) },
+    userQuestions: list(value.userQuestions, []),
+    userTasks: list(value.userTasks, []),
+  };
 }
 
 function openDb(): Promise<IDBDatabase> {
@@ -63,7 +83,7 @@ export async function loadState(): Promise<AppState> {
   if (typeof indexedDB === 'undefined') {
     if (typeof localStorage === 'undefined') return emptyState();
     const raw = localStorage.getItem(KEY);
-    return normalize(raw ? JSON.parse(raw) : undefined);
+    return normalizeState(raw ? JSON.parse(raw) : undefined);
   }
   const db = await openDb();
   const value = await new Promise<AppState | undefined>((resolve, reject) => {
@@ -73,7 +93,7 @@ export async function loadState(): Promise<AppState> {
     req.onerror = () => reject(req.error);
   });
   db.close();
-  return normalize(value);
+  return normalizeState(value);
 }
 
 export async function saveState(state: AppState) {
@@ -98,5 +118,5 @@ export function serializeState(state: AppState) {
 
 export function parseState(json: string): AppState {
   const raw = JSON.parse(json);
-  return normalize(raw.state ?? raw);
+  return normalizeState(raw.state ?? raw);
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Store } from '../app/store';
 import { BLUEPRINT, DOMAIN_NAME } from '../domain/blueprint';
+import { SyncCard } from '../components/SyncCard';
 import { importQuestions, importTasks, mergeById } from '../domain/importer';
 import { parseState, serializeState } from '../domain/storage';
 import { LLM_PROMPT } from '../domain/promptTemplate';
@@ -359,8 +360,9 @@ export function ContentView({ store }: Props) {
       <div className="card">
         <h2>Backup</h2>
         <p className="muted">
-          Lernstand, Notizen und eigene Inhalte liegen lokal im Browser (IndexedDB <code>csa-lerntool</code>). Ein
-          Export erzeugt eine JSON-Datei, ein Import ersetzt den aktuellen Stand.
+          Lernstand, Notizen und eigene Inhalte liegen lokal im Browser (IndexedDB <code>csa-lerntool</code>); ist ein
+          Geräte-Code eingetragen, zusätzlich als Kopie auf dem Server. Ein Export erzeugt eine JSON-Datei, ein Import
+          ersetzt den aktuellen Stand in diesem Browser und wird bei aktiver Verknüpfung zum Server hochgeladen.
         </p>
         <div className="row">
           <button className="primary" onClick={exportBackup}>
@@ -369,6 +371,8 @@ export function ContentView({ store }: Props) {
           <input type="file" accept=".json" onChange={(event) => void importBackup(event.target.files?.[0])} />
         </div>
       </div>
+
+      <SyncCard store={store} />
 
       <div className="card">
         <h2>Fragen mit einer KI ergänzen</h2>

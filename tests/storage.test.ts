@@ -36,8 +36,38 @@ describe('Export/Import des Lernfortschritts', () => {
   });
 });
 
-describe('Statistik', () => {
-  it('Trefferquote pro Themenbereich und Prüfungsreife', () => {
+describe('Unvollständige und vertauschte gespeicherte Stände', () => {
+  it('bekommen jede vorgesehene Struktur zurück', () => {
+    const kaputt = JSON.stringify({
+      answers: [], // Liste statt Objekt
+      attempts: {}, // Objekt statt Liste
+      seenTaskVariants: {}, // Objekt statt Liste
+      taskNotes: null,
+      settings: 'dunkel',
+      userQuestions: 'keine Liste',
+      userTasks: undefined,
+    });
+    const restored = parseState(kaputt);
+    expect(restored.answers).toEqual({});
+    expect(Array.isArray(restored.attempts)).toBe(true);
+    expect(Array.isArray(restored.seenTaskVariants)).toBe(true);
+    expect(restored.taskNotes).toEqual({});
+    expect(Array.isArray(restored.userQuestions)).toBe(true);
+    expect(Array.isArray(restored.userTasks)).toBe(true);
+    // Standardeinstellungen bleiben erhalten
+    expect(restored.settings.examMinutes).toBe(90);
+    expect(restored.settings.theme === 'light' || restored.settings.theme === 'dark').toBe(true);
+  });
+
+  it('hält vollständige Stände unverändert', () => {
+    const state = emptyState();
+    state.seenTaskVariants.push('t-1:variant-2');
+    const restored = parseState(serializeState(state));
+    expect(restored.seenTaskVariants).toEqual(['t-1:variant-2']);
+  });
+});
+
+describe('Statistik', () => {  it('Trefferquote pro Themenbereich und Prüfungsreife', () => {
     const state: AppState = emptyState();
     const now = Date.now();
     const rec = (topic: string, correct: number, wrong: number) => ({

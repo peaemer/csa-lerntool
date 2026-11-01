@@ -1,0 +1,26 @@
+# Caddy-Konfiguration für das CSA-Lerntool auf einer eigenen Subdomain.
+#
+# Der Node-Server (server/index.mjs) liefert die fertige Oberfläche UND die api/-Endpunkte
+# aus – Caddy braucht also nur Übersetzung von HTTPS und Weiterleitung. Den Inhalt von
+# diesem Block in die eigene Caddyfile einfügen (Adresse anpassen) und danach:
+#
+#   caddy fmt --overwrite Caddyfile && sudo systemctl reload caddy
+#
+# Voraussetzungen: npm ci && npm run build im Projektverzeichnis auf dem Server,
+# der Node-Server läuft (siehe csa-lerntool.service bzw. ecosystem.config.cjs).
+
+csa.beispiel.de {
+	# TLS stellt Caddy automatisch über Let's Encrypt aus.
+
+	# Alles an den Node-Server; er setzt Cache-, Sicherheits- und CSP-Hersteller selbst.
+	reverse_proxy 127.0.0.1:8787
+
+	# Optional: zweite Schicht vor dem Zugriff schützen (empfohlen, weil der Geräte-Code
+	# kein Passwort ist, sondern nur den Lernstand trennt).
+	#   caddy hash_password --password 'DEIN_PASSWORD'   # ergibt den Hash für die nächste Zeile
+	# basic_auth {
+	# 	lernende:r $2a$14$HIERDERHASHAUSCADDYHASH_PASSWORD
+	# }
+
+	encode zstd gzip
+}
